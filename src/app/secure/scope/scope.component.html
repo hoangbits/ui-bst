@@ -1,3 +1,59 @@
-<p>
-  scope works!
-</p>
+<section class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">View Scope list</h3>
+                    <button type="button" (click)="addNew()" class="btn btn-primary pull-right">Add new</button>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered table-hover">
+                        <tbody><tr>
+                            <th style="width: 10px">#</th>
+                            <th>Scope name</th>
+                            <th style="width: 40px"></th>
+                        </tr>
+                        <tr *ngFor="let scope of scopes; let i = index">
+                            <td>{{i+1}}.</td>
+                            <td>{{scope.scopeName}}</td>
+                            <td><a href="#" ><i class="fa fa-trash"></i></a></td>
+                        </tr>
+                        </tbody></table>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-6" *ngIf="isEdit">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Add new Scope</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" #formScope="ngForm" (ngSubmit)="save(formScope)" novalidate>
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label>Scope name</label>
+                            <input type="text" class="form-control" name="scopeName" ngModel placeholder="Scope name">
+                        </div>
+                        <div class="form-group">
+                            <label>Activities</label>
+                            <angular2-multiselect name="activities" [data]="dropdownList" [(ngModel)]="selectedItems"
+                                                  [settings]="dropdownSettings"
+                                                  (onSelect)="onItemSelect($event)"
+                                                  (onDeSelect)="OnItemDeSelect($event)"
+                                                  (onSelectAll)="onSelectAll($event)"
+                                                  (onDeSelectAll)="onDeSelectAll($event)"></angular2-multiselect>
+                            </div>
+                    </div>
+                    <!-- /.box-body -->
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
