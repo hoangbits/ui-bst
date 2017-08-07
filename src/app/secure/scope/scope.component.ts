@@ -1,108 +1,66 @@
-import {Component, OnInit} from '@angular/core';
-import {
-    ReactiveFormsModule,
-    FormsModule,
-    FormGroup,
-    FormControl,
-    Validators,
-    FormBuilder
-} from '@angular/forms';
-import {Scope, Activity} from './index';
-import {SelectItem} from './selectItem.model';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {BsModalService} from 'ngx-bootstrap/modal';
+import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
+import {ScopeModalEditComponent} from './scope.modal.edit.component';
+
+import { ModalDirective } from 'ngx-bootstrap/modal/modal.component';
+
+import {Scope} from './index';
 import {ScopeService} from './scope.service';
 
 @Component({
-    selector: 'app-scope',
-    templateUrl: './scope.component.html',
-    providers: [ScopeService]
+  selector: 'app-scope',
+  templateUrl: './scope.component.html',
+  providers: [ScopeService],
 })
 export class ScopeComponent implements OnInit {
+  bsModalRef: BsModalRef;
+  scopes: Scope[];
 
-    scopeForm: FormGroup;
-    scopes: Scope[];
-    activities: Activity[];
-    scope: Scope;
-    isEdit: boolean;
+  @ViewChild(ModalDirective) public modal: ModalDirective;
 
-    dropdownList = [];
-    selectedItems = [];
-    dropdownSettings = {};
+  constructor(private scopeService: ScopeService, private modalService: BsModalService) {
+    this.loadScopes();
+  }
 
-    constructor(private scopeService: ScopeService) {
-        this.loadScopes();
-        this.loadActivities();
+  loadScopes() {
+    this.scopeService.getScopes().subscribe(
+      scopes => {
+        this.scopes = scopes;
+      },
+      err => {
+        console.log(err);
+      });
+  }
 
-    }
+  ngOnInit() {
+  }
 
-    loadScopes() {
-        this.scopeService.getScopes().subscribe(
-            scopes => {
-                this.scopes = scopes;
-            },
-            err => {
-                console.log(err);
-            });
-    }
+  public showModal() {
+    this.modal.show();
+  }
 
-    loadActivities() {
-        this.scopeService.getActivities().subscribe(
-            activities => {
-                this.activities = activities;
-                this.activities.forEach((activity) => {
-                    this.dropdownList.push(new SelectItem(activity.id, activity.method + ' - ' + activity.url));
-                });
-                this.selectedItems.push(this.dropdownList[1]);
-            },
-            err => {
-                console.log(err);
-            });
-    }
+  ok(){
+    // TODO implement next action
+    this.modal.hide();
+  }
+  addNew() {
+    this.openEditModal('Add new Scope', true, new Scope('', []));
+  }
 
-    ngOnInit() {
-        this.scopeForm = new FormGroup({
-            scopeName: new FormControl('', Validators.required),
-            activities: new FormControl()
-        });
+  editName(scope) {
+    this.openEditModal('Edit Scope', true, scope);
+  }
 
-        this.scope = new Scope('', []);
-        this.isEdit = false;
+  editActivity(scope) {
+    this.openEditModal('Edit Scope activities', false, scope);
+  }
 
-        this.dropdownSettings = {
-            singleSelection: false,
-            text: 'Select Activities',
-            selectAllText: 'Select All',
-            unSelectAllText: 'UnSelect All',
-            enableSearchFilter: true,
-            classes: 'myclass custom-class'
-        };
-
-    }
-
-    onItemSelect(item: any) {
-        console.log(item);
-        console.log(this.selectedItems);
-    }
-
-    OnItemDeSelect(item: any) {
-        console.log(item);
-        console.log(this.selectedItems);
-    }
-
-    onSelectAll(items: any) {
-        console.log(items);
-    }
-
-    onDeSelectAll(items: any) {
-        console.log(items);
-    }
-
-    save(f) {
-        console.log(f.value);
-        console.log(f.valid);
-    }
-
-    addNew() {
-        this.scopeForm.reset();
-        this.isEdit = !this.isEdit;
-    }
+  openEditModal(title, isEditName, data?: Scope) {
+    debugger
+    this.bsModalRef = this.modalService.show(ScopeModalEditComponent);
+    this.bsModalRef.content.title = title;
+    this.bsModalRef.content.isEditName = isEditName;
+    this.bsModalRef.content.scope = data;
+  }
 }
