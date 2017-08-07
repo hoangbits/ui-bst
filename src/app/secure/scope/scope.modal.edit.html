@@ -25,6 +25,9 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="save()">Save</button>
-    <button type="button" class="btn btn-default" (click)="bsModalRef.hide(this)">Close</button>
+    <button type="button" class="btn btn-primary" (click)="saveClose()">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Save & close</button>
+    <button type="button" class="btn btn-primary" (click)="saveConfig()" *ngIf="isEditName">
+        <i class="fa fa-wrench" aria-hidden="true"></i>  Save & config</button>
+    <button type="button" class="btn btn-default" (click)="bsModalRef.hide(this)">Cancel</button>
 </div>

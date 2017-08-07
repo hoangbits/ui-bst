@@ -3,10 +3,13 @@ export class Scope {
   scopeName: string;
   description: string;
   activities: any;
+  createdBy: string;
+  createdAt: Date;
 
-  constructor(scopeName: string, activities: any, description?: string) {
-    this.scopeName = scopeName || '';
+  constructor(scopeName: string, activities: any, createdBy: string, description?: string) {
+    this.scopeName = scopeName;
     this.activities = activities || [];
-    this.description = description || '';
+    this.createdBy = createdBy;
+    this.description = description;
   }
 }

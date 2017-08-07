@@ -3,64 +3,76 @@ import {BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {ScopeModalEditComponent} from './scope.modal.edit.component';
 
-import { ModalDirective } from 'ngx-bootstrap/modal/modal.component';
+import {ModalDirective} from 'ngx-bootstrap/modal/modal.component';
 
 import {Scope} from './index';
 import {ScopeService} from './scope.service';
 
+import * as _ from 'lodash';
+
 @Component({
-  selector: 'app-scope',
-  templateUrl: './scope.component.html',
-  providers: [ScopeService],
+	selector: 'app-scope',
+	templateUrl: './scope.component.html',
+	providers: [ScopeService],
 })
 export class ScopeComponent implements OnInit {
-  bsModalRef: BsModalRef;
-  scopes: Scope[];
+	bsModalRef: BsModalRef;
+	scopes: Scope[];
 
-  @ViewChild(ModalDirective) public modal: ModalDirective;
+	deleteId: string;
 
-  constructor(private scopeService: ScopeService, private modalService: BsModalService) {
-    this.loadScopes();
-  }
+	@ViewChild(ModalDirective) public modal: ModalDirective;
 
-  loadScopes() {
-    this.scopeService.getScopes().subscribe(
-      scopes => {
-        this.scopes = scopes;
-      },
-      err => {
-        console.log(err);
-      });
-  }
+	constructor(private scopeService: ScopeService, private modalService: BsModalService) {
+		this.loadScopes();
 
-  ngOnInit() {
-  }
+	}
 
-  public showModal() {
-    this.modal.show();
-  }
+	loadScopes() {
+		this.scopeService.getScopes().subscribe(
+			scopes => {
+				this.scopes = scopes;
+			},
+			err => {
+				console.log(err);
+			});
+	}
 
-  ok(){
-    // TODO implement next action
-    this.modal.hide();
-  }
-  addNew() {
-    this.openEditModal('Add new Scope', true, new Scope('', []));
-  }
+	ngOnInit() {
+	}
 
-  editName(scope) {
-    this.openEditModal('Edit Scope', true, scope);
-  }
+	public showModal(id) {
+		this.deleteId = id;
+		this.modal.show();
+	}
 
-  editActivity(scope) {
-    this.openEditModal('Edit Scope activities', false, scope);
-  }
+	ok() {
+		this.scopeService.removeScope(this.deleteId).subscribe(data=>{
+			this.modal.hide();
+			this.loadScopes();
+		});
+	}
 
-  openEditModal(title, isEditName, data?: Scope) {
-    debugger
-    this.bsModalRef = this.modalService.show(ScopeModalEditComponent);
-    this.bsModalRef.content.title = title;
-    this.bsModalRef.content.isEditName = isEditName;
-    this.bsModalRef.content.scope = data;
-  }
+	addNew() {
+		this.openEditModal('Add new Scope', true, new Scope('', [], ''));
+	}
+
+	editName(scope) {
+		this.openEditModal('Edit Scope', true, scope);
+	}
+
+	editActivity(scope) {
+		this.openEditModal('Edit Scope activities', false, scope);
+	}
+
+	openEditModal(title, isEditName, data?: Scope) {
+		this.bsModalRef = this.modalService.show(ScopeModalEditComponent);
+		this.bsModalRef.content.title = title;
+		this.bsModalRef.content.isEditName = isEditName;
+		this.bsModalRef.content.scope = data;
+
+		this.modalService.onHide.subscribe(data=>{
+			this.loadScopes();
+		});
+	}
 }
