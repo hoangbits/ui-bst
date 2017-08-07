@@ -8,8 +8,6 @@ import { ModalDirective } from 'ngx-bootstrap/modal/modal.component';
 import {Scope} from './index';
 import {ScopeService} from './scope.service';
 
-import * as _ from 'lodash';
-
 @Component({
     selector: 'app-scope',
     templateUrl: './scope.component.html',
