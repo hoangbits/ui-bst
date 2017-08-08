@@ -9,7 +9,7 @@ import {ModalModule, BsModalService} from 'ngx-bootstrap';
 
 import {AppComponent} from './app.component';
 import {SecureComponent} from './layout/secure';
-import {ScopeComponent, ScopeModalEditComponent, ControlMessages} from './secure/scope';
+import {ScopeComponent, ScopeModalEditComponent} from './secure/scope';
 import {UserComponent} from './secure/user';
 import {RoleComponent} from './secure/role';
 import {CompanyComponent} from './secure/company';
@@ -24,7 +24,6 @@ import {ActivityComponent, ActivityService, ActivityModalEditComponent} from './
 		RoleComponent,
 		CompanyComponent,
 		ScopeModalEditComponent,
-		ControlMessages,
 		ActivityComponent,
 		ActivityModalEditComponent,
 	],

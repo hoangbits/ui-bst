@@ -8,8 +8,6 @@ import {ModalDirective} from 'ngx-bootstrap/modal/modal.component';
 import {Scope} from './index';
 import {ScopeService} from './scope.service';
 
-import * as _ from 'lodash';
-
 @Component({
 	selector: 'app-scope',
 	templateUrl: './scope.component.html',
@@ -47,7 +45,7 @@ export class ScopeComponent implements OnInit {
 	}
 
 	ok() {
-		this.scopeService.removeScope(this.deleteId).subscribe(data=>{
+		this.scopeService.removeScope(this.deleteId).subscribe(()=>{
 			this.modal.hide();
 			this.loadScopes();
 		});
@@ -71,7 +69,7 @@ export class ScopeComponent implements OnInit {
 		this.bsModalRef.content.isEditName = isEditName;
 		this.bsModalRef.content.scope = data;
 
-		this.modalService.onHide.subscribe(data=>{
+		this.modalService.onHide.subscribe(()=>{
 			this.loadScopes();
 		});
 	}

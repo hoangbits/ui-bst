@@ -1,5 +1,5 @@
-import {Component, OnInit, OnChanges, Input} from '@angular/core';
-import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 
 import {Scope} from './index';
@@ -14,7 +14,8 @@ import * as _ from 'lodash';
 })
 export class ScopeModalEditComponent implements OnInit {
 	scopeForm: FormGroup;
-submitted: boolean;
+	submitted: boolean;
+
 	title: string;
 	isEditName: boolean;
 	scope: Scope;
@@ -23,7 +24,7 @@ submitted: boolean;
 	selectedItems = [];
 	dropdownSettings = {};
 
-	constructor(public bsModalRef: BsModalRef, private scopeService: ScopeService, private fb: FormBuilder,) {
+	constructor(public bsModalRef: BsModalRef, private scopeService: ScopeService, private fb: FormBuilder) {
 	}
 
 	ngOnInit() {
@@ -47,9 +48,6 @@ submitted: boolean;
 			'description': '',
 			'activities': ''
 		});
-	}
-
-	validateForm() {
 	}
 
 	loadActivities() {
@@ -94,10 +92,10 @@ submitted: boolean;
 		this.isEditName = false;
 		// save
 		if (!this.scope.id) {
-			this.addScope(this.scope, false);
+			this.addScope(false);
 		}
 		else {
-			this.saveScope(this.scope, false);
+			this.saveScope(false);
 		}
 	}
 
@@ -105,7 +103,7 @@ submitted: boolean;
 		this.submitted = true;
 
 		// Validate input
-		if(!this.scopeForm.valid && !(!this.isEditName && this.scope.id)){
+		if (!this.scopeForm.valid && !(!this.isEditName && this.scope.id)) {
 			return false;
 		}
 
@@ -118,14 +116,14 @@ submitted: boolean;
 		this.scope.activities = selectedIds;
 
 		if (!this.scope.id) {
-			this.addScope(this.scope, true);
+			this.addScope(true);
 		}
 		else {
-			this.saveScope(this.scope, true);
+			this.saveScope(true);
 		}
 	}
 
-	private saveScope(scope, isClose) {
+	private saveScope(isClose) {
 		this.scopeService.updateScope(this.scope).subscribe(data => {
 			if (data) {
 				if (isClose) {
@@ -138,7 +136,7 @@ submitted: boolean;
 		});
 	}
 
-	private addScope(scope, isClose) {
+	private addScope(isClose) {
 		this.scopeService.addScope(this.scope).subscribe(data => {
 			if (data) {
 				this.scope = data;
@@ -152,39 +150,6 @@ submitted: boolean;
 		});
 	}
 
-}
-
-
-@Component({
-	selector: 'control-messages',
-	template: `
-      <div class="alert" *ngIf="errorMessage !== null">{{errorMessage}}</div>`,
-})
-export class ControlMessages {
-	errorMessage1: string;
-	@Input() control: FormControl;
-
-	constructor() {
-	}
-
-	get errorMessage() {
-		for (let propertyName in this.control.errors) {
-			if (this.control.errors.hasOwnProperty(propertyName) && this.control.touched) {
-				return this.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]);
-			}
-		}
-		return null;
-	}
-
-	getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
-		let config = {
-			'required': 'This is required',
-			'invalidEmailAddress': 'Invalid email address',
-			'minlength': `Minimum length ${validatorValue.requiredLength}`
-		};
-
-		return config[validatorName];
-	}
 }
 
 

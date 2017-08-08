@@ -5,21 +5,28 @@
     </button>
 </div>
 <div class="modal-body">
-    <form role="form" novalidate>
+    <form role="form" ngNoForm [formGroup]="activityForm" novalidate (ngSubmit)="saveClose()"
+          (keyup.enter)="saveClose()">
         <div class="form-group">
-        <label>URL</label>
-        <input type="text" class="form-control" name="url" [(ngModel)]="activity.url"
-               placeholder="url">
-    </div>
+            <label>URL</label>
+            <input type="text" class="form-control" formControlName="url" [(ngModel)]="activity.url"
+                   placeholder="url">
+            <p [hidden]="activityForm.controls.url.valid ||
+            (activityForm.controls.url.pristine && !submitted)" class="text-danger">This is required</p>
+        </div>
         <div class="form-group">
             <label>Method</label>
-            <input type="text" class="form-control" name="method" [(ngModel)]="activity.method"
+            <input type="text" class="form-control" formControlName="method" [(ngModel)]="activity.method"
                    placeholder="method">
+            <p [hidden]="activityForm.controls.method.valid ||
+            (activityForm.controls.method.pristine && !submitted)" class="text-danger">This is required</p>
         </div>
         <div class="form-group">
             <label>Url regex</label>
-            <input type="text" class="form-control" name="urlRegex" [(ngModel)]="activity.urlRegex"
+            <input type="text" class="form-control" formControlName="urlRegex" [(ngModel)]="activity.urlRegex"
                    placeholder="urlRegex">
+            <p [hidden]="activityForm.controls.urlRegex.valid ||
+            (activityForm.controls.urlRegex.pristine && !submitted)" class="text-danger">This is required</p>
         </div>
     </form>
 </div>
