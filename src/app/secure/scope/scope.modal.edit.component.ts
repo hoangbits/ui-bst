@@ -97,8 +97,10 @@ export class ScopeModalEditComponent implements OnInit {
 
 	private saveScope(scope, isClose) {
 		this.scopeService.updateScope(this.scope).subscribe(data => {
-			if (data && isClose) {
-				this.bsModalRef.hide();
+			if (data) {
+				if (isClose) {
+					this.bsModalRef.hide();
+				}
 			}
 			else {
 				console.log('update failed');

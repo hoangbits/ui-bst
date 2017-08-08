@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {Scope, Activity} from './index';
+import {Scope} from './index';
 import {Observable} from 'rxjs/Rx';
 
 import {environment} from '../../../environments/environment';
@@ -13,7 +13,7 @@ import 'rxjs/add/operator/catch';
 export class ScopeService {
 
     private urlScopeApi = environment.apiEndpoint + 'scope';
-    private urlActivityApi = environment.apiEndpoint + 'activities';
+    private urlActivityApi = environment.apiEndpoint + 'activity';
 
     constructor(private http: Http) {
     }
@@ -24,7 +24,7 @@ export class ScopeService {
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    getActivities(): Observable<Activity[]> {
+    getActivities(): Observable<any[]> {
         return this.http.get(this.urlActivityApi)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
