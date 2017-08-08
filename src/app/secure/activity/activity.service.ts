@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {Scope} from './index';
+import {Activity} from './index';
 import {Observable} from 'rxjs/Rx';
 
 import {environment} from '../../../environments/environment';
@@ -10,50 +10,42 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
-export class ScopeService {
+export class ActivityService {
 
-    private urlScopeApi = environment.apiEndpoint + 'scope';
     private urlActivityApi = environment.apiEndpoint + 'activity';
 
     constructor(private http: Http) {
     }
 
-    getScopes(): Observable<Scope[]> {
-        return this.http.get(this.urlScopeApi)
-            .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
-    }
-
-    getActivities(): Observable<any[]> {
+    getActivities(): Observable<Activity[]> {
         return this.http.get(this.urlActivityApi)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    addScope(body: Object): Observable<Scope> {
+    addActivity(body: Object): Observable<Activity> {
         const bodyString = JSON.stringify(body);
         const headers = new Headers({'Content-Type': 'application/json'});
         const options = new RequestOptions({headers: headers});
 
-        return this.http.post(this.urlScopeApi, bodyString, options)
+        return this.http.post(this.urlActivityApi, bodyString, options)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    updateScope(body: Object): Observable<Scope> {
+    updateActivity(body: Object): Observable<Activity> {
         const bodyString = JSON.stringify(body);
         const headers = new Headers({'Content-Type': 'application/json'});
         const options = new RequestOptions({headers: headers});
 
-        return this.http.put(this.urlScopeApi, bodyString, options)
+        return this.http.put(this.urlActivityApi, bodyString, options)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    removeScope(id: string): Observable<Scope> {
-        return this.http.delete(this.urlScopeApi + '/' + id)
+    removeActivity(id: string): Observable<Activity> {
+        return this.http.delete(this.urlActivityApi + '/' + id)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 }
-

@@ -1,56 +1,190 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnChanges, Input} from '@angular/core';
+import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 
-import {Scope, Activity} from './index';
+import {Scope} from './index';
 import {ScopeService} from './scope.service';
 
+import * as _ from 'lodash';
+
 @Component({
-    selector: 'modal-content',
-    templateUrl: './scope.modal.edit.html',
-    providers: [ScopeService]
+	selector: 'modal-content',
+	templateUrl: './scope.modal.edit.html',
+	providers: [ScopeService]
 })
 export class ScopeModalEditComponent implements OnInit {
-    activities: Activity[];
-    title: string;
-    isEditName: boolean;
-    scope: Scope;
-    dropdownList = [];
-    selectedItems = [];
-    dropdownSettings = {};
+	scopeForm: FormGroup;
+submitted: boolean;
+	title: string;
+	isEditName: boolean;
+	scope: Scope;
 
-    constructor(public bsModalRef: BsModalRef, private scopeService: ScopeService) {
-    }
+	dropdownList = [];
+	selectedItems = [];
+	dropdownSettings = {};
 
-    ngOnInit() {
-        this.loadActivities();
+	constructor(public bsModalRef: BsModalRef, private scopeService: ScopeService, private fb: FormBuilder,) {
+	}
 
-        this.dropdownSettings = {
-            singleSelection: false,
-            text: 'Select Activities',
-            selectAllText: 'Select All',
-            unSelectAllText: 'UnSelect All',
-            enableSearchFilter: true,
-            classes: 'myclass custom-class'
-        };
-    }
+	ngOnInit() {
+		this.loadActivities();
 
-    loadActivities() {
-        this.scopeService.getActivities().subscribe(
-            activities => {
-                this.activities = activities;
-                this.activities.forEach((activity) => {
-                    this.dropdownList.push({id: activity.id, itemName: activity.method + ' - ' + activity.url});
-                });
-                this.selectedItems.push(this.dropdownList[1]);
-            },
-            err => {
-                console.log(err);
-            });
-    }
+		this.dropdownSettings = {
+			singleSelection: false,
+			text: 'Select Activities',
+			selectAllText: 'Select All',
+			unSelectAllText: 'UnSelect All',
+			enableSearchFilter: true,
+			classes: 'myclass custom-class'
+		};
 
-    save() {
-        console.log(this.scope);
-        console.log(this.selectedItems);
-    }
+		this.createForm();
+	}
+
+	createForm() {
+		this.scopeForm = this.fb.group({
+			'scopeName': ['', Validators.required],
+			'description': '',
+			'activities': ''
+		});
+	}
+
+	validateForm() {
+	}
+
+	loadActivities() {
+		this.scopeService.getActivities().subscribe(
+			activities => {
+				if (!activities) {
+					console.log('No data found');
+					return;
+				}
+				let selectedIds = [];
+
+				// create list data
+				_.each(activities, (activity) => {
+					this.dropdownList.push({id: activity.id, itemName: activity.method + ' - ' + activity.url});
+				});
+
+				// get selected id list
+				if (this.scope) {
+					_.each(this.scope.activities, act => {
+						selectedIds.push(act.id);
+					});
+				}
+
+				// set selected items.
+				this.selectedItems = _.filter(this.dropdownList, function (p) {
+					return _.includes(selectedIds, p.id);
+				});
+			},
+			err => {
+				console.log(err);
+			});
+	}
+
+	saveConfig() {
+		let selectedIds = [];
+		_.each(this.selectedItems, item => {
+			selectedIds.push(item.id);
+		});
+
+		this.scope.activities = selectedIds;
+		// show config
+		this.isEditName = false;
+		// save
+		if (!this.scope.id) {
+			this.addScope(this.scope, false);
+		}
+		else {
+			this.saveScope(this.scope, false);
+		}
+	}
+
+	saveClose() {
+		this.submitted = true;
+
+		// Validate input
+		if(!this.scopeForm.valid && !(!this.isEditName && this.scope.id)){
+			return false;
+		}
+
+		// prepare activities id for save
+		let selectedIds = [];
+		_.each(this.selectedItems, item => {
+			selectedIds.push(item.id);
+		});
+
+		this.scope.activities = selectedIds;
+
+		if (!this.scope.id) {
+			this.addScope(this.scope, true);
+		}
+		else {
+			this.saveScope(this.scope, true);
+		}
+	}
+
+	private saveScope(scope, isClose) {
+		this.scopeService.updateScope(this.scope).subscribe(data => {
+			if (data) {
+				if (isClose) {
+					this.bsModalRef.hide();
+				}
+			}
+			else {
+				console.log('update failed');
+			}
+		});
+	}
+
+	private addScope(scope, isClose) {
+		this.scopeService.addScope(this.scope).subscribe(data => {
+			if (data) {
+				this.scope = data;
+				if (isClose) {
+					this.bsModalRef.hide();
+				}
+			}
+			else {
+				console.log('create failed');
+			}
+		});
+	}
 
 }
+
+
+@Component({
+	selector: 'control-messages',
+	template: `
+      <div class="alert" *ngIf="errorMessage !== null">{{errorMessage}}</div>`,
+})
+export class ControlMessages {
+	errorMessage1: string;
+	@Input() control: FormControl;
+
+	constructor() {
+	}
+
+	get errorMessage() {
+		for (let propertyName in this.control.errors) {
+			if (this.control.errors.hasOwnProperty(propertyName) && this.control.touched) {
+				return this.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]);
+			}
+		}
+		return null;
+	}
+
+	getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
+		let config = {
+			'required': 'This is required',
+			'invalidEmailAddress': 'Invalid email address',
+			'minlength': `Minimum length ${validatorValue.requiredLength}`
+		};
+
+		return config[validatorName];
+	}
+}
+
+
