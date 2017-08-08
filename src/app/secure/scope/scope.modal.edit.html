@@ -5,29 +5,32 @@
     </button>
 </div>
 <div class="modal-body">
-    <form role="form" novalidate>
+    <form role="form" ngNoForm [formGroup]="scopeForm" novalidate (ngSubmit)="saveClose()" (keyup.enter)="saveClose()">
         <div class="form-group" *ngIf="isEditName">
             <label>Scope name</label>
-            <input type="text" class="form-control" name="scopeName" [(ngModel)]="scope.scopeName"
-                   placeholder="Scope name">
+            <input type="text" class="form-control" formControlName="scopeName" [(ngModel)]="scope.scopeName"
+                   placeholder="Scope name" required maxlength="50">
+            <p [hidden]="scopeForm.controls.scopeName.valid || (scopeForm.controls.scopeName.pristine && !submitted)" class="text-danger">This is required</p>
+            <!--<control-messages [control]="scopeForm.controls.scopeName"></control-messages>-->
         </div>
         <div class="form-group" *ngIf="isEditName">
             <label>Description</label>
-            <input type="text" class="form-control" name="description" [(ngModel)]="scope.description"
+            <input type="text" class="form-control" formControlName="description" [(ngModel)]="scope.description"
                    placeholder="Description">
         </div>
         <div class="form-group" *ngIf="!isEditName">
             <label>Activities</label>
-            <angular2-multiselect name="activities" [data]="dropdownList" [(ngModel)]="selectedItems"
+            <angular2-multiselect formControlName="activities" [data]="dropdownList" [(ngModel)]="selectedItems"
                                   [settings]="dropdownSettings"></angular2-multiselect>
         </div>
-
     </form>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-primary" (click)="saveClose()">
-        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>  Save & close</button>
-    <button type="button" class="btn btn-primary" (click)="saveConfig()" *ngIf="isEditName">
-        <i class="fa fa-wrench" aria-hidden="true"></i>  Save & config</button>
+    <button type="submit" class="btn btn-primary" (click)="saveClose()">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Save & close
+    </button>
+    <button type="button" class="btn btn-primary" (click)="saveConfig()" *ngIf="isEditName" [disabled]="!scopeForm.valid">
+        <i class="fa fa-wrench" aria-hidden="true"></i> Save & config
+    </button>
     <button type="button" class="btn btn-default" (click)="bsModalRef.hide(this)">Cancel</button>
 </div>

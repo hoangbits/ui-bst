@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnChanges, Input} from '@angular/core';
+import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 
 import {Scope} from './index';
@@ -12,6 +13,8 @@ import * as _ from 'lodash';
 	providers: [ScopeService]
 })
 export class ScopeModalEditComponent implements OnInit {
+	scopeForm: FormGroup;
+submitted: boolean;
 	title: string;
 	isEditName: boolean;
 	scope: Scope;
@@ -20,7 +23,7 @@ export class ScopeModalEditComponent implements OnInit {
 	selectedItems = [];
 	dropdownSettings = {};
 
-	constructor(public bsModalRef: BsModalRef, private scopeService: ScopeService) {
+	constructor(public bsModalRef: BsModalRef, private scopeService: ScopeService, private fb: FormBuilder,) {
 	}
 
 	ngOnInit() {
@@ -34,11 +37,28 @@ export class ScopeModalEditComponent implements OnInit {
 			enableSearchFilter: true,
 			classes: 'myclass custom-class'
 		};
+
+		this.createForm();
+	}
+
+	createForm() {
+		this.scopeForm = this.fb.group({
+			'scopeName': ['', Validators.required],
+			'description': '',
+			'activities': ''
+		});
+	}
+
+	validateForm() {
 	}
 
 	loadActivities() {
 		this.scopeService.getActivities().subscribe(
 			activities => {
+				if (!activities) {
+					console.log('No data found');
+					return;
+				}
 				let selectedIds = [];
 
 				// create list data
@@ -47,9 +67,11 @@ export class ScopeModalEditComponent implements OnInit {
 				});
 
 				// get selected id list
-				_.each(this.scope.activities, act => {
-					selectedIds.push(act.id);
-				});
+				if (this.scope) {
+					_.each(this.scope.activities, act => {
+						selectedIds.push(act.id);
+					});
+				}
 
 				// set selected items.
 				this.selectedItems = _.filter(this.dropdownList, function (p) {
@@ -80,6 +102,14 @@ export class ScopeModalEditComponent implements OnInit {
 	}
 
 	saveClose() {
+		this.submitted = true;
+
+		// Validate input
+		if(!this.scopeForm.valid && !(!this.isEditName && this.scope.id)){
+			return false;
+		}
+
+		// prepare activities id for save
 		let selectedIds = [];
 		_.each(this.selectedItems, item => {
 			selectedIds.push(item.id);
@@ -123,3 +153,38 @@ export class ScopeModalEditComponent implements OnInit {
 	}
 
 }
+
+
+@Component({
+	selector: 'control-messages',
+	template: `
+      <div class="alert" *ngIf="errorMessage !== null">{{errorMessage}}</div>`,
+})
+export class ControlMessages {
+	errorMessage1: string;
+	@Input() control: FormControl;
+
+	constructor() {
+	}
+
+	get errorMessage() {
+		for (let propertyName in this.control.errors) {
+			if (this.control.errors.hasOwnProperty(propertyName) && this.control.touched) {
+				return this.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]);
+			}
+		}
+		return null;
+	}
+
+	getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
+		let config = {
+			'required': 'This is required',
+			'invalidEmailAddress': 'Invalid email address',
+			'minlength': `Minimum length ${validatorValue.requiredLength}`
+		};
+
+		return config[validatorName];
+	}
+}
+
+
