@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 import {Activity} from './activity.model';
 import {ActivityService} from './activity.service';
@@ -13,15 +14,33 @@ export class ActivityModalEditComponent implements OnInit {
 	title: string;
 	activity: Activity;
 
-	constructor(public bsModalRef: BsModalRef, private activityService: ActivityService) {
+	activityForm: FormGroup;
+	submitted: boolean;
+
+	constructor(public bsModalRef: BsModalRef, private activityService: ActivityService, private fb: FormBuilder) {
 			this.activity = this.activity|| new Activity();
 	}
 
 	ngOnInit() {
+		this.createForm();
+	}
+
+	createForm() {
+		this.activityForm = this.fb.group({
+			'url': ['', Validators.required],
+			'method': ['', Validators.required],
+			'urlRegex': ['', Validators.required]
+		});
 	}
 
 	saveClose() {
-		console.log(this.activity);
+		this.submitted = true;
+
+		// Validate input
+		if (!this.activityForm.valid) {
+			return false;
+		}
+
 		if (!this.activity.id) {
 			this.add();
 		}

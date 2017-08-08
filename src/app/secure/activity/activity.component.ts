@@ -42,7 +42,7 @@ export class ActivityComponent implements OnInit {
 	}
 
 	ok() {
-		this.activityService.removeActivity(this.deleteId).subscribe(data=>{
+		this.activityService.removeActivity(this.deleteId).subscribe(()=>{
 			this.modal.hide();
 			this.loadActivites();
 		});
@@ -62,7 +62,7 @@ export class ActivityComponent implements OnInit {
 		this.bsModalRef.content.title = title;
 		this.bsModalRef.content.activity = data;
 
-		this.modalService.onHide.subscribe(data=>{
+		this.modalService.onHide.subscribe(()=>{
 			this.loadActivites();
 		});
 	}
