@@ -1,0 +1,120 @@
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {BsModalService} from 'ngx-bootstrap/modal';
+import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
+import {ModalDirective} from 'ngx-bootstrap/modal/modal.component';
+import {UserService} from '../user.service';
+import {User} from '../user.model';
+import {Role} from '../role.model';
+import { EditUserComponent } from '../edit-user/edit-user.component';
+import { CreateUserComponent } from '../create-user/create-user.component';
+
+@Component({
+  selector: 'app-list-user',
+  templateUrl: './list-user.component.html',
+  styleUrls: ['./list-user.component.css'],
+  providers: [UserService]
+})
+export class ListUserComponent implements OnInit {
+
+  listUsers: string[];
+  userId: string;
+  user: User;
+  bsModalRef: BsModalRef;
+  isEdit : boolean;
+  listRole : string[];
+  role: Role;
+
+  @ViewChild(ModalDirective) public modal: ModalDirective;
+
+  constructor(private userService: UserService, private modalService: BsModalService) {
+    this.getAllUser();
+    this.getListRole();
+  }
+
+  ngOnInit() {
+
+  }
+
+  getAllUser() {
+    this.userService.getUsers().subscribe(
+        data => this.listUsers = data,
+        err => {
+          console.log(err);
+        });
+  }
+
+    getListRole() {
+    this.userService.getRoles().subscribe(
+        data => this.listRole = data,
+        err => {
+          console.log(err);
+        });
+  }
+
+
+
+  deleteUser(userId: string) {
+    this.userService.deleteUser(userId).subscribe(
+      data => {
+        this.getAllUser();
+      });
+  }
+
+  public showModal(userId: string) {
+    this.userId = userId;
+    this.modal.show();
+  }
+
+  ok() {
+    this.userService.deleteUser(this.userId).subscribe(
+      data => {
+        this.getAllUser();
+      }
+    );
+    this.modal.hide();
+  }
+
+  addNew() {
+    this.openCreateModal(this.listRole);
+  }
+
+  openCreateModal(roles:string[]) {
+     //debugger
+
+    this.bsModalRef = this.modalService.show(CreateUserComponent);
+     this.bsModalRef.content.roleData = roles;
+    this.modalService.onHide.subscribe(data => this.getAllUser(),
+      err => {
+        console.log(err);
+      });
+  }
+
+  editUser(userId:string){
+    console.log("user id ", userId);
+     this.userService.findOne(userId).subscribe(
+      data => {
+       
+        this.user = data;
+        this.role = data.roles[0];
+         console.log("Du lieu tra ve",this.user.roles[0]);
+        this.openEditModal(this.listRole, this.user, this.role);
+      }
+    );
+  }
+
+   
+    openEditModal(roles:string[],user:User,role:Role) {
+      this.bsModalRef = this.modalService.show(EditUserComponent);
+      this.bsModalRef.content.roleData = roles;
+      this.bsModalRef.content.user = user;
+      this.bsModalRef.content.role = role;
+      this.modalService.onHide.subscribe(data => this.getAllUser(),
+      err => {
+        console.log(err);
+      });
+  }
+
+
+
+}
+

@@ -1,0 +1,117 @@
+  <div class="modal-header">
+    <button type="button" class="close" (click)="bsModalRef.hide()">×</button>
+    <h3 ng-hide="newUser">Add User</h3>
+  </div>
+
+<ul class="nav nav-tabs" id="tabContent">
+        <li class="active"><a href="#details" data-toggle="tab">AD User</a></li>
+        <li><a href="#access-security" data-toggle="tab">Orther User</a></li>
+</ul>
+
+<div class="tab-content">
+        <div class="tab-pane active" id="details">
+      
+           <form [formGroup]="myForm" (ngSubmit)="save(myForm.value, myForm.valid)" class="form-horizontal" style="margin-top:5px">
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Email:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="email" formControlName="email" placeholder="Enter email">
+                  <small [hidden]="myForm.controls.email.valid || (myForm.controls.email.pristine && !submitted)" class="text-danger">
+                     Email is required .
+                  </small>
+                </div>
+               
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="fullname">Fullname:</label>
+                <div class="col-sm-10"> 
+                  <input type="text" class="form-control" id="fullName" formControlName="fullName"  placeholder="Enter Fullname">
+                  <small [hidden]="myForm.controls.fullName.valid || (myForm.controls.fullName.pristine && !submitted)" class="text-danger">
+                  Fullname is required .
+                </small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="role">Role:</label>
+                <div class="col-sm-10"> 
+                  <select  name="user.roles" formControlName="roles" class="form-control">
+                  <option  [ngValue]=" ">Select Role</option>
+                  <option *ngFor="let role of roleData" [ngValue]="role.id">{{role.roleName}}</option>
+                </select>
+                </div>
+              </div>
+            
+              <div class="form-group"> 
+                <div class="col-sm-offset-4 col-sm-8">
+                    <div class="row">
+                      
+                      <div class="col-xs-4" >
+                          <button type="submit" class="btn btn-primary" >Save</button>
+                      </div>
+
+                      <div class="col-xs-4">
+                          <button class="btn btn-primary" type="button" (click)="bsModalRef.hide(this)">Cancer</button>
+                      </div>
+                      
+                    </div>
+                </div>
+              </div>
+        </form>
+
+        </div>
+        
+        
+        <!--Orther user form-->
+        
+           <div class="tab-pane" id="access-security">
+             <form [formGroup]="myForm" (ngSubmit)="save(myForm.value, myForm.valid)" class="form-horizontal" style="margin-top:5px">
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Email:</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="email" formControlName="email" placeholder="Enter email">
+                  <small [hidden]="myForm.controls.email.valid || (myForm.controls.email.pristine && !submitted)" class="text-danger">
+                     Email is required .
+                  </small>
+                </div>
+               
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="fullname">Fullname:</label>
+                <div class="col-sm-10"> 
+                  <input type="text" class="form-control" id="fullName" formControlName="fullName"  placeholder="Enter Fullname">
+                  <small [hidden]="myForm.controls.fullName.valid || (myForm.controls.fullName.pristine && !submitted)" class="text-danger">
+                  Fullname is required .
+                </small>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="role">Role:</label>
+                <div class="col-sm-10"> 
+                  <select  name="user.roles" formControlName="roles" class="form-control">
+                  <option  [ngValue]=" ">Select Role</option>
+                  <option *ngFor="let role of roleData" [ngValue]="role.id">{{role.roleName}}</option>
+                </select>
+                </div>
+              </div>
+            
+              <div class="form-group"> 
+                <div class="col-sm-offset-4 col-sm-8">
+                    <div class="row">
+                      
+                      <div class="col-xs-4" >
+                          <button type="submit" class="btn btn-primary" >Save</button>
+                      </div>
+
+                      <div class="col-xs-4">
+                          <button class="btn btn-primary" type="button" (click)="bsModalRef.hide(this)">Cancer</button>
+                      </div>
+                      
+                    </div>
+                </div>
+              </div>
+           </form>
+        </div> 
+</div>
+

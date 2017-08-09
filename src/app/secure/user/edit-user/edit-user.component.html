@@ -1,0 +1,39 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form novalidate>
+
+        <div class="form-group">
+            
+            <input type="hidden" class="form-control" name = "userId" #userId [value]="user.id"   placeholder="User id">
+    
+        </div>
+
+        <div class="form-group">
+            <label>Role name</label>
+            <input type="text" class="form-control"  name = "userEmail" #email [value]="user.email"   placeholder="Role name">
+    
+        </div>
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" class="form-control"  name = "userFullName" #fullName [value]="user.fullName"   placeholder=" Role description">
+                
+        </div>
+
+        <div class="form-group">
+            <label>Role</label>
+            <select  #role1 class="form-control">
+                    <option  [value]=" ">Select Role</option>
+                    <option *ngFor="let roles of roleData" [value]="roles.id" [selected]="roles.id === role.id" >{{roles.roleName}}</option>
+                </select>
+        </div>
+      
+      
+        <button type="button" class="btn btn-primary" (click)="updateUser(userId.value,email.value,fullName.value,role1.value)">Save Config</button>
+        <button type="button" class="btn btn-default" (click)="bsModalRef.hide(this)">Close</button>
+    </form>
+</div>
