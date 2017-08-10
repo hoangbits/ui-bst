@@ -3,8 +3,8 @@
         <div class="col-md-12">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">View Scope list</h3>
-                    <button type="button" (click)="addNew()" class="btn btn-primary pull-right">Add new user</button>
+                    <h3 class="box-title" id="lblPageTitle">List of Users</h3>
+                    <button type="button" id="btnAddNew" (click)="addNew()" class="btn btn-primary pull-right">Add new user</button>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -31,6 +31,8 @@
                             <td>Create by</td>
                             <td> {{user.createdAt | date:'dd MM yyyy hh:mm:ss'}}</td>
                             <td>
+                                <span style="padding-right:14px; cursor: pointer" (click)="editUser(user.id)"><i
+                                    class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
                                 <span style="padding-right:14px; cursor: pointer" (click)="editUser(user.id)"><i
                                     class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
                                 <span style=" cursor: pointer" (click)="showModal(user.id)"><i class="fa fa-trash"></i></span>
