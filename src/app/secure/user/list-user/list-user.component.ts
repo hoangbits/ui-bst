@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {BsModalService} from 'ngx-bootstrap/modal';
-import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
-import {ModalDirective} from 'ngx-bootstrap/modal/modal.component';
-import {UserService} from '../user.service';
-import {User} from '../user.model';
-import {Role} from '../role.model';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
+import { ModalDirective } from 'ngx-bootstrap/modal/modal.component';
+import { UserService } from '../user.service';
+import { User } from '../user.model';
+import { Role } from '../role.model';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { CreateUserComponent } from '../create-user/create-user.component';
 
@@ -20,9 +20,10 @@ export class ListUserComponent implements OnInit {
   userId: string;
   user: User;
   bsModalRef: BsModalRef;
-  isEdit : boolean;
-  listRole : string[];
+  isEdit: boolean;
+  listRole: string[];
   role: Role;
+  disableInput: boolean;
 
   @ViewChild(ModalDirective) public modal: ModalDirective;
 
@@ -37,21 +38,19 @@ export class ListUserComponent implements OnInit {
 
   getAllUser() {
     this.userService.getUsers().subscribe(
-        data => this.listUsers = data,
-        err => {
-          console.log(err);
-        });
+      data => this.listUsers = data,
+      err => {
+        console.log(err);
+      });
   }
 
-    getListRole() {
+  getListRole() {
     this.userService.getRoles().subscribe(
-        data => this.listRole = data,
-        err => {
-          console.log(err);
-        });
+      data => this.listRole = data,
+      err => {
+        console.log(err);
+      });
   }
-
-
 
   deleteUser(userId: string) {
     this.userService.deleteUser(userId).subscribe(
@@ -78,37 +77,41 @@ export class ListUserComponent implements OnInit {
     this.openCreateModal(this.listRole);
   }
 
-  openCreateModal(roles:string[]) {
-     //debugger
-
+  openCreateModal(roles: string[]) {
     this.bsModalRef = this.modalService.show(CreateUserComponent);
-     this.bsModalRef.content.roleData = roles;
+    this.bsModalRef.content.roleData = roles;
     this.modalService.onHide.subscribe(data => this.getAllUser(),
       err => {
         console.log(err);
       });
   }
 
-  editUser(userId:string){
-    console.log("user id ", userId);
-     this.userService.findOne(userId).subscribe(
+  editUser(userId: string) {
+    this.findUserById(userId, true);
+  }
+
+
+  viewUser(userId: string) {
+    this.findUserById(userId,false);
+  }
+
+  findUserById(userId: string,disableInput: boolean): void {
+    this.userService.findOne(userId).subscribe(
       data => {
-       
         this.user = data;
         this.role = data.roles[0];
-         console.log("Du lieu tra ve",this.user.roles[0]);
-        this.openEditModal(this.listRole, this.user, this.role);
+        this.openEditModal(this.listRole, this.user, this.role,disableInput);
       }
     );
   }
 
-   
-    openEditModal(roles:string[],user:User,role:Role) {
-      this.bsModalRef = this.modalService.show(EditUserComponent);
-      this.bsModalRef.content.roleData = roles;
-      this.bsModalRef.content.user = user;
-      this.bsModalRef.content.role = role;
-      this.modalService.onHide.subscribe(data => this.getAllUser(),
+  openEditModal(roles: string[], user: User, role: Role,disableInput: boolean) {
+    this.bsModalRef = this.modalService.show(EditUserComponent);
+    this.bsModalRef.content.roleData = roles;
+    this.bsModalRef.content.user = user;
+    this.bsModalRef.content.role = role;
+    this.bsModalRef.content.disableInput = disableInput;
+    this.modalService.onHide.subscribe(data => this.getAllUser(),
       err => {
         console.log(err);
       });

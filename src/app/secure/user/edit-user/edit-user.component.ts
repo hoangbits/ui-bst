@@ -40,4 +40,8 @@ updateUser(userId: string,email: string,fullName: string,roleUser: string){
 
 }
 
+onAddVP(isValid : boolean,user:User){
+  console.log(user);
+}
+
 }

@@ -5,46 +5,30 @@
     </button>
 </div>
 <div class="modal-body">
-    <form novalidate class="form-horizontal">
-
+    <form novalidate>
         <div class="form-group">
-            <input type="hidden" class="form-control" name="userId"  #userId [value]="user.id" placeholder="User id">
+            <input type="hidden" class="form-control" name="userId" #userId [value]="user.id"  placeholder="User id">
         </div>
 
         <div class="form-group">
             <label>Role name</label>
-            <input type="text" class="form-control" id="txtEmail" name="userEmail" #email [value]="user.email" placeholder="Role name">
+            <input type="text" class="form-control" name="userEmail" #email [value]="user.email"  [disabled]="!disableInput" placeholder="Role name">
         </div>
+
         <div class="form-group">
             <label>Full Name</label>
-            <input type="text" class="form-control" name="userFullName" #fullName [value]="user.fullName" placeholder=" Role description">
-
+            <input type="text" class="form-control" name="userFullName" #fullName [value]="user.fullName"  [disabled]="!disableInput"  placeholder=" Role description">
         </div>
 
         <div class="form-group">
             <label>Role</label>
-            <select id="cbxRole" #role1 class="form-control">
+            <select  [disabled]="!disableInput"  #role1 class="form-control">
                     <option  [value]=" ">Select Role</option>
                     <option *ngFor="let roles of roleData" [value]="roles.id" [selected]="roles.id === role.id" >{{roles.roleName}}</option>
                 </select>
         </div>
-
-        <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-8">
-                <div class="row">
-                    <div class="col-xs-3">
-                       <button type="button" class="btn btn-default" (click)="bsModalRef.hide(this)">Cancel</button>
-                    </div>
-
-                    <div class="col-xs-4">
-                        <button type="button" class="btn btn-primary" (click)="updateUser(userId.value,email.value,fullName.value,role1.value)">Save</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-
+        <button type="button" class="btn btn-default" (click)="bsModalRef.hide(this)">Cancel</button>
+        <button type="button" *ngIf="disableInput" class="btn btn-primary" (click)="updateUser(userId.value,email.value,fullName.value,role1.value)">Save</button>
 
     </form>
 </div>

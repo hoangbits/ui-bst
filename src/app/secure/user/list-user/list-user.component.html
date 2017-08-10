@@ -8,7 +8,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>NO</th>
@@ -22,32 +22,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let user of listUsers; let i = index">
-                            <td> {{i+1}}</td>
-                            <td> {{user.email}}</td>
-                            <td> {{user.fullName}}</td>
-                            <td> <p *ngIf="user.roles[0]">{{user.roles[0].roleName}}</p></td>
-                            <td>Company</td>
-                            <td>Create by</td>
-                            <td> {{user.createdAt | date:'dd MM yyyy hh:mm:ss'}}</td>
-                            <td>
-                                <span style="padding-right:14px; cursor: pointer" (click)="editUser(user.id)"><i
-                                    class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
-                                <span style="padding-right:14px; cursor: pointer" (click)="editUser(user.id)"><i
-                                    class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
-                                <span style=" cursor: pointer" (click)="showModal(user.id)"><i class="fa fa-trash"></i></span>
-
-                            </td>
-                        </tr>
+                            <tr *ngFor="let user of listUsers; let i = index">
+                                <td> {{i+1}}</td>
+                                <td> {{user.email}}</td>
+                                <td> {{user.fullName}}</td>
+                                <td>
+                                    <p *ngIf="user.roles[0]">{{user.roles[0].roleName}}</p>
+                                </td>
+                                <td>Company</td>
+                                <td>Create by</td>
+                                <td> {{user.createdAt | date:'dd MM yyyy hh:mm:ss'}}</td>
+                                <td>
+                                    <span style="padding-right:14px; cursor: pointer" id="btnEdit{{i}}" (click)="editUser(user.id)" title="Edit user"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+                                    <span style=" padding-right:14px" id="btnView{{i}}" (click)="viewUser(user.id)" title="View user"><i class="fa fa-wrench" aria-hidden="true"></i></span>
+                                    <span style=" cursor: pointer" id="btnDelete{{i}}" (click)="showModal(user.id)"><i class="fa fa-trash" title="Delete user"></i></span>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
 
             </div>
 
-            <div class="modal fade" bsModal #modal="bs-modal" tabindex="-1" role="dialog"
-                 aria-labelledby="mySmallModalLabel" aria-hidden="true"
-                 (onClick)="ok('ok', $event)">
+            <div class="modal fade" bsModal #modal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"
+                (onClick)="ok('ok', $event)">
                 <div class="modal-dialog modal-sm">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -66,8 +64,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </section>
