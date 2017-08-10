@@ -19,6 +19,8 @@ export class ActivityComponent implements OnInit {
 
 	@ViewChild(ModalDirective) public modal: ModalDirective;
 
+	public rowsOnPage = 5;
+
   constructor(private activityService: ActivityService, private modalService: BsModalService) {
 		this.loadActivites();
   }
