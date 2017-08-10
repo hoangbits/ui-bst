@@ -21,6 +21,8 @@ export class ScopeComponent implements OnInit {
 
 	@ViewChild(ModalDirective) public modal: ModalDirective;
 
+	public rowsOnPage = 5;
+
 	constructor(private scopeService: ScopeService, private modalService: BsModalService) {
 		this.loadScopes();
 

@@ -6,6 +6,7 @@ import {HttpModule, JsonpModule} from '@angular/http';
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 import {NgxAdminLteModule} from 'ngx-admin-lte';
 import {ModalModule, BsModalService} from 'ngx-bootstrap';
+import {DataTableModule} from "angular2-datatable";
 
 import {AppComponent} from './app.component';
 import {SecureComponent} from './layout/secure';
@@ -36,6 +37,7 @@ import {ActivityComponent, ActivityService, ActivityModalEditComponent} from './
 		AngularMultiSelectModule,
 		NgxAdminLteModule,
 		ModalModule.forRoot(),
+		DataTableModule
 	],
 	providers: [BsModalService, ActivityService],
 	bootstrap: [AppComponent],
