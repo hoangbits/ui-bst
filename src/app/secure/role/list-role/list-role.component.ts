@@ -41,7 +41,6 @@ export class ListRoleComponent implements OnInit {
         data => this.roles = data,
         err => {
           console.log(err);
-
         });
   }
 
