@@ -1,9 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {ScopeModalEditComponent} from './scope.modal.edit.component';
 
-import {ModalDirective} from 'ngx-bootstrap/modal/modal.component';
+import {MdDialog} from '@angular/material';
+import {AlertDialog} from '../dialog/alert.dialog.component';
 
 import {Scope} from './index';
 import {ScopeService} from './scope.service';
@@ -15,23 +16,26 @@ import {ScopeService} from './scope.service';
 })
 export class ScopeComponent implements OnInit {
 	bsModalRef: BsModalRef;
-	scopes: Scope[];
+	scopes: any[];
 
-	deleteId: string;
+	// Pagination setting
+	currentPage: number = 0;
+	itemsPerPage: number = 10;
+	totalItems: number = 0;
 
-	@ViewChild(ModalDirective) public modal: ModalDirective;
-
-	public rowsOnPage = 5;
-
-	constructor(private scopeService: ScopeService, private modalService: BsModalService) {
+	constructor(private scopeService: ScopeService,
+							private modalService: BsModalService,
+							private dialog: MdDialog) {
 		this.loadScopes();
 
 	}
 
 	loadScopes() {
-		this.scopeService.getScopes().subscribe(
-			scopes => {
-				this.scopes = scopes;
+		this.scopeService.getScopes(this.itemsPerPage, this.currentPage).subscribe(
+			result => {
+				console.log('scope');
+				this.scopes = result.scopes;
+				this.totalItems = result.meta.paginate.totalCount;
 			},
 			err => {
 				console.log(err);
@@ -42,14 +46,16 @@ export class ScopeComponent implements OnInit {
 	}
 
 	public showModal(id) {
-		this.deleteId = id;
-		this.modal.show();
-	}
-
-	ok() {
-		this.scopeService.removeScope(this.deleteId).subscribe(()=>{
-			this.modal.hide();
-			this.loadScopes();
+		this.dialog.open(AlertDialog, {
+			width: '400px', height: '170px', data: {
+				title: 'Confirm dialog', message: 'Are you sure you want to delete this item?'
+			}
+		}).afterClosed().subscribe(result => {
+			if (result === 'OK') {
+				this.scopeService.removeScope(id).subscribe(() => {
+					this.loadScopes();
+				});
+			}
 		});
 	}
 
@@ -71,8 +77,13 @@ export class ScopeComponent implements OnInit {
 		this.bsModalRef.content.isEditName = isEditName;
 		this.bsModalRef.content.scope = data;
 
-		this.modalService.onHide.subscribe(()=>{
+		this.modalService.onHide.subscribe(() => {
 			this.loadScopes();
 		});
+	}
+
+	pageChanged(event: any): void {
+		this.currentPage = event.page;
+		this.loadScopes();
 	}
 }
