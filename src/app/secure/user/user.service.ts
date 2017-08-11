@@ -30,6 +30,7 @@ export class UserService {
     return this.http.post(USER_API.CREATE_USER, {email: user.email, fullName: user.fullName,roles: user.roles});
   }
    updateUsers(user,roleId): Observable<any> {
+   
     return this.http.put(USER_API.UPDATE_USER, {id:user.id,email: user.email, fullName: user.fullName,roles: roleId});
   }
 

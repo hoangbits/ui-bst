@@ -90,7 +90,6 @@ export class ListUserComponent implements OnInit {
     this.findUserById(userId, true);
   }
 
-
   viewUser(userId: string) {
     this.findUserById(userId,false);
   }
