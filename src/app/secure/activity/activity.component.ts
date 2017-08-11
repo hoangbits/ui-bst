@@ -1,52 +1,63 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
-import {ModalDirective} from 'ngx-bootstrap/modal/modal.component';
+
+import {MdDialog} from '@angular/material';
+import {AlertDialog} from '../dialog/alert.dialog.component';
+
 import {ActivityService} from './activity.service';
 import {Activity} from './activity.model';
 import {ActivityModalEditComponent} from './activity.modal.edit.component';
 
 @Component({
-  selector: 'app-activity',
-  templateUrl: './activity.component.html',
-  styleUrls: ['./activity.component.css'],
+	selector: 'app-activity',
+	templateUrl: './activity.component.html',
+	styleUrls: ['./activity.component.css'],
 })
 export class ActivityComponent implements OnInit {
 	bsModalRef: BsModalRef;
-	activities: Activity[];
+	activities: any[];
 
-	deleteId: string;
+	// Pagination setting
+	currentPage: number = 0;
+	itemsPerPage: number = 10;
+	totalItems: number = 0;
 
-	@ViewChild(ModalDirective) public modal: ModalDirective;
+	constructor(private activityService: ActivityService,
+							private modalService: BsModalService,
+							private dialog: MdDialog) {
+		this.loadActivities();
+	}
 
-	public rowsOnPage = 5;
+	ngOnInit() {
+	}
 
-  constructor(private activityService: ActivityService, private modalService: BsModalService) {
-		this.loadActivites();
-  }
-
-  ngOnInit() {
-  }
-
-	loadActivites() {
-		this.activityService.getActivities().subscribe(
-			activities => {
-				this.activities = activities;
+	loadActivities() {
+		this.activityService.getActivities(this.itemsPerPage, this.currentPage).subscribe(
+			result => {
+				this.activities = result.activities;
+				this.totalItems = result.meta.paginate.totalCount;
 			},
 			err => {
 				console.log(err);
 			});
 	}
 
+	/* Show confirm delete */
 	public showModal(id) {
-		this.deleteId = id;
-		this.modal.show();
-	}
+		this.dialog.open(AlertDialog, {
+			width: '400px', height: '170px', data: {
+				title: 'Confirm dialog', message: 'Are you sure you want to delete this item?'
+			}
+		}).afterClosed().subscribe(result => {
 
-	ok() {
-		this.activityService.removeActivity(this.deleteId).subscribe(()=>{
-			this.modal.hide();
-			this.loadActivites();
+			if (result === 'OK') {
+				this.activityService.removeActivity(id).subscribe(() => {
+
+					// Reload Activity table
+					this.loadActivities();
+				});
+			}
 		});
 	}
 
@@ -64,9 +75,13 @@ export class ActivityComponent implements OnInit {
 		this.bsModalRef.content.title = title;
 		this.bsModalRef.content.activity = data;
 
-		this.modalService.onHide.subscribe(()=>{
-			this.loadActivites();
+		this.modalService.onHide.subscribe(() => {
+			this.loadActivities();
 		});
 	}
 
+	pageChanged(event: any): void {
+		this.currentPage = event.page;
+		this.loadActivities();
+	}
 }

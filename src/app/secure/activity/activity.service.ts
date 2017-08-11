@@ -17,8 +17,8 @@ export class ActivityService {
     constructor(private http: Http) {
     }
 
-    getActivities(): Observable<Activity[]> {
-        return this.http.get(this.urlActivityApi)
+    getActivities(perPage, page): Observable<any> {
+        return this.http.get(this.urlActivityApi + '?perPage=' + perPage + '&page=' + page)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }

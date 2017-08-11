@@ -8,8 +8,10 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="table table-striped" [mfData]="activities" #mf="mfDataTable"
-                           [mfRowsOnPage]="rowsOnPage">
+                    <table class="table table-bordered table-striped"
+                           [mfData]="activities"
+                           #mf="mfDataTable"
+                           [mfRowsOnPage]="itemsPerPage">
                         <thead>
                         <tr>
                             <th style="width: 10px">No</th>
@@ -29,44 +31,31 @@
                             <td>{{activity.urlRegex}}</td>
                             <td class="text-center">{{activity.createdBy}}</td>
                             <td class="text-center">{{activity.createdAt | date: 'dd/MM/yyyy'}}</td>
-                            <td><span style="padding-right:14px; cursor: pointer" (click)="edit(activity)"><i
+                            <td><span style="padding-right:14px; cursor: pointer" (click)="edit(activity)"
+                                      tooltip="Edit"><i
                                     class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
-                                <span (click)="showModal(activity.id)" style="float: right; cursor: pointer"><i
+                                <span (click)="showModal(activity.id)" style="float: right; cursor: pointer"
+                                      tooltip="Delete"><i
                                         class="fa fa-trash"></i></span>
                             </td>
                         </tr>
                         </tbody>
                         <tfoot>
                         <tr>
-                            <td colspan="5">
-                                <mfBootstrapPaginator></mfBootstrapPaginator>
+                            <td colspan="7" >
+                                <pagination style="float:right;"
+                                            [totalItems]="totalItems"
+                                            (ngModel)="currentPage"
+                                            [itemsPerPage]="itemsPerPage"
+                                            class="pagination-sm"
+                                            [maxSize]="5"
+                                            [boundaryLinks]="true"
+                                            [rotate]="false"
+                                            (pageChanged)="pageChanged($event)"></pagination>
                             </td>
                         </tr>
                         </tfoot>
                     </table>
-                </div>
-
-            </div>
-
-            <div class="modal fade" bsModal #modal="bs-modal" tabindex="-1" role="dialog"
-                 aria-labelledby="mySmallModalLabel" aria-hidden="true"
-                 (onClick)="ok('ok', $event)">
-                <div class="modal-dialog modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title pull-left">Confirm dialog</h4>
-                            <button type="button" class="close pull-right" aria-label="Close" (click)="modal.hide()">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you want to delete this item?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" (click)="ok()">OK</button>
-                            <button type="button" class="btn btn-default" (click)="modal.hide()">Close</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
