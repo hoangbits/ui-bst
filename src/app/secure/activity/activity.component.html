@@ -8,7 +8,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="table table-striped"
+                    <table class="table table-bordered table-striped"
                            [mfData]="activities"
                            #mf="mfDataTable"
                            [mfRowsOnPage]="itemsPerPage">
@@ -31,9 +31,11 @@
                             <td>{{activity.urlRegex}}</td>
                             <td class="text-center">{{activity.createdBy}}</td>
                             <td class="text-center">{{activity.createdAt | date: 'dd/MM/yyyy'}}</td>
-                            <td><span style="padding-right:14px; cursor: pointer" (click)="edit(activity)"><i
+                            <td><span style="padding-right:14px; cursor: pointer" (click)="edit(activity)"
+                                      tooltip="Edit"><i
                                     class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
-                                <span (click)="showModal(activity.id)" style="float: right; cursor: pointer"><i
+                                <span (click)="showModal(activity.id)" style="float: right; cursor: pointer"
+                                      tooltip="Delete"><i
                                         class="fa fa-trash"></i></span>
                             </td>
                         </tr>

@@ -5,7 +5,12 @@ import {AppRoutingModule} from './app.routing';
 import {HttpModule, JsonpModule} from '@angular/http';
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 import {NgxAdminLteModule} from 'ngx-admin-lte';
-import {ModalModule, BsModalService, PaginationModule} from 'ngx-bootstrap';
+import {
+	ModalModule,
+	BsModalService,
+	PaginationModule,
+	TooltipModule
+} from 'ngx-bootstrap';
 import {DataTableModule} from "angular2-datatable";
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -43,6 +48,7 @@ import {AlertDialog} from './secure/dialog';
 		NgxAdminLteModule,
 		ModalModule.forRoot(),
 		PaginationModule.forRoot(),
+		TooltipModule.forRoot(),
 		DataTableModule,
 		BrowserAnimationsModule,
 		MdDialogModule,
