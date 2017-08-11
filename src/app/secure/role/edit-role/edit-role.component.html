@@ -5,7 +5,7 @@
     </button>
 </div>
 <div class="modal-body">
-    <form novalidate>
+    <form (ngSubmit)="saveClose()">
 
         <div class="form-group" *ngIf="isEdit">
             <input type="hidden" class="form-control" #userId [value]="role.id" name="id" [(ngModel)]="role.id" placeholder="Role name">
@@ -26,9 +26,9 @@
             <label>Scopes</label>
             <angular2-multiselect name="scopes1" [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings"></angular2-multiselect>
         </div>
-        <button type="button" class="btn btn-primary" id="btnSaveClose" (click)="saveClose()" *ngIf="isEdit">Save && Close</button>
-        <button type="button" class="btn btn-primary" id="btnSaveConfig" (click)="saveConfig()">Save && Config</button>
-        <button type="button" class="btn btn-primary" id="btnSave" (click)="saveScope()" *ngIf="!isEdit">Save Config</button>
+        <button type="submit" class="btn btn-primary" id="btnSaveClose"  *ngIf="isEdit">Save &amp; Close</button>
+        <button type="button" class="btn btn-primary" id="btnSaveConfig" *ngIf="!isSaveConfig" (click)="saveConfig()">Save &amp; Config</button>
+        <button type="button" class="btn btn-primary" id="btnSave" (click)="saveScope()" *ngIf="!isEdit && isSaveConfig">Save Config</button>
         <button type="button" class="btn btn-default" id="btnCancel" (click)="bsModalRef.hide(this)">Close</button>
     </form>
 </div>

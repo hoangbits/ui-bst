@@ -17,6 +17,7 @@ export class EditRoleComponent implements OnInit {
 
   title: string;
   isEdit: boolean;
+  isSaveConfig: boolean;
   checkEmptyRoleName: boolean;
   scope: Scope;
   role: Role;
@@ -53,6 +54,7 @@ export class EditRoleComponent implements OnInit {
       this.roleService.createRoles(this.role).subscribe((data) => {
         this.role = data;
         this.isEdit = !this.isEdit;
+        this.isSaveConfig = !this.isSaveConfig;
       });
     }
   }
@@ -87,7 +89,7 @@ export class EditRoleComponent implements OnInit {
         this.role = data;
         this.bsModalRef.hide();
 
-      });
+    });
 
 
     }
