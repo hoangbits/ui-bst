@@ -44,8 +44,5 @@ export class EditUserComponent implements OnInit {
     }
   }
 
-  onAddVP(isValid: boolean, user: User) {
-    console.log(user);
-  }
 
 }

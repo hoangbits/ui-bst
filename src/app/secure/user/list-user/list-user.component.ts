@@ -30,6 +30,7 @@ export class ListUserComponent implements OnInit {
   constructor(private userService: UserService, private modalService: BsModalService) {
     this.getAllUser();
     this.getListRole();
+     this.user = this.user || new User();
   }
 
   ngOnInit() {
@@ -74,12 +75,14 @@ export class ListUserComponent implements OnInit {
   }
 
   addNew() {
+    console.log("role",JSON.stringify(this.role));
     this.openCreateModal(this.listRole);
   }
 
   openCreateModal(roles: string[]) {
     this.bsModalRef = this.modalService.show(CreateUserComponent);
     this.bsModalRef.content.roleData = roles;
+    this.bsModalRef.content.title = "Add new User";
     this.modalService.onHide.subscribe(data => this.getAllUser(),
       err => {
         console.log(err);

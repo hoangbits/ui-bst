@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
-import {FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
-import {User} from '../user.model';
-import {UserService} from '../user.service';
+import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
+import { FormGroup, FormControl, FormBuilder, Validators, FormsModule } from '@angular/forms';
+import { User } from '../user.model';
+import { UserService } from '../user.service';
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
@@ -14,28 +14,53 @@ export class CreateUserComponent implements OnInit {
 
   myForm: FormGroup; // our model driven form
   submitted: boolean; // keep track on whether form is submitted
+  user: User;
 
-  constructor(public bsModalRef: BsModalRef, private _fb: FormBuilder,private userService: UserService) { }
-  roleData = [];
-  
-  ngOnInit() {
-      this.myForm = new FormGroup({
-      email: new FormControl('', [<any>Validators.required]),
-      fullName: new FormControl('', [<any>Validators.required]),
-      roles: new FormControl(''),
-    });
+  constructor(public bsModalRef: BsModalRef, private _fb: FormBuilder, private userService: UserService) {
   }
 
-   save(model: User, isValid: boolean) {
-     this.submitted = true; // set form submit to true
-     console.log(model, isValid);
-     if(isValid){
-        this.userService.createUsers(model).subscribe(
+  roleData = [];
+  roleId = [];
+
+  ngOnInit() {
+    this.user = this.user || new User();
+
+  }
+
+  save(model: User, idRole: string, isValid: boolean) {
+
+    if (isValid) {
+      if (idRole) {
+        this.roleId.push({ id: idRole });
+      }
+      this.user.roles = this.roleId;
+      this.userService.createUsers(this.user).subscribe(
         data => this.bsModalRef.hide(),
         err => {
           console.log(err);
-        }); 
-     }
+        });
+    } else {
+      return;
+    }
+
+  }
+
+    save1(model: User, idRole: string, isValid: boolean) {
+     
+    if (isValid) {
+      if (idRole) {
+        this.roleId.push({ id: idRole });
+      }
+      this.user.roles = this.roleId;
+      this.userService.createUsers(this.user).subscribe(
+        data => this.bsModalRef.hide(),
+        err => {
+          console.log(err);
+        });
+    } else {
+      return;
+    }
+
   }
 
 }

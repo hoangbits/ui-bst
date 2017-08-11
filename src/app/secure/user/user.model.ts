@@ -2,8 +2,8 @@ export class User {
     id: string;
     email: string;
     fullName: string;
-    roles: string;
-    constructor(id: string='', email: string='', fullName: string='', roles: string=''){
+    roles: any;
+    constructor(id: string='', email: string='', fullName: string='', roles: any=''){
             this.id = id;
             this.email = email;
             this.fullName = fullName;
