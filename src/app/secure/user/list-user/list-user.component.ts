@@ -7,6 +7,8 @@ import { User } from '../user.model';
 import { Role } from '../role.model';
 import { EditUserComponent } from '../edit-user/edit-user.component';
 import { CreateUserComponent } from '../create-user/create-user.component';
+import { Http } from '@angular/http';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-list-user',
@@ -23,11 +25,17 @@ export class ListUserComponent implements OnInit {
   isEdit: boolean;
   listRole: string[];
   role: Role;
+  pageCurrent: number;
   disableInput: boolean;
+
+  currentPage: number = 0;
+	itemsPerPage: number = 3;
+	totalItems: number = 0;
+ 
 
   @ViewChild(ModalDirective) public modal: ModalDirective;
 
-  constructor(private userService: UserService, private modalService: BsModalService) {
+  constructor(private userService: UserService, private modalService: BsModalService,private http: Http) {
     this.getAllUser();
     this.getListRole();
      this.user = this.user || new User();
@@ -37,13 +45,18 @@ export class ListUserComponent implements OnInit {
 
   }
 
-  getAllUser() {
-    this.userService.getUsers().subscribe(
-      data => this.listUsers = data,
-      err => {
-        console.log(err);
-      });
-  }
+	public getAllUser(){
+		this.userService.getUsers(this.currentPage,this.itemsPerPage).subscribe(
+			response =>{
+				  this.listUsers = response.data;
+					this.totalItems = response.total;
+			},
+			error =>{
+				alert('Server error');
+			}
+		);
+		return event;
+	}
 
   getListRole() {
     this.userService.getRoles().subscribe(
@@ -118,6 +131,11 @@ export class ListUserComponent implements OnInit {
         console.log(err);
       });
   }
+
+	pageChanged(event: any): void {
+		this.currentPage = event.page;
+		this.getAllUser();
+	}
 
 
 

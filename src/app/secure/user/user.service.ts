@@ -16,8 +16,8 @@ export class UserService {
   constructor(private http: Http) {
   }
 
-  getUsers(): Observable<any> {
-    return this.http.get(USER_API.GET_LIST_USER)
+  getUsers(currentPage,itemsPerPage): Observable<any> {
+    return this.http.get(USER_API.GET_LIST_USER + currentPage+"/"+itemsPerPage)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }

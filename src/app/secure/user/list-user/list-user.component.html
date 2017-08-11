@@ -8,7 +8,8 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped"   [mfData]="listUsers"  #mf="mfDataTable" [mfRowsOnPage]="itemsPerPage">
+
                         <thead>
                             <tr>
                                 <th>NO</th>
@@ -22,7 +23,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let user of listUsers; let i = index">
+                            <tr *ngFor="let user of mf.data; let i = index">
+
+                        
                                 <td> {{i+1}}</td>
                                 <td> {{user.email}}</td>
                                 <td> {{user.fullName}}</td>
@@ -40,7 +43,19 @@
                             </tr>
                         </tbody>
                     </table>
+                        <pagination style="float:right;"
+                        [totalItems]="totalItems"
+                        (ngModel)="currentPage"
+                        [itemsPerPage]="itemsPerPage"
+                        class="pagination-sm"
+                        [maxSize]="5"
+                        [boundaryLinks]="true"
+                        [rotate]="false"
+                        (pageChanged)="pageChanged($event)">
+                </pagination>
                 </div>
+
+            
 
             </div>
 
