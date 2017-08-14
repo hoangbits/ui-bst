@@ -1,0 +1,40 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form #frmVP="ngForm" (ngSubmit)="updateUser(frmVP.valid, user,roleSelect.value)">
+        <div class="form-group">
+            <input type="hidden" class="form-control" name="userId" #userId [value]="user.id"  placeholder="User id">
+        </div>
+
+        <div class="form-group">
+            <label>Role name</label>
+            <input type="text" class="form-control" name="email" [(ngModel)]="user.email" required #email="ngModel"  [disabled]="!disableInput" placeholder="Role name">
+             <small class="text-danger" *ngIf="email.errors && email.errors.required && (email.dirty || email.touched || frmVP._submitted)">
+                                            Email is required
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" class="form-control" name="fullName"  [(ngModel)]="user.fullName" required #fullName="ngModel" [disabled]="!disableInput"  placeholder=" Role description">
+             <small class="text-danger" *ngIf="fullName.errors && fullName.errors.required && (fullName.dirty || fullName.touched || frmVP._submitted)">
+                                            FullName is required
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label>Role</label>
+            <select class="form-control" name="roleSelect" #roleSelect  [disabled]="!disableInput" >
+                    <option value ="" >Select Role</option>
+                    <option *ngFor="let roles of roleData" [value]="roles.id"  [selected]="role && roles.id === role.id" >{{roles.roleName}}</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-default" (click)="bsModalRef.hide(this)">Cancel</button>
+        <button type="submit" *ngIf="disableInput" class="btn btn-primary" >Save</button>
+
+    </form>
+</div>
