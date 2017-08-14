@@ -26,7 +26,7 @@ export class ScopeService {
 			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
 	}
 
-	getActivities(): Observable<any[]> {
+	getActivities(): Observable<any> {
 		return this.http.get(this.urlActivityApi)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));

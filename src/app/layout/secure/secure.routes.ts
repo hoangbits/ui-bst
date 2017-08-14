@@ -9,6 +9,6 @@ export const SECURE_ROUTES: Routes = [
 	{path: 'company', component: CompanyComponent},
 	{path: 'user', component: ListUserComponent},
 	{path: 'role', component: ListRoleComponent},
-	{path: 'scope', component: ScopeComponent},
-	{path: 'activity', component: ActivityComponent},
+	{path: 'admin/scope', component: ScopeComponent},
+	{path: 'admin/activity', component: ActivityComponent},
 ];

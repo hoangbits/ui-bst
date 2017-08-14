@@ -52,15 +52,15 @@ export class ScopeModalEditComponent implements OnInit {
 
 	loadActivities() {
 		this.scopeService.getActivities().subscribe(
-			activities => {
-				if (!activities) {
+			result => {
+				if (!result.activities) {
 					console.log('No data found');
 					return;
 				}
 				let selectedIds = [];
 
 				// create list data
-				_.each(activities, (activity) => {
+				_.each(result.activities, (activity) => {
 					this.dropdownList.push({id: activity.id, itemName: activity.method + ' - ' + activity.url});
 				});
 
@@ -101,7 +101,6 @@ export class ScopeModalEditComponent implements OnInit {
 
 	saveClose() {
 		this.submitted = true;
-
 		// Validate input
 		if (!this.scopeForm.valid && !(!this.isEditName && this.scope.id)) {
 			return false;

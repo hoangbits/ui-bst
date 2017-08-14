@@ -33,12 +33,15 @@ export class ScopeComponent implements OnInit {
 	loadScopes() {
 		this.scopeService.getScopes(this.itemsPerPage, this.currentPage).subscribe(
 			result => {
-				console.log('scope');
 				this.scopes = result.scopes;
 				this.totalItems = result.meta.paginate.totalCount;
 			},
 			err => {
-				console.log(err);
+				this.dialog.open(AlertDialog, {
+					width: '500px', height: '170px', data: {
+						title: 'Information dialog', message: 'Load scope list has error, contact administrator to help'
+					}
+				});
 			});
 	}
 
