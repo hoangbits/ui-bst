@@ -25,7 +25,6 @@ export class ListUserComponent implements OnInit {
   isEdit: boolean;
   listRole: string[];
   role: Role;
-  pageCurrent: number;
   disableInput: boolean;
 
   currentPage = 0;

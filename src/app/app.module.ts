@@ -20,6 +20,7 @@ import {EditUserComponent} from './secure/user/edit-user/edit-user.component';
 import {CreateUserComponent} from './secure/user/create-user/create-user.component';
 import {CommonModule} from '@angular/common';
 import {DataTableModule} from 'angular2-datatable';
+import { AlertDirective } from './directives/alert.directive';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import {DataTableModule} from 'angular2-datatable';
     ListUserComponent,
     EditUserComponent,
     CreateUserComponent,
+    AlertDirective,
   ],
   imports: [
     BrowserModule, PaginationModule.forRoot(),
