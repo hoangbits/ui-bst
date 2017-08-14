@@ -27,12 +27,13 @@ export class EditUserComponent implements OnInit {
 
   ngOnInit() {
   }
+
   updateUser(isValid: boolean, user: User, roleId: string) {
     if (isValid) {
       if (roleId) {
-        this.roleId.push({id: roleId});
+        this.user.roles.push({id: roleId});
       }
-      this.userService.updateUsers(user, this.roleId).subscribe(
+      this.userService.updateUsers(this.user).subscribe(
         data => this.bsModalRef.hide(),
         err => {
           console.log(err);

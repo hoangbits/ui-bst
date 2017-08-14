@@ -57,7 +57,6 @@ export class EditRoleComponent implements OnInit {
 
   saveScope() {
     const scopes = [];
-    const errors = '';
     _.each(this.selectedItems, item => {
       scopes.push({id: item.id});
     });

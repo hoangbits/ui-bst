@@ -28,19 +28,16 @@ export class UserService {
 
   createUsers(user): Observable<any> {
 
-    return this.http.post(USER_API.CREATE_USER, {email: user.email, fullName: user.fullName, roles: user.roles})
+    return this.http.post(USER_API.CREATE_USER, user)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
-  updateUsers(user, roleId): Observable<any> {
+  updateUsers(user): Observable<any> {
 
-    return this.http.put(USER_API.UPDATE_USER, {
-      id: user.id,
-      email: user.email,
-      fullName: user.fullName,
-      roles: roleId
-    });
+    return this.http.put(USER_API.UPDATE_USER, user)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   getRoles(): Observable<any> {
