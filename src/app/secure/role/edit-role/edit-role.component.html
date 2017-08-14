@@ -1,0 +1,34 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form (ngSubmit)="saveClose()">
+
+        <div class="form-group" *ngIf="isEdit">
+            <input type="hidden" class="form-control" #userId  id="userId" [(ngModel)]="role.id" >
+        </div>
+
+        <div class="form-group" *ngIf="isEdit">
+            <label>Role name</label>
+            <input type="text" class="form-control" id="txtRoleName"  name="roleName" [(ngModel)]="role.roleName" placeholder="Role name">
+            <p class="text-danger" *ngIf="!checkEmptyRoleName">
+                Name is required (minimum 5 characters).
+            </p>
+        </div>
+        <div class="form-group" *ngIf="isEdit">
+            <label>Description</label>
+            <input type="texarea" class="form-control" id="txtDescription"  name="description" [(ngModel)]="role.description" placeholder=" Role description">
+        </div>
+        <div class="form-group" *ngIf="!isEdit">
+            <label>Scopes</label>
+            <angular2-multiselect name="scopes1" [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings"></angular2-multiselect>
+        </div>
+        <button type="submit" class="btn btn-primary" id="btnSaveClose"  *ngIf="isEdit">Save &amp; Close</button>
+        <button type="button" class="btn btn-primary" id="btnSaveConfig" *ngIf="!isSaveConfig" (click)="saveConfig()">Save &amp; Config</button>
+        <button type="button" class="btn btn-primary" id="btnSave" (click)="saveScope()" *ngIf="!isEdit && isSaveConfig">Save Config</button>
+        <button type="button" class="btn btn-default" id="btnCancel" (click)="bsModalRef.hide(this)">Close</button>
+    </form>
+</div>

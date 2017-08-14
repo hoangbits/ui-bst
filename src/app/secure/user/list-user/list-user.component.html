@@ -1,0 +1,84 @@
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title" id="lblPageTitle">List of Users</h3>
+                    <button type="button" id="btnAddNew" (click)="addNew()" class="btn btn-primary pull-right">Add new user</button>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered table-striped"   [mfData]="listUsers"  #mf="mfDataTable" [mfRowsOnPage]="itemsPerPage">
+
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>Email</th>
+                                <th>Fullname</th>
+                                <th>Role</th>
+                                <th>Company</th>
+                                <th>Create by</th>
+                                <th>Create at</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let user of mf.data; let i = index">
+
+                        
+                                <td> {{i+1}}</td>
+                                <td> {{user.email}}</td>
+                                <td> {{user.fullName}}</td>
+                                <td>
+                                    <p *ngIf="user.roles[0]">{{user.roles[0].roleName}}</p>
+                                </td>
+                                <td>Company</td>
+                                <td>Create by</td>
+                                <td> {{user.createdAt | date:'dd MM yyyy hh:mm:ss'}}</td>
+                                <td>
+                                    <span style="padding-right:14px; cursor: pointer" id="btnEdit{{i}}" (click)="editUser(user.id)" title="Edit user"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+                                    <span style=" padding-right:14px" id="btnView{{i}}" (click)="viewUser(user.id)" title="View user"><i class="fa fa-wrench" aria-hidden="true"></i></span>
+                                    <span style=" cursor: pointer" id="btnDelete{{i}}" (click)="showModal(user.id)"><i class="fa fa-trash" title="Delete user"></i></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                        <pagination style="float:right;"
+                        [totalItems]="totalItems"
+                        (ngModel)="currentPage"
+                        [itemsPerPage]="itemsPerPage"
+                        class="pagination-sm"
+                        [maxSize]="5"
+                        [boundaryLinks]="true"
+                        [rotate]="false"
+                        (pageChanged)="pageChanged($event)">
+                </pagination>
+                </div>
+
+            
+
+            </div>
+
+            <div class="modal fade" bsModal #modal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"
+                (onClick)="ok('ok', $event)">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title pull-left">Confirm dialog</h4>
+                            <button type="button" class="close pull-right" aria-label="Close" (click)="modal.hide()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete this user?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" (click)="ok()">OK</button>
+                            <button type="button" class="btn btn-default" (click)="modal.hide()">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

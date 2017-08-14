@@ -12,26 +12,27 @@ import {
 	TooltipModule
 } from 'ngx-bootstrap';
 import {DataTableModule} from "angular2-datatable";
-
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MdDialogModule, MdButtonModule} from '@angular/material';
-
 import {AppComponent} from './app.component';
 import {SecureComponent} from './layout/secure';
 import {ScopeComponent, ScopeModalEditComponent} from './secure/scope';
-import {UserComponent} from './secure/user';
-import {RoleComponent} from './secure/role';
 import {CompanyComponent} from './secure/company';
 import {ActivityComponent, ActivityService, ActivityModalEditComponent} from './secure/activity';
 import {AlertDialog} from './secure/dialog';
+import {ListRoleComponent, EditRoleComponent} from './secure/role';
+import {ListUserComponent, EditUserComponent, CreateUserComponent} from './secure/user';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		SecureComponent,
 		ScopeComponent,
-		UserComponent,
-		RoleComponent,
+		ListRoleComponent,
+		EditRoleComponent,
+		ListUserComponent,
+		EditUserComponent,
+		CreateUserComponent,
 		CompanyComponent,
 		ScopeModalEditComponent,
 		ActivityComponent,
@@ -59,7 +60,8 @@ import {AlertDialog} from './secure/dialog';
 	entryComponents: [
 		ScopeModalEditComponent,
 		ActivityModalEditComponent,
-		AlertDialog
+		AlertDialog,
+		EditRoleComponent, CreateUserComponent, EditUserComponent
 	]
 })
 export class AppModule {
