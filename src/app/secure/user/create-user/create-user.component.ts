@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
-import {FormGroup, FormBuilder} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {User} from '../user.model';
 import {UserService} from '../user.service';
 @Component({
@@ -10,14 +10,11 @@ import {UserService} from '../user.service';
   providers: [UserService]
 })
 export class CreateUserComponent implements OnInit {
-
-  myForm: FormGroup;
-  submitted: boolean;
   user: User;
   roleData = [];
   roleId = [];
 
-  constructor(public bsModalRef: BsModalRef, private _fb: FormBuilder, private userService: UserService) {
+  constructor(public bsModalRef: BsModalRef, private userService: UserService) {
   }
 
 

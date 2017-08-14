@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
-import {FormGroup, FormControl, FormBuilder, Validators, FormsModule} from '@angular/forms';
+import {FormBuilder} from '@angular/forms';
 import {User} from '../user.model';
 import {Role} from '../role.model';
 import {UserService} from '../user.service';
@@ -12,15 +12,11 @@ import {UserService} from '../user.service';
   providers: [UserService]
 })
 export class EditUserComponent implements OnInit {
-
-  myForm: FormGroup; // our model driven form
-  submitted: boolean; // keep track on whether form is submitted
   roleData = [];
   user: User;
-  roleId = [];
   role: Role;
 
-  constructor(public bsModalRef: BsModalRef, private _fb: FormBuilder, private userService: UserService) {
+  constructor(public bsModalRef: BsModalRef, private userService: UserService) {
     this.user = this.user || new User();
     this.role = this.role || new Role();
   }

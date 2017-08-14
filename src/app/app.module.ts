@@ -10,25 +10,18 @@ import {ModalModule, BsModalService, PaginationModule} from 'ngx-bootstrap';
 import {AppComponent} from './app.component';
 import {SecureComponent} from './layout/secure';
 import {ScopeComponent, ScopeModalEditComponent} from './secure/scope';
-import {UserComponent} from './secure/user';
-import {RoleComponent} from './secure/role';
 import {CompanyComponent} from './secure/company';
-import {ListRoleComponent} from './secure/role/list-role/list-role.component';
-import {EditRoleComponent} from './secure/role/edit-role/edit-role.component';
-import {ListUserComponent} from './secure/user/list-user/list-user.component';
-import {EditUserComponent} from './secure/user/edit-user/edit-user.component';
-import {CreateUserComponent} from './secure/user/create-user/create-user.component';
+import {ListRoleComponent, EditRoleComponent} from './secure/role';
+import {ListUserComponent, EditUserComponent, CreateUserComponent} from './secure/user';
 import {CommonModule} from '@angular/common';
 import {DataTableModule} from 'angular2-datatable';
-import { AlertDirective } from './directives/alert.directive';
+import {AlertDirective} from './directives/alert.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     SecureComponent,
     ScopeComponent,
-    UserComponent,
-    RoleComponent,
     CompanyComponent,
     ScopeModalEditComponent,
     ListRoleComponent,
