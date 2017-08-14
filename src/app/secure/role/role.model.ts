@@ -3,14 +3,12 @@ export class Role {
   roleName: string;
   description: string;
   scopes: any;
-  createdAt: any;
+  createdAt: Date;
 
-
-  constructor(roleName: string, description: string, createdAt: any, id: string,scopes: any) {
-    this.roleName = roleName || '';
-    this.description = description || '';
-    this.createdAt = createdAt || '';
-    this.id = id  || '';
-    this.scopes = scopes  || [];
+  constructor(roleName: string = '', description: string = '', id: string = '', scopes: any = '') {
+    this.roleName = roleName;
+    this.description = description;
+    this.id = id;
+    this.scopes = scopes;
   }
 }

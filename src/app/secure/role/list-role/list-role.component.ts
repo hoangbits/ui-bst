@@ -69,7 +69,6 @@ export class ListRoleComponent implements OnInit {
   editName(roleId: string) {
     this.roleService.findOne(roleId).subscribe(
       data => {
-        console.log(JSON.stringify(data));
         this.role = data;
         this.openEditModal('Edit Name', true, data.roles, '', '');
       }
@@ -100,17 +99,14 @@ export class ListRoleComponent implements OnInit {
   }
 
   addNew() {
-    let dropdownList1 = [];
+    const dropdownList = [];
     this.roleService.getScopes().subscribe(
       scopes => {
         this.scopes = scopes;
-        console.log("this scope", this.scopes);
         _.each(this.scopes, (scope) => {
-          dropdownList1.push({id: scope.id, itemName: scope.scopeName});
+          dropdownList.push({id: scope.id, itemName: scope.scopeName});
         });
-
-        this.openEditModal('Add new Role', true, new Role('', '', '', '', []), [], dropdownList1);
-
+        this.openEditModal('Add new Role', true, new Role(), [], dropdownList);
       },
       err => {
         console.log(err);
@@ -119,18 +115,13 @@ export class ListRoleComponent implements OnInit {
   }
 
   openEditModal(title, isEdit, data?: Role, selectedItems?: any, dropdownList?: any) {
-    // debugger
-
     this.bsModalRef = this.modalService.show(EditRoleComponent);
     this.bsModalRef.content.title = title;
     this.bsModalRef.content.isEdit = isEdit;
     this.bsModalRef.content.role = data;
     this.bsModalRef.content.selectedItems = selectedItems;
     this.bsModalRef.content.dropdownList = dropdownList;
-    this.modalService.onHide.subscribe(data => this.getAllRoles(),
-      err => {
-        console.log(err);
-      });
+    this.modalService.onHide.subscribe(() => this.getAllRoles());
   }
 
 }

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
-import { FormGroup, FormControl, FormBuilder, Validators, FormsModule } from '@angular/forms';
-import { User } from '../user.model';
-import { UserService } from '../user.service';
+import {Component, OnInit} from '@angular/core';
+import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
+import {FormGroup, FormBuilder} from '@angular/forms';
+import {User} from '../user.model';
+import {UserService} from '../user.service';
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
@@ -11,27 +11,25 @@ import { UserService } from '../user.service';
 })
 export class CreateUserComponent implements OnInit {
 
-
-  myForm: FormGroup; // our model driven form
-  submitted: boolean; // keep track on whether form is submitted
+  myForm: FormGroup;
+  submitted: boolean;
   user: User;
+  roleData = [];
+  roleId = [];
 
   constructor(public bsModalRef: BsModalRef, private _fb: FormBuilder, private userService: UserService) {
   }
 
-  roleData = [];
-  roleId = [];
 
   ngOnInit() {
     this.user = this.user || new User();
-
   }
 
   save(model: User, idRole: string, isValid: boolean) {
 
     if (isValid) {
       if (idRole) {
-        this.roleId.push({ id: idRole });
+        this.roleId.push({id: idRole});
       }
       this.user.roles = this.roleId;
       this.userService.createUsers(this.user).subscribe(
@@ -42,14 +40,12 @@ export class CreateUserComponent implements OnInit {
     } else {
       return;
     }
-
   }
 
-    save1(model: User, idRole: string, isValid: boolean) {
-     
+  save1(model: User, idRole: string, isValid: boolean) {
     if (isValid) {
       if (idRole) {
-        this.roleId.push({ id: idRole });
+        this.roleId.push({id: idRole});
       }
       this.user.roles = this.roleId;
       this.userService.createUsers(this.user).subscribe(
@@ -60,7 +56,5 @@ export class CreateUserComponent implements OnInit {
     } else {
       return;
     }
-
   }
-
 }

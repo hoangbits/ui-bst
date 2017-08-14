@@ -8,7 +8,6 @@ import {Role} from '../role.model';
 import {EditUserComponent} from '../edit-user/edit-user.component';
 import {CreateUserComponent} from '../create-user/create-user.component';
 import {Http} from '@angular/http';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-list-user',
@@ -45,7 +44,7 @@ export class ListUserComponent implements OnInit {
   }
 
   getAllUser() {
-    this.userService.getUsers(this.currentPage,this.itemsPerPage).subscribe(
+    this.userService.getUsers(this.currentPage, this.itemsPerPage).subscribe(
       response => {
         this.listUsers = response.data;
         this.totalItems = response.total;

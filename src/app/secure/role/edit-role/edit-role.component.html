@@ -8,19 +8,19 @@
     <form (ngSubmit)="saveClose()">
 
         <div class="form-group" *ngIf="isEdit">
-            <input type="hidden" class="form-control" #userId [value]="role.id" name="id" [(ngModel)]="role.id" placeholder="Role name">
+            <input type="hidden" class="form-control" #userId  id="userId" [(ngModel)]="role.id" >
         </div>
 
         <div class="form-group" *ngIf="isEdit">
             <label>Role name</label>
-            <input type="text" class="form-control" id="txtRoleName" [value]="role.roleName" name="roleName" [(ngModel)]="role.roleName" placeholder="Role name">
+            <input type="text" class="form-control" id="txtRoleName"  name="roleName" [(ngModel)]="role.roleName" placeholder="Role name">
             <p class="text-danger" *ngIf="!checkEmptyRoleName">
                 Name is required (minimum 5 characters).
             </p>
         </div>
         <div class="form-group" *ngIf="isEdit">
             <label>Description</label>
-            <input type="texarea" class="form-control" id="txtDescription" [value]="role.description" name="description" [(ngModel)]="role.description" placeholder=" Role description">
+            <input type="texarea" class="form-control" id="txtDescription"  name="description" [(ngModel)]="role.description" placeholder=" Role description">
         </div>
         <div class="form-group" *ngIf="!isEdit">
             <label>Scopes</label>

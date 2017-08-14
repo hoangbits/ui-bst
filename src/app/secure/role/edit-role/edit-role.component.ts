@@ -1,6 +1,5 @@
-import {Component, OnInit, Input, Output,} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
-import {FormGroup, FormControl, FormBuilder, Validators} from '@angular/forms';
 import {RoleService} from '../role.service';
 import {Scope} from '../scope.model';
 import {Role} from '../role.model';
@@ -25,13 +24,8 @@ export class EditRoleComponent implements OnInit {
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
-  roleId: string;
 
-
-  myForm: FormGroup;
-  submitted: boolean;
-
-  constructor(public bsModalRef: BsModalRef, private roleService: RoleService, private _fb: FormBuilder) {
+  constructor(public bsModalRef: BsModalRef, private roleService: RoleService) {
   }
 
   ngOnInit() {
@@ -55,22 +49,25 @@ export class EditRoleComponent implements OnInit {
         this.role = data;
         this.isEdit = !this.isEdit;
         this.isSaveConfig = !this.isSaveConfig;
+      }, err => {
+        console.log(err);
       });
     }
   }
 
   saveScope() {
-    let scopesArr = []
+    const scopes = [];
+    const errors = '';
     _.each(this.selectedItems, item => {
-      scopesArr.push({id: item.id});
+      scopes.push({id: item.id});
     });
-    this.role.scopes = scopesArr;
+    this.role.scopes = scopes;
     this.roleService.updateRole(this.role).subscribe((data) => {
-      this.bsModalRef.hide();
-    }),
+        this.bsModalRef.hide();
+      },
       err => {
         console.log(err);
-      };
+      });
   }
 
   saveClose() {
@@ -78,22 +75,17 @@ export class EditRoleComponent implements OnInit {
       this.checkEmptyRoleName = false;
     }
     if (this.role.id) {
-      this.roleService.updateRole(new Role(this.role.roleName, this.role.description, '', this.role.id, [])).subscribe((data) => {
+      this.roleService.updateRole(new Role(this.role.roleName, this.role.description, this.role.id, [])).subscribe((data) => {
         this.bsModalRef.hide();
-      }),
-        err => {
-          console.log(err);
-        };
+      });
     } else {
       this.roleService.createRoles(this.role).subscribe((data) => {
         this.role = data;
         this.bsModalRef.hide();
 
-    });
-
-
+      }, err => {
+        console.log(err);
+      });
     }
   }
-
-
 }
