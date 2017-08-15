@@ -4,7 +4,7 @@
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">View Activity list</h3>
-                    <button type="button" (click)="addNew()" class="btn btn-primary pull-right">Add new</button>
+                    <button type="button" (click)="addNew()" class="btn btn-primary pull-right" id="btnAddNew">Add new</button>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -19,7 +19,7 @@
                             <th>Method</th>
                             <th>UrlRegex</th>
                             <th style="width:100px;">Created by</th>
-                            <th style="width:100px;">Created at</th>
+                            <th style="width:120px;">Created at</th>
                             <th style="width: 60px">Action</th>
                         </tr>
                         </thead>
@@ -30,7 +30,7 @@
                             <td>{{activity.method}}</td>
                             <td>{{activity.urlRegex}}</td>
                             <td class="text-center">{{activity.createdBy}}</td>
-                            <td class="text-center">{{activity.createdAt | date: 'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{activity.createdAt | date: 'dd/MM/yyyy hh:mm'}}</td>
                             <td><span style="padding-right:14px; cursor: pointer" (click)="edit(activity)"
                                       tooltip="Edit"><i
                                     class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
