@@ -83,7 +83,7 @@
                     <input type="text" class="form-control" name="fullNameOrther" id="txtFullNameOrther"
                            [(ngModel)]="userOther.fullName" required #fullNameOrther="ngModel" placeholder="Full name">
                     <small class="text-danger"
-                           *ngIf="fullName.errors && fullName.errors.required && (fullName.dirty || fullName.touched || ortherUserForm._submitted)">
+                           *ngIf="fullNameOrther.errors && fullNameOrther.errors.required && (fullNameOrther.dirty || fullNameOrther.touched || ortherUserForm._submitted)">
                         FullName is required
                     </small>
                 </div>
