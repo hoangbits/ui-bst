@@ -5,12 +5,13 @@
     </button>
 </div>
 <div class="modal-body">
+    <div class="alert alert-warning alert-dismissible" *ngIf="errorMsg">{{errorMsg}}</div>
     <form role="form" ngNoForm [formGroup]="scopeForm" novalidate (ngSubmit)="saveClose()" (keyup.enter)="saveClose()">
         <div class="form-group" *ngIf="isEditName">
             <label>Scope name</label>
             <input type="text" class="form-control" formControlName="scopeName" [(ngModel)]="scope.scopeName"
                    placeholder="Scope name" required maxlength="50">
-            <p [hidden]="scopeForm.controls.scopeName.valid || (scopeForm.controls.scopeName.pristine && !submitted)" class="text-danger">This is required</p>
+            <p [hidden]="scopeForm.controls.scopeName.valid || (scopeForm.controls.scopeName.pristine && !submitted)" class="text-danger">This is required field.</p>
         </div>
         <div class="form-group" *ngIf="isEditName">
             <label>Description</label>

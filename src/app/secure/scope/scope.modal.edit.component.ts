@@ -16,6 +16,8 @@ export class ScopeModalEditComponent implements OnInit {
 	scopeForm: FormGroup;
 	submitted: boolean;
 
+	errorMsg: string;
+
 	title: string;
 	isEditName: boolean;
 	scope: Scope;
@@ -124,29 +126,35 @@ export class ScopeModalEditComponent implements OnInit {
 
 	private saveScope(isClose) {
 		this.scopeService.updateScope(this.scope).subscribe(data => {
-			if (data) {
-				if (isClose) {
-					this.bsModalRef.hide();
+				if (data) {
+					if (isClose) {
+						this.bsModalRef.hide();
+					}
 				}
-			}
-			else {
-				console.log('update failed');
-			}
-		});
+				else {
+					this.errorMsg = 'Update failed';
+				}
+			},
+			err => {
+				this.errorMsg = err;
+			});
 	}
 
 	private addScope(isClose) {
 		this.scopeService.addScope(this.scope).subscribe(data => {
-			if (data) {
-				this.scope = data;
-				if (isClose) {
-					this.bsModalRef.hide();
+				if (data) {
+					this.scope = data;
+					if (isClose) {
+						this.bsModalRef.hide();
+					}
 				}
-			}
-			else {
-				console.log('create failed');
-			}
-		});
+				else {
+					this.errorMsg = 'Insert failed';
+				}
+			},
+			err => {
+				this.errorMsg = err;
+			});
 	}
 
 }

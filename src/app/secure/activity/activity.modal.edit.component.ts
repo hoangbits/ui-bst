@@ -13,12 +13,15 @@ import {ActivityService} from './activity.service';
 export class ActivityModalEditComponent implements OnInit {
 	title: string;
 	activity: Activity;
+	errorMsg: string;
 
 	activityForm: FormGroup;
 	submitted: boolean;
 
-	constructor(public bsModalRef: BsModalRef, private activityService: ActivityService, private fb: FormBuilder) {
-			this.activity = this.activity|| new Activity();
+	constructor(public bsModalRef: BsModalRef,
+							private activityService: ActivityService,
+							private fb: FormBuilder) {
+		this.activity = this.activity || new Activity();
 	}
 
 	ngOnInit() {
@@ -51,24 +54,30 @@ export class ActivityModalEditComponent implements OnInit {
 
 	private save() {
 		this.activityService.updateActivity(this.activity).subscribe(data => {
-			if (data) {
-				this.bsModalRef.hide();
-			}
-			else {
-				console.log('update failed');
-			}
-		});
+				if (data) {
+					this.bsModalRef.hide();
+				}
+				else {
+					this.errorMsg = 'Update failed';
+				}
+			},
+			err => {
+				this.errorMsg = err;
+			});
 	}
 
 	private add() {
 		this.activityService.addActivity(this.activity).subscribe(data => {
-			if (data) {
+				if (data) {
 					this.bsModalRef.hide();
-			}
-			else {
-				console.log('create failed');
-			}
-		});
+				}
+				else {
+					this.errorMsg = 'Create failed';
+				}
+			},
+			err => {
+				this.errorMsg = err;
+			});
 	}
 
 }
