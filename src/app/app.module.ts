@@ -17,21 +17,16 @@ import {MdDialogModule, MdButtonModule} from '@angular/material';
 import {AppComponent} from './app.component';
 import {SecureComponent} from './layout/secure';
 import {ScopeModule} from './secure/scope'
+import {RoleModule} from './secure/role';
+import {UserModule} from './secure/user';
 import {CompanyComponent} from './secure/company';
 import {ActivityModule} from './secure/activity';
 import {AlertDialog} from './secure/dialog';
-import {ListRoleComponent, EditRoleComponent} from './secure/role';
-import {ListUserComponent, EditUserComponent, CreateUserComponent} from './secure/user';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		SecureComponent,
-		ListRoleComponent,
-		EditRoleComponent,
-		ListUserComponent,
-		EditUserComponent,
-		CreateUserComponent,
 		CompanyComponent,
 		AlertDialog
 	],
@@ -51,13 +46,14 @@ import {ListUserComponent, EditUserComponent, CreateUserComponent} from './secur
 		MdDialogModule,
 		MdButtonModule,
 		ScopeModule,
-		ActivityModule
+		ActivityModule,
+		RoleModule,
+		UserModule
 	],
 	providers: [BsModalService],
 	bootstrap: [AppComponent],
 	entryComponents: [
-		AlertDialog,
-		EditRoleComponent, CreateUserComponent, EditUserComponent
+		AlertDialog
 	]
 })
 export class AppModule {
