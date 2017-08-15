@@ -16,9 +16,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MdDialogModule, MdButtonModule} from '@angular/material';
 import {AppComponent} from './app.component';
 import {SecureComponent} from './layout/secure';
-import {ScopeComponent, ScopeModalEditComponent} from './secure/scope';
+import {ScopeModule} from './secure/scope'
 import {CompanyComponent} from './secure/company';
-import {ActivityComponent, ActivityService, ActivityModalEditComponent} from './secure/activity';
+import {ActivityModule} from './secure/activity';
 import {AlertDialog} from './secure/dialog';
 import {ListRoleComponent, EditRoleComponent} from './secure/role';
 import {ListUserComponent, EditUserComponent, CreateUserComponent} from './secure/user';
@@ -27,16 +27,12 @@ import {ListUserComponent, EditUserComponent, CreateUserComponent} from './secur
 	declarations: [
 		AppComponent,
 		SecureComponent,
-		ScopeComponent,
 		ListRoleComponent,
 		EditRoleComponent,
 		ListUserComponent,
 		EditUserComponent,
 		CreateUserComponent,
 		CompanyComponent,
-		ScopeModalEditComponent,
-		ActivityComponent,
-		ActivityModalEditComponent,
 		AlertDialog
 	],
 	imports: [
@@ -53,13 +49,13 @@ import {ListUserComponent, EditUserComponent, CreateUserComponent} from './secur
 		DataTableModule,
 		BrowserAnimationsModule,
 		MdDialogModule,
-		MdButtonModule
+		MdButtonModule,
+		ScopeModule,
+		ActivityModule
 	],
-	providers: [BsModalService, ActivityService],
+	providers: [BsModalService],
 	bootstrap: [AppComponent],
 	entryComponents: [
-		ScopeModalEditComponent,
-		ActivityModalEditComponent,
 		AlertDialog,
 		EditRoleComponent, CreateUserComponent, EditUserComponent
 	]

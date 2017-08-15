@@ -39,7 +39,11 @@ export class ActivityComponent implements OnInit {
 				this.totalItems = result.meta.paginate.totalCount;
 			},
 			err => {
-				console.log(err);
+				this.dialog.open(AlertDialog, {
+					width: '500px', height: '170px', data: {
+						title: 'Information dialog', message: 'Load Activity list has error, contact administrator to help'
+					}
+				});
 			});
 	}
 
