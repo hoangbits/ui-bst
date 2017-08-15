@@ -1,76 +1,107 @@
 <div class="modal-header">
-  <h4 class="modal-title pull-left" id="lblPageTitle">{{title}}</h4>
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <h4 class="modal-title pull-left" id="lblPageTitle">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
 <div class="modal-body">
-  <ul class="nav nav-tabs" id="tabContent">
-    <li class="active"><a href="#details" id="tabAdUser" data-toggle="tab">AD User</a></li>
-    <li><a href="#access-security" id="tabOrtherUser" data-toggle="tab">Orther User</a></li>
-  </ul>
+    <ul class="nav nav-tabs" id="tabContent">
+        <li class="active"><a href="#details" id="tabAdUser" data-toggle="tab">AD User</a></li>
+        <li><a href="#access-security" id="tabOrtherUser" data-toggle="tab">Orther User</a></li>
+    </ul>
 
-  <div class="tab-content">
-    <div class="tab-pane active" id="details">
+    <div class="tab-content">
+        <div class="tab-pane active" id="details">
 
-      <form #adUserForm="ngForm" (ngSubmit)="save1(user,roleSelect.value,adUserForm.valid)" style="margin-top:5px">
-        <div class="form-group">
-          <label>Email</label>
-          <input type="text" class="form-control" name="email" id="txtEmailAd" [(ngModel)]="user.email"  required  #email="ngModel" placeholder="Email">
+            <form #adUserForm="ngForm" (ngSubmit)="save1AdUser(user,roleSelect.value,adUserForm.valid)"
+                  style="margin-top:5px">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" name="txtEmailAd" id="txtEmailAd" [(ngModel)]="user.email"
+                           required #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" placeholder="Email">
+                    <small class="text-danger"
+                           *ngIf="email.errors && email.errors.required && (email.dirty || email.touched || adUserForm._submitted)">
+                        Email is required
+                    </small>
+                    <small class="text-danger"
+                           *ngIf="email.errors && email.errors.pattern && (email.dirty || email.touched || adUserForm._submitted)">
+                        Email invalid format.
+                    </small>
+
+
+                </div>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" class="form-control" name="fullName" id="txtFullNameAd"
+                           [(ngModel)]="user.fullName" required #fullName="ngModel" placeholder="Full name">
+                    <small class="text-danger"
+                           *ngIf="fullName.errors && fullName.errors.required && (fullName.dirty || fullName.touched || adUserForm._submitted)">
+                        FullName is required
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role:</label>
+                    <select id="cbxRoleAd" name="roleSelect" #roleSelect class="form-control">
+                        <option value="">Select Role</option>
+                        <option *ngFor="let role of roleData" [value]="role.id">{{role.roleName}}</option>
+                    </select>
+
+                </div>
+                <div class="text-right">
+                    <button class="btn  btn-default" id="btnSaveAdUser" type="button" (click)="bsModalRef.hide(this)">
+                        Cancel
+                    </button>
+                    <button type="submit" id="btnCancel" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+
         </div>
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" class="form-control" name="fullName" id="txtFullNameAd" [(ngModel)]="user.fullName" required #fullName="ngModel" placeholder="Full name">
-          <small class="text-danger" *ngIf="fullName.errors && fullName.errors.required && (fullName.dirty || fullName.touched || adUserForm._submitted)">
-                FullName is required
-         </small>
+
+
+        <!--Orther user form-->
+
+        <div class="tab-pane" id="access-security">
+            <form #ortherUserForm="ngForm" (ngSubmit)="saveOtherUser(userOther,roleSelectOther.value,ortherUserForm.valid)"
+                  style="margin-top:5px">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="text" class="form-control" name="emailOrther" id="txtEmailOrther"
+                           [(ngModel)]="userOther.email"
+                           required #emailOrther="ngModel"  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" placeholder="Email">
+                    <small class="text-danger"
+                           *ngIf="emailOrther.errors && emailOrther.errors.required && (emailOrther.dirty || emailOrther.touched || ortherUserForm._submitted)">
+                        Email is required
+                    </small>
+                    <small class="text-danger"
+                           *ngIf="emailOrther.errors && emailOrther.errors.pattern && (emailOrther.dirty || emailOrther.touched || adUserForm._submitted)">
+                        Email invalid format.
+                    </small>
+
+                </div>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" class="form-control" name="fullNameOrther" id="txtFullNameOrther"
+                           [(ngModel)]="userOther.fullName" required #fullNameOrther="ngModel" placeholder="Full name">
+                    <small class="text-danger"
+                           *ngIf="fullName.errors && fullName.errors.required && (fullName.dirty || fullName.touched || ortherUserForm._submitted)">
+                        FullName is required
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label for="roleOtherUser">Role:</label>
+                    <select id="cbxRoleOrther" name="userOther.roles" #roleSelectOther class="form-control">
+                        <option value="">Select Role</option>
+                        <option *ngFor="let role of roleData" [value]="role.id">{{role.roleName}}</option>
+                    </select>
+
+                </div>
+                <div class="text-right">
+                    <button class="btn btn-default" id="btnSaveOrtherUser" type="button"
+                            (click)="bsModalRef.hide(this)">Cancel
+                    </button>
+                    <button type="submit" id="btnCancelOrtherUser" class="btn btn-primary">Save</button>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-          <label for="role">Role:</label>
-          <select id="cbxRoleAd" name="roleSelect"  #roleSelect  class="form-control">
-                  <option  value="">Select Role</option>
-                  <option *ngFor="let role of roleData" [value]="role.id">{{role.roleName}}</option>
-          </select>
-
-        </div>
-        <button class="btn btn-primary" id="btnSave" type="button" (click)="bsModalRef.hide(this)">Cancel</button>
-        <button type="submit" id="btnCancel" class="btn btn-primary">Save</button>
-
-      </form>
-
     </div>
-
-
-    <!--Orther user form-->
-
-    <div class="tab-pane" id="access-security">
-      <form #ortherUserForm="ngForm" (ngSubmit)="save(user,roleSelect.value,ortherUserForm.valid)" style="margin-top:5px">
-        <div class="form-group">
-          <label>Email</label>
-          <input type="text" class="form-control" name="email"  [(ngModel)]="user.email" required #email="ngModel" placeholder="Email">
-          <small class="text-danger" *ngIf="email.errors && email.errors.required && (email.dirty || email.touched || ortherUserForm._submitted)">
-                  Email is required
-          </small>
-        </div>
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" class="form-control" name="fullName" [(ngModel)]="user.fullName" required #fullName="ngModel" placeholder="Full name">
-          <small class="text-danger" *ngIf="fullName.errors && fullName.errors.required && (fullName.dirty || fullName.touched || ortherUserForm._submitted)">
-                                       FullName is required
-        </small>
-        </div>
-        <div class="form-group">
-          <label for="role">Role:</label>
-          <select id="cbxRoleOrther" name="user.roles" #roleSelect class="form-control">
-                  <option  value="">Select Role</option>
-                  <option *ngFor="let role of roleData" [value]="role.id">{{role.roleName}}</option>
-          </select>
-
-        </div>
-        <button class="btn btn-primary" id="btnSave" type="button" (click)="bsModalRef.hide(this)">Cancel</button>
-        <button type="submit" id="btnCancel" class="btn btn-primary">Save</button>
-
-      </form>
-    </div>
-  </div>
 </div>

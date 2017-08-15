@@ -34,7 +34,7 @@
                                 </td>
                                 <td>Company</td>
                                 <td>Create by</td>
-                                <td> {{user.createdAt | date:'dd MM yyyy hh:mm:ss'}}</td>
+                                <td> {{user.createdAt | date:'dd/MM/yyyy hh:mm'}}</td>
                                 <td>
                                     <span style="padding-right:14px; cursor: pointer" id="btnEdit{{i}}" (click)="editUser(user.id)" title="Edit user"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
                                     <span style=" padding-right:14px" id="btnView{{i}}" (click)="viewUser(user.id)" title="View user"><i class="fa fa-wrench" aria-hidden="true"></i></span>

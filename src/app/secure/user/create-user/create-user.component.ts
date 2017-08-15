@@ -11,6 +11,7 @@ import {UserService} from '../user.service';
 })
 export class CreateUserComponent implements OnInit {
   user: User;
+  userOther: User;
   roleData = [];
   roleId = [];
 
@@ -20,16 +21,16 @@ export class CreateUserComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.user || new User();
+    this.userOther = this.userOther || new User();
   }
 
-  save(model: User, idRole: string, isValid: boolean) {
-
+  saveOtherUser(model: User, idRole: string, isValid: boolean) {
     if (isValid) {
       if (idRole) {
         this.roleId.push({id: idRole});
       }
-      this.user.roles = this.roleId;
-      this.userService.createUsers(this.user).subscribe(
+      this.userOther.roles = this.roleId;
+      this.userService.createUsers(this.userOther).subscribe(
         data => this.bsModalRef.hide(),
         err => {
           console.log(err);
@@ -39,7 +40,7 @@ export class CreateUserComponent implements OnInit {
     }
   }
 
-  save1(model: User, idRole: string, isValid: boolean) {
+  save1AdUser(model: User, idRole: string, isValid: boolean) {
     if (isValid) {
       if (idRole) {
         this.roleId.push({id: idRole});
