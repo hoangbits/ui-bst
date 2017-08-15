@@ -18,7 +18,7 @@
                             <th>Scope name</th>
                             <th>Description</th>
                             <th style="width:100px;">Created by</th>
-                            <th style="width:100px;">Created at</th>
+                            <th style="width:120px;">Created at</th>
                             <th style="width: 90px">Action</th>
                         </tr>
                         </thead>
@@ -28,7 +28,7 @@
                             <td>{{scope.scopeName}}</td>
                             <td>{{scope.description}}</td>
                             <td class="text-center">{{scope.createdBy}}</td>
-                            <td class="text-center">{{scope.createdAt | date: 'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{scope.createdAt | date: 'dd/MM/yyyy hh:mm'}}</td>
                             <td><span style="padding-right:14px; cursor: pointer" (click)="editName(scope)"
                                       tooltip="Edit"><i
                                     class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
