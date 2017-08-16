@@ -23,13 +23,13 @@ export class ScopeService {
 			.map((res: Response) => {
 				return res.json()
 			})
-			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 
 	getActivities(): Observable<any> {
 		return this.http.get(this.urlActivityApi)
 			.map((res: Response) => res.json())
-			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 
 	addScope(body: Object): Observable<Scope> {
@@ -39,7 +39,7 @@ export class ScopeService {
 
 		return this.http.post(this.urlScopeApi, bodyString, options)
 			.map((res: Response) => res.json())
-			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 
 	updateScope(body: Object): Observable<Scope> {
@@ -49,13 +49,13 @@ export class ScopeService {
 
 		return this.http.put(this.urlScopeApi, bodyString, options)
 			.map((res: Response) => res.json())
-			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 
 	removeScope(id: string): Observable<Scope> {
 		return this.http.delete(this.urlScopeApi + '/' + id)
 			.map((res: Response) => res.json())
-			.catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 }
 

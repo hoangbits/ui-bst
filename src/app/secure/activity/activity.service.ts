@@ -20,7 +20,7 @@ export class ActivityService {
     getActivities(perPage, page): Observable<any> {
         return this.http.get(this.urlActivityApi + '?perPage=' + perPage + '&page=' + page)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
 
     addActivity(body: Object): Observable<Activity> {
@@ -30,7 +30,7 @@ export class ActivityService {
 
         return this.http.post(this.urlActivityApi, bodyString, options)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
 
     updateActivity(body: Object): Observable<Activity> {
@@ -40,12 +40,12 @@ export class ActivityService {
 
         return this.http.put(this.urlActivityApi, bodyString, options)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
 
     removeActivity(id: string): Observable<Activity> {
         return this.http.delete(this.urlActivityApi + '/' + id)
             .map((res: Response) => res.json())
-            .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+            .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
 }
