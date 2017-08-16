@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
-import {FormBuilder} from '@angular/forms';
 import {User} from '../user.model';
 import {Role} from '../role.model';
 import {UserService} from '../user.service';
@@ -25,6 +24,7 @@ export class EditUserComponent implements OnInit {
   }
 
   updateUser(isValid: boolean, user: User, roleId: string) {
+    this.user.roles = [];
     if (isValid) {
       if (roleId) {
         this.user.roles.push({id: roleId});

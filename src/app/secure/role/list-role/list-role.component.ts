@@ -22,6 +22,7 @@ export class ListRoleComponent implements OnInit {
   roleId: string;
   bsModalRef: BsModalRef;
   isEdit: boolean;
+  isSaveConfig: boolean;
   selectedItems = [];
   dropdownList = [];
 
@@ -67,10 +68,11 @@ export class ListRoleComponent implements OnInit {
   }
 
   editName(roleId: string) {
+
     this.roleService.findOne(roleId).subscribe(
       data => {
         this.role = data;
-        this.openEditModal('Edit Name', true, data.roles, '', '');
+        this.openEditModal('Edit Name', true, data.roles, '', '', true);
       }
     );
   }
@@ -93,7 +95,7 @@ export class ListRoleComponent implements OnInit {
             this.dropdownList.push({id: scope.id, itemName: scope.scopeName});
           });
         }
-        this.openEditModal('Edit Name', false, data.roles, this.selectedItems, this.dropdownList);
+        this.openEditModal('Edit Scope', false, data.roles, this.selectedItems, this.dropdownList, true);
       }
     );
   }
@@ -106,7 +108,7 @@ export class ListRoleComponent implements OnInit {
         _.each(this.scopes, (scope) => {
           dropdownList.push({id: scope.id, itemName: scope.scopeName});
         });
-        this.openEditModal('Add new Role', true, new Role(), [], dropdownList);
+        this.openEditModal('Add new Role', true, new Role(), [], dropdownList, false);
       },
       err => {
         console.log(err);
@@ -114,11 +116,12 @@ export class ListRoleComponent implements OnInit {
 
   }
 
-  openEditModal(title, isEdit, data?: Role, selectedItems?: any, dropdownList?: any) {
+  openEditModal(title, isEdit, data?: Role, selectedItems?: any, dropdownList?: any, isSaveConfig?: boolean) {
     this.bsModalRef = this.modalService.show(EditRoleComponent);
     this.bsModalRef.content.title = title;
     this.bsModalRef.content.isEdit = isEdit;
     this.bsModalRef.content.role = data;
+    this.bsModalRef.content.isSaveConfig = isSaveConfig;
     this.bsModalRef.content.selectedItems = selectedItems;
     this.bsModalRef.content.dropdownList = dropdownList;
     this.modalService.onHide.subscribe(() => this.getAllRoles());

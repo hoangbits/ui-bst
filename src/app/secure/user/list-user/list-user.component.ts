@@ -26,8 +26,10 @@ export class ListUserComponent implements OnInit {
   role: Role;
   disableInput: boolean;
 
+  title: string;
+
   currentPage = 0;
-  itemsPerPage = 3;
+  itemsPerPage = 10;
   totalItems = 0;
 
 
@@ -100,28 +102,31 @@ export class ListUserComponent implements OnInit {
   }
 
   editUser(userId: string) {
-    this.findUserById(userId, true);
+    this.title = 'Edit an User';
+    this.findUserById(userId, true, this.title);
   }
 
   viewUser(userId: string) {
-    this.findUserById(userId, false);
+    this.title = 'View User Info';
+    this.findUserById(userId, false, this.title);
   }
 
-  findUserById(userId: string, disableInput: boolean): void {
+  findUserById(userId: string, disableInput: boolean, title: string): void {
     this.userService.findOne(userId).subscribe(
       data => {
         this.user = data;
         this.role = data.roles[0];
-        this.openEditModal(this.listRole, this.user, this.role, disableInput);
+        this.openEditModal(this.listRole, this.user, this.role, disableInput, title);
       }
     );
   }
 
-  openEditModal(roles: string[], user: User, role: Role, disableInput: boolean) {
+  openEditModal(roles: string[], user: User, role: Role, disableInput: boolean, title: string) {
     this.bsModalRef = this.modalService.show(EditUserComponent);
     this.bsModalRef.content.roleData = roles;
     this.bsModalRef.content.user = user;
     this.bsModalRef.content.role = role;
+    this.bsModalRef.content.title = title;
     this.bsModalRef.content.disableInput = disableInput;
     this.modalService.onHide.subscribe(data => this.getAllUser(),
       err => {
