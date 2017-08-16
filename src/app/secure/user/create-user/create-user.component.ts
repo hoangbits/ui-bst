@@ -14,6 +14,7 @@ export class CreateUserComponent implements OnInit {
   userOther: User;
   roleData = [];
   roleId = [];
+  title: string;
 
   constructor(public bsModalRef: BsModalRef, private userService: UserService) {
   }
