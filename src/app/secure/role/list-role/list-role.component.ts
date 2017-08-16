@@ -1,11 +1,14 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
-import {ModalDirective} from 'ngx-bootstrap/modal/modal.component';
 import {RoleService} from '../role.service';
 import {EditRoleComponent} from '../edit-role/edit-role.component';
 import {Scope} from '../scope.model';
 import {Role} from '../role.model';
+
+import {MdDialog} from '@angular/material';
+import {AlertDialog} from '../../dialog/alert.dialog.component';
+
 import * as _ from 'lodash';
 
 @Component({
@@ -19,19 +22,15 @@ export class ListRoleComponent implements OnInit {
   roles: Role[];
   scopes: Scope[];
   role: Role;
-  roleId: string;
   bsModalRef: BsModalRef;
-  isEdit: boolean;
-  isSaveConfig: boolean;
   selectedItems = [];
   dropdownList = [];
 
-  @ViewChild(ModalDirective) public modal: ModalDirective;
-
-  constructor(private roleService: RoleService, private modalService: BsModalService) {
+  constructor(private roleService: RoleService,
+              private modalService: BsModalService,
+              private dialog: MdDialog) {
     this.getAllRoles();
   }
-
 
   ngOnInit() {
   }
@@ -45,26 +44,20 @@ export class ListRoleComponent implements OnInit {
         });
   }
 
-  deleteRole(roleId: string) {
-    this.roleService.deleteRole(roleId).subscribe(
-      data => {
-        this.getAllRoles();
-      }
-    );
-  }
-
   public showModal(roleId: string) {
-    this.roleId = roleId;
-    this.modal.show();
-  }
-
-  ok() {
-    this.roleService.deleteRole(this.roleId).subscribe(
-      data => {
-        this.getAllRoles();
+    this.dialog.open(AlertDialog, {
+      width: '400px', height: '170px', data: {
+        title: 'Confirm dialog', message: 'Are you sure you want to delete this item?'
       }
-    );
-    this.modal.hide();
+    }).afterClosed().subscribe(result => {
+      if (result === 'OK') {
+        this.roleService.deleteRole(roleId).subscribe(
+          data => {
+            this.getAllRoles();
+          }
+        );
+      }
+    });
   }
 
   editName(roleId: string) {

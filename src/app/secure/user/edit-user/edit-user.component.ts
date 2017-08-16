@@ -14,6 +14,8 @@ export class EditUserComponent implements OnInit {
   roleData = [];
   user: User;
   role: Role;
+  disableInput: boolean;
+  title: string;
 
   constructor(public bsModalRef: BsModalRef, private userService: UserService) {
     this.user = this.user || new User();

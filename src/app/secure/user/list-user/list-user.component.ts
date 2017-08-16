@@ -1,13 +1,14 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
-import {ModalDirective} from 'ngx-bootstrap/modal/modal.component';
 import {UserService} from '../user.service';
 import {User} from '../user.model';
 import {Role} from '../role.model';
 import {EditUserComponent} from '../edit-user/edit-user.component';
 import {CreateUserComponent} from '../create-user/create-user.component';
-import {Http} from '@angular/http';
+
+import {MdDialog} from '@angular/material';
+import {AlertDialog} from '../../dialog/alert.dialog.component';
 
 @Component({
   selector: 'app-list-user',
@@ -18,10 +19,8 @@ import {Http} from '@angular/http';
 export class ListUserComponent implements OnInit {
 
   listUsers: string[];
-  userId: string;
   user: User;
   bsModalRef: BsModalRef;
-  isEdit: boolean;
   listRole: string[];
   role: Role;
   disableInput: boolean;
@@ -32,10 +31,9 @@ export class ListUserComponent implements OnInit {
   itemsPerPage = 10;
   totalItems = 0;
 
-
-  @ViewChild(ModalDirective) public modal: ModalDirective;
-
-  constructor(private userService: UserService, private modalService: BsModalService, private http: Http) {
+  constructor(private userService: UserService,
+              private modalService: BsModalService,
+              private dialog: MdDialog) {
     this.getAllUser();
     this.getListRole();
     this.user = this.user || new User();
@@ -66,25 +64,20 @@ export class ListUserComponent implements OnInit {
       });
   }
 
-  deleteUser(userId: string) {
-    this.userService.deleteUser(userId).subscribe(
-      data => {
-        this.getAllUser();
-      });
-  }
-
   public showModal(userId: string) {
-    this.userId = userId;
-    this.modal.show();
-  }
-
-  ok() {
-    this.userService.deleteUser(this.userId).subscribe(
-      data => {
-        this.getAllUser();
+    this.dialog.open(AlertDialog, {
+      width: '400px', height: '170px', data: {
+        title: 'Confirm dialog', message: 'Are you sure you want to delete this item?'
       }
-    );
-    this.modal.hide();
+    }).afterClosed().subscribe(result => {
+      if (result === 'OK') {
+        this.userService.deleteUser(userId).subscribe(
+          data => {
+            this.getAllUser();
+          }
+        );
+      }
+    });
   }
 
   addNew() {
@@ -138,7 +131,5 @@ export class ListUserComponent implements OnInit {
     this.currentPage = event.page;
     this.getAllUser();
   }
-
-
 }
 
