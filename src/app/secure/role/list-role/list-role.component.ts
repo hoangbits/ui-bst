@@ -105,7 +105,6 @@ export class ListRoleComponent implements OnInit {
     this.roleService.getScopes().subscribe(
       scopes => {
         this.scopes = scopes;
-        console.log('this scopes', scopes);
         _.each(this.scopes, (scope) => {
           dropdownList.push({id: scope.id, itemName: scope.scopeName});
         });

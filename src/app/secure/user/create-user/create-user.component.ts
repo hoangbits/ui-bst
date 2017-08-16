@@ -40,7 +40,7 @@ export class CreateUserComponent implements OnInit {
     }
   }
 
-  save1AdUser(model: User, idRole: string, isValid: boolean) {
+  saveAdUser(model: User, idRole: string, isValid: boolean) {
     if (isValid) {
       if (idRole) {
         this.roleId.push({id: idRole});
