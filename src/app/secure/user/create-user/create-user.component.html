@@ -87,6 +87,49 @@
                         FullName is required
                     </small>
                 </div>
+
+                <div class="form-group">
+                    <label for="">Password</label>
+                    <input type="password" class="form-control" name="password" [ngModel]="userOther.password"
+                           required validateEqual="confirmPassword" reverse="true" #password="ngModel">
+                    <small [hidden]="password.valid || (password.pristine && !ortherUserForm.submitted)" class="text-danger">
+                        Password is required
+                    </small>
+                    <!--<pre *ngIf="password.errors" class="margin-20">{{ password.errors | json }}</pre>-->
+                </div>
+                <div class="form-group">
+                    <label for="">Retype password</label>
+                    <input type="password" class="form-control" name="confirmPassword" [ngModel]="userOther.confirmPassword"
+                           required validateEqual="password" reverse="false" #confirmPassword="ngModel">
+                    <small [hidden]="confirmPassword.valid || (confirmPassword.pristine && !ortherUserForm.submitted)" class="text-danger">
+                        Password mismatch
+                    </small>
+                </div>
+                <!--<div class="form-group">-->
+                    <!--<label for="password">Password</label>-->
+                    <!--<input type="password" class="form-control" id="txtPassword"-->
+
+                           <!--[(ngModel)]="userOther.password" name="password"-->
+                           <!--#password="ngModel" placeholder="Enter Password">-->
+                     <!--<small class="text-danger"-->
+                           <!--*ngIf="password.errors && password.errors.required && (password.dirty || password.touched || ortherUserForm._submitted)">-->
+                         <!--Password is required-->
+                    <!--</small>-->
+
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<label for="confirmPassword">Confirm Password</label>-->
+                    <!--<input type="password" class="form-control" id="txtConfPassword"-->
+                           <!--required-->
+                           <!--validateEqual="password"-->
+                           <!--[(ngModel)]="userOther.confirmPassword" name="confirmPassword"-->
+                           <!--#confirmPassword="ngModel" placeholder="Enter Confirm Password">-->
+                    <!--<small class="text-danger"-->
+                           <!--*ngIf="confirmPassword.valid || confirmPassword.pristine && (confirmPassword.dirty || confirmPassword.touched || ortherUserForm._submitted)">-->
+                        <!--Passwords did not match-->
+                    <!--</small>-->
+                <!--</div>-->
+
                 <div class="form-group">
                     <label for="roleOtherUser">Role:</label>
                     <select id="cbxRoleOrther" name="userOther.roles" #roleSelectOther class="form-control">
@@ -100,6 +143,13 @@
                             (click)="bsModalRef.hide()">Cancel
                     </button>
                     <button type="submit" id="btnCancelOrtherUser" class="btn btn-primary">Save</button>
+                </div>
+
+                <div class="margin-20" *ngIf="ortherUserForm">
+                    <div>Form details:-</div>
+                    <pre>Is form valid?: <br>{{ortherUserForm.valid | json}}</pre>
+                    <pre>Is form submitted?: <br>{{ortherUserForm.submitted | json}}</pre>
+                    <pre>submitted value: <br>{{ortherUserForm.value | json}}</pre>
                 </div>
             </form>
         </div>

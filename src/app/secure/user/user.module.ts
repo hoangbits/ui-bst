@@ -7,8 +7,10 @@ import {DataTableModule} from 'angular2-datatable';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {ModalDirective} from 'ngx-bootstrap/modal/modal.component';
 import {ModalModule, BsModalService, PaginationModule} from 'ngx-bootstrap';
+import {EqualValidatorDirective} from './equal-validator.directive';
+
 @NgModule({
-  declarations: [ListUserComponent, CreateUserComponent, EditUserComponent],
+  declarations: [ListUserComponent, CreateUserComponent, EditUserComponent, EqualValidatorDirective],
   imports: [
     ModalModule.forRoot(),
     PaginationModule,

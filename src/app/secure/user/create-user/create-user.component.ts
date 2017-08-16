@@ -1,13 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
-import {FormBuilder} from '@angular/forms';
 import {User} from '../user.model';
 import {UserService} from '../user.service';
+import {EqualValidatorDirective} from '../equal-validator.directive';
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.css'],
   providers: [UserService]
+
 })
 export class CreateUserComponent implements OnInit {
   user: User;
@@ -15,6 +16,7 @@ export class CreateUserComponent implements OnInit {
   roleData = [];
   roleId = [];
   title: string;
+  passDefault='123456';
 
   constructor(public bsModalRef: BsModalRef, private userService: UserService) {
   }
@@ -26,11 +28,16 @@ export class CreateUserComponent implements OnInit {
   }
 
   saveOtherUser(model: User, idRole: string, isValid: boolean) {
-    if (isValid) {
+    console.log("=========================",isValid);
+    console.log("++++++++++++++++",this.userOther);
+   if (isValid) {
       if (idRole) {
         this.roleId.push({id: idRole});
       }
+
+      this.userOther.userType = '1';
       this.userOther.roles = this.roleId;
+      console.log(this.userOther);
       this.userService.createUsers(this.userOther).subscribe(
         data => this.bsModalRef.hide(),
         err => {
@@ -47,6 +54,8 @@ export class CreateUserComponent implements OnInit {
         this.roleId.push({id: idRole});
       }
       this.user.roles = this.roleId;
+      this.user.userType = '0';
+      this.user.password = this.passDefault;
       this.userService.createUsers(this.user).subscribe(
         data => this.bsModalRef.hide(),
         err => {
