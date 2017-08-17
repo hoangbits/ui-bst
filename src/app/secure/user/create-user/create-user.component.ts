@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {User} from '../user.model';
 import {UserService} from '../user.service';
-import {EqualValidatorDirective} from '../equal-validator.directive';
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
@@ -16,7 +15,7 @@ export class CreateUserComponent implements OnInit {
   roleData = [];
   roleId = [];
   title: string;
-  passDefault='123456';
+  passDefault = '123456';
 
   constructor(public bsModalRef: BsModalRef, private userService: UserService) {
   }
@@ -27,17 +26,17 @@ export class CreateUserComponent implements OnInit {
     this.userOther = this.userOther || new User();
   }
 
-  saveOtherUser(model: User, idRole: string, isValid: boolean) {
-    console.log("=========================",isValid);
-    console.log("++++++++++++++++",this.userOther);
-   if (isValid) {
+  saveOtherUser(formValue: any, idRole: string, isValid: boolean) {
+
+    if (isValid) {
       if (idRole) {
         this.roleId.push({id: idRole});
       }
-
+      this.userOther.email = formValue.emailOrther;
+      this.userOther.fullName = formValue.fullNameOrther;
+      this.userOther.password = formValue.password;
       this.userOther.userType = '1';
       this.userOther.roles = this.roleId;
-      console.log(this.userOther);
       this.userService.createUsers(this.userOther).subscribe(
         data => this.bsModalRef.hide(),
         err => {
