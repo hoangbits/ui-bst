@@ -1,3 +1,108 @@
-<p>
-  company works!
-</p>
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">View Company list</h3>
+                    <button type="button" (click)="addNewComapny()" class="btn btn-primary pull-right">Add new</button>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <div style="margin:20px 0">
+                                <table>
+                                    <tr>
+                                        <td width="100%"><input type="text" class="form-control"
+                                                                placeholder="Search company name"
+                                                                [(ngModel)]="searchText" id="txtSearch"
+                                                                style="width:100%" autofocus
+                                                                (keyup.enter)="search()"></td>
+                                        <td>
+                                            <button type="submit" class="btn btn-info btn-flat" id="btnSearch"
+                                                    (click)="search()"><i
+                                                    class="fa fa-search" aria-hidden="true"
+                                                    style="margin-right: 6px"></i>Search
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-info btn-flat" (click)="refresh()"
+                                                    style="margin-left:10px" id="btnRefresh">
+                                                <i class="fa fa-refresh" aria-hidden="true"
+                                                   style="margin-right: 6px"></i>Refresh
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </table>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-striped" [mfData]="companies" #mf="mfDataTable">
+                        <thead>
+                        <tr>
+                            <th style="width: 10px">No</th>
+                            <th>
+                                <mfDefaultSorter by="companyName">Company name</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="address">Address</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="taxCode">Tax code</mfDefaultSorter>
+                            </th>
+                            <th>
+                                <mfDefaultSorter by="phone">Phone</mfDefaultSorter>
+                            </th>
+                            <th style="width:100px;">Created by</th>
+                            <th style="width:120px;">Created at</th>
+                            <th style="width: 120px">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let company of mf.data; let i = index">
+                            <td>{{i+1}}.</td>
+                            <td>{{company.companyName}}</td>
+                            <td>{{company.address}}</td>
+                            <td>{{company.taxCode}}</td>
+                            <td>{{company.phone}}</td>
+                            <td class="text-center">{{company.createdBy}}</td>
+                            <td class="text-center">{{company.createdAt | date: 'dd/MM/yyyy hh:mm'}}</td>
+                            <td>
+                                <span style="padding-right:14px; cursor: pointer" (click)="viewCompany(company)"
+                                      id="row{{(i)}}BtnView"
+                                      tooltip="View"><i class="fa fa-eye" aria-hidden="true"></i></span>
+                                <span style="padding-right:14px; cursor: pointer" (click)="updateCompany(company)"
+                                      id="row{{(i)}}BtnEdit"
+                                      tooltip="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+                                <span (click)="confirmDialog(company.id)" style="padding-right:14px; cursor: pointer"
+                                      id="row{{(i)}}BtnDelete"
+                                      tooltip="Delete"><i class="fa fa-trash"></i></span>
+                                <span style="float: right; cursor: pointer" (click)="updateCompany(company)"
+                                      id="row{{(i)}}BtnSetComAdminUser"
+                                      tooltip="Config admin user"><i class="fa fa-users" aria-hidden="true"></i></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="8">
+                                <pagination style="float:right;"
+                                            [totalItems]="totalItems"
+                                            (ngModel)="currentPage"
+                                            [itemsPerPage]="itemsPerPage"
+                                            class="pagination-sm"
+                                            [maxSize]="5"
+                                            [boundaryLinks]="true"
+                                            [rotate]="false"
+                                            (pageChanged)="pageChanged($event)"></pagination>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

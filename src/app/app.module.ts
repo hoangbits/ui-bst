@@ -19,7 +19,7 @@ import {SecureComponent} from './layout/secure';
 import {ScopeModule} from './secure/scope'
 import {RoleModule} from './secure/role';
 import {UserModule} from './secure/user';
-import {CompanyComponent} from './secure/company';
+import {CompanyModule} from './secure/company';
 import {ActivityModule} from './secure/activity';
 import {AlertDialog} from './secure/dialog';
 
@@ -27,7 +27,6 @@ import {AlertDialog} from './secure/dialog';
 	declarations: [
 		AppComponent,
 		SecureComponent,
-		CompanyComponent,
 		AlertDialog
 	],
 	imports: [
@@ -48,7 +47,8 @@ import {AlertDialog} from './secure/dialog';
 		ScopeModule,
 		ActivityModule,
 		RoleModule,
-		UserModule
+		UserModule,
+		CompanyModule
 	],
 	providers: [BsModalService],
 	bootstrap: [AppComponent],
