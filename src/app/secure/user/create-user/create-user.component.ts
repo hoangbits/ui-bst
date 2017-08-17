@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
-import {FormBuilder} from '@angular/forms';
 import {User} from '../user.model';
 import {UserService} from '../user.service';
 @Component({
@@ -8,6 +7,7 @@ import {UserService} from '../user.service';
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.css'],
   providers: [UserService]
+
 })
 export class CreateUserComponent implements OnInit {
   user: User;
@@ -15,6 +15,7 @@ export class CreateUserComponent implements OnInit {
   roleData = [];
   roleId = [];
   title: string;
+  passDefault = '123456';
 
   constructor(public bsModalRef: BsModalRef, private userService: UserService) {
   }
@@ -25,11 +26,16 @@ export class CreateUserComponent implements OnInit {
     this.userOther = this.userOther || new User();
   }
 
-  saveOtherUser(model: User, idRole: string, isValid: boolean) {
+  saveOtherUser(formValue: any, idRole: string, isValid: boolean) {
+
     if (isValid) {
       if (idRole) {
         this.roleId.push({id: idRole});
       }
+      this.userOther.email = formValue.emailOrther;
+      this.userOther.fullName = formValue.fullNameOrther;
+      this.userOther.password = formValue.password;
+      this.userOther.userType = '1';
       this.userOther.roles = this.roleId;
       this.userService.createUsers(this.userOther).subscribe(
         data => this.bsModalRef.hide(),
@@ -47,6 +53,8 @@ export class CreateUserComponent implements OnInit {
         this.roleId.push({id: idRole});
       }
       this.user.roles = this.roleId;
+      this.user.userType = '0';
+      this.user.password = this.passDefault;
       this.userService.createUsers(this.user).subscribe(
         data => this.bsModalRef.hide(),
         err => {
