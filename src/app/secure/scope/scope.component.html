@@ -4,18 +4,15 @@
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">View Scope list</h3>
-                    <button type="button" (click)="addNew()" class="btn btn-primary pull-right">Add new</button>
+                    <span (click)="addNew()" class="btn btn-primary pull-right">Add new</span>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="table table-bordered table-striped"
-                           [mfData]="scopes"
-                           #mf="mfDataTable"
-                           [mfRowsOnPage]="itemsPerPage">
+                    <table class="table table-bordered table-striped" [mfData]="scopes" #mf="mfDataTable">
                         <thead>
                         <tr>
                             <th style="width: 10px">No</th>
-                            <th>Scope name</th>
+                            <th><mfDefaultSorter by="scopeName">Scope name</mfDefaultSorter></th>
                             <th>Description</th>
                             <th style="width:100px;">Created by</th>
                             <th style="width:120px;">Created at</th>
@@ -24,11 +21,11 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let scope of mf.data; let i = index">
-                            <td>{{i+1}}.</td>
+                            <td>{{indexPage + i + 1}}.</td>
                             <td>{{scope.scopeName}}</td>
                             <td>{{scope.description}}</td>
                             <td class="text-center">{{scope.createdBy}}</td>
-                            <td class="text-center">{{scope.createdAt | date: 'dd/MM/yyyy hh:mm'}}</td>
+                            <td class="text-center">{{scope.createdAt | date: 'dd/MM/yyyy H:MM'}}</td>
                             <td><span style="padding-right:14px; cursor: pointer" (click)="editName(scope)"
                                       tooltip="Edit"><i
                                     class="fa fa-pencil-square-o" aria-hidden="true"></i></span>

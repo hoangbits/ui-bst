@@ -3,26 +3,28 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DataTableModule} from "angular2-datatable";
 import {PaginationModule, TooltipModule} from 'ngx-bootstrap';
+import {MdProgressSpinnerModule} from '@angular/material';
 
-import {ActivityComponent, ActivityModalEditComponent, ActivityService} from './index';
+import { CompanyComponent, CompanyModalEditComponent, CompanyService } from './index';
 
 @NgModule({
 	declarations: [
-		ActivityComponent,
-		ActivityModalEditComponent
+		CompanyComponent,
+		CompanyModalEditComponent,
 	],
 	imports: [
 		BrowserModule,
 		FormsModule,
 		DataTableModule,
 		PaginationModule,
-		ReactiveFormsModule,
 		TooltipModule.forRoot(),
+		ReactiveFormsModule,
+		MdProgressSpinnerModule
 	],
-	providers: [ActivityService],
+	providers:[CompanyService],
 	entryComponents: [
-		ActivityModalEditComponent
+		CompanyModalEditComponent
 	]
 })
 
-export class ActivityModule {}
+export class CompanyModule {}

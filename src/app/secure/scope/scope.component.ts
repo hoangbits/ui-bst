@@ -22,6 +22,7 @@ export class ScopeComponent implements OnInit {
   currentPage: number = 0;
   itemsPerPage: number = 10;
   totalItems: number = 0;
+	indexPage: number = 0;
 
   constructor(private scopeService: ScopeService,
               private modalService: BsModalService,
@@ -87,6 +88,7 @@ export class ScopeComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.currentPage = event.page;
+		this.indexPage = this.currentPage > 1 ? (this.currentPage - 1) * this.itemsPerPage : 0;
     this.loadScopes();
   }
 }

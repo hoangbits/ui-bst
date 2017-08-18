@@ -11,21 +11,21 @@
         <div class="form-group">
             <label>URL</label>
             <input type="text" class="form-control" formControlName="url" [(ngModel)]="activity.url"
-                   placeholder="url" id="txtUrl">
+                   placeholder="url" id="txtUrl" maxlength="100">
             <p [hidden]="activityForm.controls.url.valid ||
             (activityForm.controls.url.pristine && !submitted)" class="text-danger">This is required field.</p>
         </div>
         <div class="form-group" [ngClass]="{'has-error':!activityForm.controls.url.valid && activityForm.controls.url.touched}">
             <label>Method</label>
             <input type="text" class="form-control" formControlName="method" [(ngModel)]="activity.method"
-                   placeholder="method" id="txtMethod">
+                   placeholder="method" id="txtMethod" maxlength="10">
             <p [hidden]="activityForm.controls.method.valid ||
             (activityForm.controls.method.pristine && !submitted)" class="text-danger">This is required field.</p>
         </div>
         <div class="form-group" [ngClass]="{'has-error':!activityForm.controls.url.valid && activityForm.controls.url.touched}">
             <label>Url regex</label>
             <input type="text" class="form-control" formControlName="urlRegex" [(ngModel)]="activity.urlRegex"
-                   placeholder="urlRegex" id="txtUrlRegex">
+                   placeholder="urlRegex" id="txtUrlRegex" maxlength="100">
             <p [hidden]="activityForm.controls.urlRegex.valid ||
             (activityForm.controls.urlRegex.pristine && !submitted)" class="text-danger">This is required field.</p>
         </div>

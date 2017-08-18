@@ -1,61 +1,48 @@
 import {Injectable} from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
-import {Scope} from './index';
+import {Company} from './index';
 import {Observable} from 'rxjs/Rx';
-
-import {environment} from '../../../environments/environment';
-
-// Import RxJs required methods
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-@Injectable()
-export class ScopeService {
+import {environment} from '../../../environments/environment';
 
-	private urlScopeApi = environment.apiEndpoint + 'scope';
-	private urlActivityApi = environment.apiEndpoint + 'getActivitiesNoPaging';
+@Injectable()
+export class CompanyService {
+	private urlCompanyApi = environment.apiCompanyEndpoint + 'company';
 
 	constructor(private http: Http) {
 	}
 
-	getScopes(perPage, page): Observable<any> {
-		return this.http.get(this.urlScopeApi + '?perPage=' + perPage + '&page=' + page)
-			.map((res: Response) => {
-				return res.json()
-			})
-			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
-	}
-
-	getActivities(): Observable<any> {
-		return this.http.get(this.urlActivityApi)
+	getCompanies(searchText, perPage, page): Observable<any> {
+		return this.http.get(this.urlCompanyApi + '?searchText=' + searchText + '&perPage=' + perPage + '&page=' + page)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 
-	addScope(body: Object): Observable<Scope> {
+	addCompany(body: Object): Observable<Company> {
 		const bodyString = JSON.stringify(body);
 		const headers = new Headers({'Content-Type': 'application/json'});
 		const options = new RequestOptions({headers: headers});
 
-		return this.http.post(this.urlScopeApi, bodyString, options)
+		return this.http.post(this.urlCompanyApi, bodyString, options)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 
-	updateScope(body: Object): Observable<Scope> {
+	updateCompany(body: Object): Observable<Company> {
 		const bodyString = JSON.stringify(body);
 		const headers = new Headers({'Content-Type': 'application/json'});
 		const options = new RequestOptions({headers: headers});
 
-		return this.http.put(this.urlScopeApi, bodyString, options)
+		return this.http.put(this.urlCompanyApi, bodyString, options)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 
-	removeScope(id: string): Observable<Scope> {
-		return this.http.delete(this.urlScopeApi + '/' + id)
+	removeCompany(id: string): Observable<Company> {
+		return this.http.delete(this.urlCompanyApi + '/' + id)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 }
-
