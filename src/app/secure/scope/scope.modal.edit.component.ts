@@ -54,15 +54,14 @@ export class ScopeModalEditComponent implements OnInit {
 
 	loadActivities() {
 		this.scopeService.getActivities().subscribe(
-			result => {
-				if (!result.activities) {
-					console.log('No data found');
+			activities => {
+				if (!activities) {
 					return;
 				}
 				let selectedIds = [];
 
 				// create list data
-				_.each(result.activities, (activity) => {
+				_.each(activities, (activity) => {
 					this.dropdownList.push({id: activity.id, itemName: activity.method + ' - ' + activity.url});
 				});
 
@@ -90,8 +89,7 @@ export class ScopeModalEditComponent implements OnInit {
 		});
 
 		this.scope.activities = selectedIds;
-		// show config
-		this.isEditName = false;
+
 		// save
 		if (!this.scope.id) {
 			this.addScope(false);
@@ -130,6 +128,9 @@ export class ScopeModalEditComponent implements OnInit {
 					if (isClose) {
 						this.bsModalRef.hide();
 					}
+					// show config
+					this.isEditName = false;
+					this.errorMsg = '';
 				}
 				else {
 					this.errorMsg = 'Update failed';
@@ -147,6 +148,9 @@ export class ScopeModalEditComponent implements OnInit {
 					if (isClose) {
 						this.bsModalRef.hide();
 					}
+					// show config
+					this.isEditName = false;
+					this.errorMsg = '';
 				}
 				else {
 					this.errorMsg = 'Insert failed';

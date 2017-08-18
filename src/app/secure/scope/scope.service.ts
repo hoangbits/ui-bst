@@ -13,7 +13,7 @@ import 'rxjs/add/operator/catch';
 export class ScopeService {
 
 	private urlScopeApi = environment.apiEndpoint + 'scope';
-	private urlActivityApi = environment.apiEndpoint + 'activity';
+	private urlActivityApi = environment.apiEndpoint + 'getActivitiesNoPaging';
 
 	constructor(private http: Http) {
 	}

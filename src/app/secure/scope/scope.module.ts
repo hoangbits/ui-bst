@@ -6,7 +6,6 @@ import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown/angular2-m
 import {PaginationModule, TooltipModule} from 'ngx-bootstrap';
 
 import { ScopeComponent, ScopeModalEditComponent } from './index';
-import { ScopeRouting } from './scope.routing';
 
 @NgModule({
 	declarations: [
@@ -21,7 +20,6 @@ import { ScopeRouting } from './scope.routing';
 		TooltipModule.forRoot(),
 		ReactiveFormsModule,
 		AngularMultiSelectModule,
-		ScopeRouting,
 	],
 	entryComponents: [
 		ScopeModalEditComponent

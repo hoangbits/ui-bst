@@ -5,7 +5,6 @@ import {DataTableModule} from "angular2-datatable";
 import {PaginationModule, TooltipModule} from 'ngx-bootstrap';
 
 import {ActivityComponent, ActivityModalEditComponent, ActivityService} from './index';
-import {ActivityRouting} from './activity.routing';
 
 @NgModule({
 	declarations: [
@@ -19,7 +18,6 @@ import {ActivityRouting} from './activity.routing';
 		PaginationModule,
 		ReactiveFormsModule,
 		TooltipModule.forRoot(),
-		ActivityRouting,
 	],
 	providers: [ActivityService],
 	entryComponents: [
