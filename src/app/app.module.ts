@@ -16,6 +16,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MdDialogModule, MdButtonModule} from '@angular/material';
 import {AppComponent} from './app.component';
 import {SecureComponent} from './layout/secure';
+import { PublicComponent } from './layout/public';
+//Public Component
+import { LoginComponent } from './public/login';
+
 import {ScopeModule} from './secure/scope'
 import {RoleModule} from './secure/role';
 import {UserModule} from './secure/user';
@@ -27,7 +31,11 @@ import {AlertDialog} from './secure/dialog';
 	declarations: [
 		AppComponent,
 		SecureComponent,
-		AlertDialog
+		LoginComponent,
+		SecureComponent,
+		PublicComponent,
+		AlertDialog,
+
 	],
 	imports: [
 		BrowserModule,
