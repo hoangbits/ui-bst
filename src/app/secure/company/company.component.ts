@@ -19,8 +19,9 @@ export class CompanyComponent implements OnInit {
 	searchText: string = '';
 
 	// Pagination setting
-	currentPage: number = 0;
+	currentPage: number = 1;
 	itemsPerPage: number = 10;
+	indexPage: number = 0;
 	totalItems: number = 0;
 
 	constructor(private companyService: CompanyService,
@@ -82,6 +83,7 @@ export class CompanyComponent implements OnInit {
 
 	pageChanged(event: any): void {
 		this.currentPage = event.page;
+		this.indexPage = this.currentPage > 1 ? (this.currentPage - 1) * this.itemsPerPage : 0;
 		this.loadCompanies();
 	}
 

@@ -2,6 +2,9 @@
 .table th{
     text-align: center;
 }
+.table td{
+    word-break: break-all;
+}
 .btn{
     min-width: 70px;
 }
