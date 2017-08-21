@@ -24,6 +24,7 @@ export class EditRoleComponent implements OnInit {
   dropdownList = [];
   selectedItems = [];
   dropdownSettings = {};
+  errorMsg: string;
 
   constructor(public bsModalRef: BsModalRef, private roleService: RoleService) {
   }
@@ -50,7 +51,7 @@ export class EditRoleComponent implements OnInit {
         this.isEdit = !this.isEdit;
         this.isSaveConfig = !this.isSaveConfig;
       }, err => {
-        console.log(err);
+        this.errorMsg = err.message;
       });
     }
   }
@@ -65,7 +66,7 @@ export class EditRoleComponent implements OnInit {
         this.bsModalRef.hide();
       },
       err => {
-        console.log(err);
+        this.errorMsg = err.message;
       });
   }
 
@@ -76,6 +77,8 @@ export class EditRoleComponent implements OnInit {
     if (this.role.id) {
       this.roleService.updateRole(new Role(this.role.roleName, this.role.description, this.role.id, [])).subscribe((data) => {
         this.bsModalRef.hide();
+      }, err => {
+        this.errorMsg = err.message;
       });
     } else {
       this.roleService.createRoles(this.role).subscribe((data) => {
@@ -83,7 +86,7 @@ export class EditRoleComponent implements OnInit {
         this.bsModalRef.hide();
 
       }, err => {
-        console.log(err);
+        this.errorMsg = err.message;
       });
     }
   }

@@ -16,6 +16,7 @@ export class EditUserComponent implements OnInit {
   role: Role;
   disableInput: boolean;
   title: string;
+  errorMsg: string;
 
   constructor(public bsModalRef: BsModalRef, private userService: UserService) {
     this.user = this.user || new User();
@@ -34,7 +35,8 @@ export class EditUserComponent implements OnInit {
       this.userService.updateUsers(this.user).subscribe(
         data => this.bsModalRef.hide(),
         err => {
-          console.log(err);
+         // console.log(err.message+'=========');
+          this.errorMsg = err.message;
         });
     } else {
       return;

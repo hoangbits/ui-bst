@@ -16,7 +16,7 @@ export class CreateUserComponent implements OnInit {
   roleId = [];
   title: string;
   passDefault = '123456';
-
+  errorMsg: string;
   constructor(public bsModalRef: BsModalRef, private userService: UserService) {
   }
 
@@ -40,7 +40,7 @@ export class CreateUserComponent implements OnInit {
       this.userService.createUsers(this.userOther).subscribe(
         data => this.bsModalRef.hide(),
         err => {
-          console.log(err);
+          this.errorMsg = err.message;
         });
     } else {
       return;
@@ -58,7 +58,7 @@ export class CreateUserComponent implements OnInit {
       this.userService.createUsers(this.user).subscribe(
         data => this.bsModalRef.hide(),
         err => {
-          console.log(err);
+            this.errorMsg = err.message;
         });
     } else {
       return;

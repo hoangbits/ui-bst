@@ -5,6 +5,7 @@
     </button>
 </div>
 <div class="modal-body">
+    <div class="alert alert-warning alert-dismissible" *ngIf="errorMsg">{{errorMsg}}</div>
     <ul class="nav nav-tabs" id="tabContent">
         <li class="active"><a href="#details" id="tabAdUser" data-toggle="tab">AD User</a></li>
         <li><a href="#access-security" id="tabOrtherUser" data-toggle="tab">Orther User</a></li>

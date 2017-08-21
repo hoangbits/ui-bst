@@ -5,15 +5,24 @@
     </button>
 </div>
 <div class="modal-body">
+    <div class="alert alert-warning alert-dismissible" *ngIf="errorMsg">{{errorMsg}}</div>
     <form #frmVP="ngForm" (ngSubmit)="updateUser(frmVP.valid, user,roleSelect.value)">
         <div class="form-group">
             <input type="hidden" class="form-control" name="userId" #userId [value]="user.id"  placeholder="User id">
         </div>
 
         <div class="form-group">
-            <label>Role name</label>
-            <input type="text" class="form-control" name="email" [(ngModel)]="user.email" required #email="ngModel"  [disabled]="!disableInput" placeholder="Role name">
-             <small class="text-danger" *ngIf="email.errors && email.errors.required && (email.dirty || email.touched || frmVP._submitted)">Email is required
+            <label>Email</label>
+            <input type="text" class="form-control" name="email"
+                   [(ngModel)]="user.email"
+                   required
+                   pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                   #email="ngModel"  [disabled]="!disableInput" placeholder="Role name">
+             <small class="text-danger" *ngIf="email.errors && email.errors.required && (email.dirty || email.touched || frmVP.submitted)">
+                 Email is required
+            </small>
+            <small class="text-danger" *ngIf="email.errors && email.errors.pattern && (email.dirty || email.touched || frmVP.submitted)">
+                Email invalid format.
             </small>
         </div>
 
