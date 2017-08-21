@@ -4,7 +4,7 @@
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title" id="lblPageTitle">List Roles base on Scopes</h3>
-                    <button type="button" id="btnAddNew" (click)="addNew()" class="btn btn-primary pull-right">Add new role</button>
+                    <button type="button" id="btnAddNew" (keydown.enter)="$event.preventDefault()" (click)="addNew()" class="btn btn-primary pull-right">Add new role</button>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
