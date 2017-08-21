@@ -55,6 +55,6 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="bsModalRef.hide()" id="btnCancel">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="saveClose(fg.valid)" id="btnSave">Save</button>
+        <button type="button" class="btn btn-primary" (click)="saveClose(fg.valid)" *ngIf="!viewMode" id="btnSave">Save</button>
     </div>
 </form>

@@ -3,7 +3,7 @@ import {MdDialog} from '@angular/material';
 import {AlertDialog} from '../dialog/alert.dialog.component';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
-import {Company, CompanyModalEditComponent} from './index';
+import {Company, CompanyModalEditComponent, CompanyModalViewComponent} from './index';
 import {CompanyService} from './company.service';
 import * as _ from "lodash";
 
@@ -42,18 +42,28 @@ export class CompanyComponent implements OnInit {
 	}
 
 	viewCompany(company: Company) {
-		this.openModal('View Company', true, company);
+		this.openModalView('View Company', true, company);
 	}
 
 	openModal(title, viewMode, data?: Company) {
 
-		this.bsModalRef = this.modalService.show(CompanyModalEditComponent);
+		this.bsModalRef = this.modalService.show(CompanyModalEditComponent, {class: 'second'});
 		this.bsModalRef.content.title = title;
 		this.bsModalRef.content.company = data;
 		this.bsModalRef.content.viewMode = viewMode;
 
 		this.modalService.onHide.subscribe(() => {
 			this.loadCompanies();
+		});
+	}
+
+	openModalView(title, viewMode, data?: Company) {
+
+		this.bsModalRef = this.modalService.show(CompanyModalViewComponent);
+		this.bsModalRef.content.title = title;
+		this.bsModalRef.content.company = data;
+
+		this.modalService.onHide.subscribe(() => {
 		});
 	}
 
