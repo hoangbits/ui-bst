@@ -30,7 +30,7 @@ export class RoleService {
 
     return this.http.post(ROLE_API.CREATE_ROLE, {roleName: role.roleName, description: role.description})
       .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .catch((error: any) => Observable.throw(error.json()));
   }
 
   updateRole(role): Observable<any> {
@@ -39,7 +39,9 @@ export class RoleService {
       roleName: role.roleName,
       description: role.description,
       scopes: role.scopes
-    });
+    })
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json()));
   }
 
 

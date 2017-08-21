@@ -30,14 +30,14 @@ export class UserService {
 
     return this.http.post(USER_API.CREATE_USER, user)
       .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .catch((error: any) => Observable.throw(error.json()));
   }
 
   updateUsers(user): Observable<any> {
 
     return this.http.put(USER_API.UPDATE_USER, user)
       .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+      .catch((error: any) => Observable.throw(error.json()));
   }
 
   getRoles(): Observable<any> {

@@ -4,7 +4,7 @@
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title" id="lblPageTitle">List Roles base on Scopes</h3>
-                    <button type="button" id="btnAddNew" (click)="addNew()" class="btn btn-primary pull-right">Add new role</button>
+                    <button type="button" id="btnAddNew" (keydown.enter)="$event.preventDefault()" (click)="addNew()" class="btn btn-primary pull-right">Add new role</button>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -25,10 +25,10 @@
                                 <td> {{role.roleName}}</td>
                                 <td> {{role.description}}</td>
                                 <td></td>
-                                <td> {{role.createdAt | date:'dd/MM/yyyy hh:mm'}}</td>
+                                <td> {{role.createdAt | date:'dd/MM/yyyy H:MM'}}</td>
                                 <td>
-                                    <span style="padding-right:14px" id="btnEdit{{i}}" (click)="editName(role.id)" ><i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit role name"></i></span>
-                                    <span style=" padding-right:14px" id="btnConfig{{i}}" (click)="editConfig(role.id)" title="Edit role base on scope"><i class="fa fa-wrench"
+                                    <span style="padding-right:14px; cursor: pointer" id="btnEdit{{i}}" (click)="editName(role.id)" ><i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit role name"></i></span>
+                                    <span style=" padding-right:14px; cursor: pointer" id="btnConfig{{i}}" (click)="editConfig(role.id)" title="Edit role base on scope"><i class="fa fa-wrench"
                                                                                         aria-hidden="true"></i></span>
                                     <span style=" cursor: pointer" id="btnDelete{{i}}" (click)="showModal(role.id)"><i class="fa fa-trash" title="Delete role"></i></span>
 

@@ -5,6 +5,7 @@
     </button>
 </div>
 <div class="modal-body">
+    <div class="alert alert-warning alert-dismissible" *ngIf="errorMsg">{{errorMsg}}</div>
     <form (ngSubmit)="saveClose()">
 
         <div class="form-group" *ngIf="isEdit">
