@@ -5,12 +5,13 @@ import {DataTableModule} from "angular2-datatable";
 import {PaginationModule, TooltipModule} from 'ngx-bootstrap';
 import {MdProgressSpinnerModule} from '@angular/material';
 
-import { CompanyComponent, CompanyModalEditComponent, CompanyService } from './index';
+import { CompanyComponent, CompanyModalEditComponent, CompanyModalViewComponent, CompanyService } from './index';
 
 @NgModule({
 	declarations: [
 		CompanyComponent,
 		CompanyModalEditComponent,
+		CompanyModalViewComponent
 	],
 	imports: [
 		BrowserModule,
@@ -23,7 +24,8 @@ import { CompanyComponent, CompanyModalEditComponent, CompanyService } from './i
 	],
 	providers:[CompanyService],
 	entryComponents: [
-		CompanyModalEditComponent
+		CompanyModalEditComponent,
+		CompanyModalViewComponent
 	]
 })
 

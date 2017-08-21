@@ -10,12 +10,22 @@ import {environment} from '../../../environments/environment';
 @Injectable()
 export class CompanyService {
 	private urlCompanyApi = environment.apiCompanyEndpoint + 'company';
+	private urlUsersByCompanyApi = environment.apiCompanyEndpoint + 'getUsersByCompany';
 
 	constructor(private http: Http) {
 	}
 
 	getCompanies(searchText, perPage, page): Observable<any> {
 		return this.http.get(this.urlCompanyApi + '?searchText=' + searchText + '&perPage=' + perPage + '&page=' + page)
+			.map((res: Response) => res.json())
+			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
+	}
+
+	getUsersByCompany(companyId, searchText, perPage, page): Observable<any> {
+		return this.http.get(this.urlUsersByCompanyApi + '?companyId='+ companyId
+			+'&searchText=' + searchText
+			+ '&perPage=' + perPage
+			+ '&page=' + page)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
