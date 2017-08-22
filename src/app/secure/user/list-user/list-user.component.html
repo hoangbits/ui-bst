@@ -10,22 +10,21 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="table table-bordered table-striped">
-
+                    <table class="table table-bordered table-striped"  [mfData]="listUsers" #mf="mfDataTable">
                         <thead>
                         <tr>
-                            <th class="no">NO</th>
-                            <th>Email</th>
-                            <th>Fullname</th>
-                            <th>Role</th>
-                            <th>Company</th>
+                            <th class="no">No</th>
+                            <th><mfDefaultSorter by="email">Email</mfDefaultSorter></th>
+                            <th><mfDefaultSorter by="fullName">Full name</mfDefaultSorter></th>
+                            <th><mfDefaultSorter by="rollName">Role name</mfDefaultSorter></th>
+                            <th><mfDefaultSorter by="company">Company</mfDefaultSorter></th>
                             <th class="createdBy">Create by</th>
                             <th class="createdAt">Create at</th>
                             <th class="action90">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let user of listUsers; let i = index">
+                        <tr *ngFor="let user of mf.data; let i = index">
                             <td> {{indexPage+i+1}}</td>
                             <td> {{user.email}}</td>
                             <td> {{user.fullName}}</td>
