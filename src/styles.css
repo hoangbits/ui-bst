@@ -5,6 +5,21 @@
 .table td{
     word-break: break-all;
 }
+.no{
+    width:10px;
+}
+.createdBy{
+    width:100px;
+}
+.createdAt{
+    width:120px;
+}
+.action60{
+    width:60px;
+}
+.action90{
+    width:90px;
+}
 .btn{
     min-width: 70px;
 }

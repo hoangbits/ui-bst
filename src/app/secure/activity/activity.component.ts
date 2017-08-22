@@ -42,7 +42,7 @@ export class ActivityComponent implements OnInit {
 			err => {
 				this.dialog.open(AlertDialog, {
 					width: '500px', height: '170px', data: {
-						title: 'Information dialog', message: 'Load Activity list has error, contact administrator to help'
+						title: 'Information dialog', message: 'No data found.'
 					}
 				});
 			});
@@ -67,11 +67,11 @@ export class ActivityComponent implements OnInit {
 	}
 
 	addNew() {
-		this.openEditModal('Add new Activity', new Activity());
+		this.openEditModal('Add new Permission', new Activity());
 	}
 
 	edit(activity) {
-		this.openEditModal('Edit Activity', activity);
+		this.openEditModal('Edit Permission', activity);
 	}
 
 	openEditModal(title, data?: Activity) {

@@ -24,6 +24,7 @@ export class ListUserComponent implements OnInit {
   listRole: string[];
   role: Role;
   disableInput: boolean;
+	indexPage: number = 0;
 
   title: string;
 
@@ -129,6 +130,7 @@ export class ListUserComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.currentPage = event.page;
+		this.indexPage = this.currentPage > 1 ? (this.currentPage - 1) * this.itemsPerPage : 0;
     this.getAllUser();
   }
 }
