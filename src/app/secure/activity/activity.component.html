@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">View Activity list</h3>
+                    <h3 class="box-title">List of Permissions</h3>
                     <span (click)="addNew()" class="btn btn-primary pull-right" id="btnAddNew">Add new
                     </span>
                 </div>
@@ -12,7 +12,7 @@
                     <table class="table table-bordered table-striped" [mfData]="activities" #mf="mfDataTable">
                         <thead>
                         <tr>
-                            <th style="width: 10px">No</th>
+                            <th class="no">No</th>
                             <th>
                                 <mfDefaultSorter by="url">URL</mfDefaultSorter>
                             </th>
@@ -22,9 +22,9 @@
                             <th>
                                 <mfDefaultSorter by="urlRegex">UrlRegex</mfDefaultSorter>
                             </th>
-                            <th style="width:100px;">Created by</th>
-                            <th style="width:120px;">Created at</th>
-                            <th style="width: 60px">Action</th>
+                            <th class="createdBy">Created by</th>
+                            <th class="createdAt">Created at</th>
+                            <th class="action60">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -47,6 +47,13 @@
                         <tfoot>
                         <tr>
                             <td colspan="7">
+                                <div class="col-md-6">
+                                    <div style="margin-top:20px">
+                                        Showing {{indexPage+1}} to {{(indexPage+itemsPerPage)>totalItems?totalItems:indexPage+itemsPerPage}}
+                                        of {{totalItems}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
                                 <pagination style="float:right;"
                                             [totalItems]="totalItems"
                                             (ngModel)="currentPage"
@@ -56,6 +63,7 @@
                                             [boundaryLinks]="true"
                                             [rotate]="false"
                                             (pageChanged)="pageChanged($event)"></pagination>
+                                </div>
                             </td>
                         </tr>
                         </tfoot>

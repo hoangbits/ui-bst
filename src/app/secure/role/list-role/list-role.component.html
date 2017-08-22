@@ -3,37 +3,44 @@
         <div class="col-md-12">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title" id="lblPageTitle">List Roles base on Scopes</h3>
-                    <button type="button" id="btnAddNew" (keydown.enter)="$event.preventDefault()" (click)="addNew()" class="btn btn-primary pull-right">Add new role</button>
+                    <h3 class="box-title" id="lblPageTitle">List of Roles</h3>
+                    <button type="button" id="btnAddNew" (keydown.enter)="$event.preventDefault()" (click)="addNew()"
+                            class="btn btn-primary pull-right">Add new role
+                    </button>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <table class="table table-bordered table-striped">
                         <thead>
-                            <tr>
-                                <th>NO</th>
-                                <th>Role Name</th>
-                                <th>Description</th>
-                                <th>Create by</th>
-                                <th>Create at</th>
-                                <th>Action</th>
-                            </tr>
+                        <tr>
+                            <th class="no">NO</th>
+                            <th>Role Name</th>
+                            <th>Description</th>
+                            <th class="createdBy">Create by</th>
+                            <th class="createdAt">Create at</th>
+                            <th class="action90">Action</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let role of roles; let i = index">
-                                <td> {{i+1}}</td>
-                                <td> {{role.roleName}}</td>
-                                <td> {{role.description}}</td>
-                                <td></td>
-                                <td> {{role.createdAt | date:'dd/MM/yyyy H:MM'}}</td>
-                                <td>
-                                    <span style="padding-right:14px; cursor: pointer" id="btnEdit{{i}}" (click)="editName(role.id)" ><i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit role name"></i></span>
-                                    <span style=" padding-right:14px; cursor: pointer" id="btnConfig{{i}}" (click)="editConfig(role.id)" title="Edit role base on scope"><i class="fa fa-wrench"
-                                                                                        aria-hidden="true"></i></span>
-                                    <span style=" cursor: pointer" id="btnDelete{{i}}" (click)="showModal(role.id)"><i class="fa fa-trash" title="Delete role"></i></span>
+                        <tr *ngFor="let role of roles; let i = index">
+                            <td> {{i+1}}</td>
+                            <td> {{role.roleName}}</td>
+                            <td> {{role.description}}</td>
+                            <td></td>
+                            <td> {{role.createdAt | date:'dd/MM/yyyy H:MM'}}</td>
+                            <td>
+                                    <span style="padding-right:14px; cursor: pointer" id="btnEdit{{i}}"
+                                          (click)="editName(role.id)">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"
+                                           tooltip="Edit"></i></span>
+                                <span style=" padding-right:14px; cursor: pointer" id="btnConfig{{i}}"
+                                      (click)="editConfig(role.id)" tooltip="Config Scope">
+                                        <i class="fa fa-wrench" aria-hidden="true"></i></span>
+                                <span style=" cursor: pointer" id="btnDelete{{i}}" (click)="showModal(role.id)">
+                                        <i class="fa fa-trash" tooltip="Delete"></i></span>
 
-                                </td>
-                            </tr>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
