@@ -18,8 +18,6 @@
                             <th><mfDefaultSorter by="fullName">Full name</mfDefaultSorter></th>
                             <th><mfDefaultSorter by="rollName">Role name</mfDefaultSorter></th>
                             <th><mfDefaultSorter by="company">Company</mfDefaultSorter></th>
-                            <th class="createdBy">Create by</th>
-                            <th class="createdAt">Create at</th>
                             <th class="action90">Action</th>
                         </tr>
                         </thead>
@@ -32,8 +30,6 @@
                                 <p *ngIf="user.roles[0]">{{user.roles[0].roleName}}</p>
                             </td>
                             <td></td>
-                            <td></td>
-                            <td> {{user.createdAt | date:'dd/MM/yyyy H:MM'}}</td>
                             <td>
                                 <span style="padding-right:14px; cursor: pointer" id="btnEdit{{i}}"
                                       (click)="editUser(user.id)" tooltip="Edit"><i class="fa fa-pencil-square-o"
@@ -46,13 +42,13 @@
                             </td>
                         </tr>
                         </tbody>
-                        <tfoot>
+                        <tfoot *ngIf="totalItems>0">
                         <tr>
                             <td colspan="8">
                                 <div class="col-md-6">
                                     <div style="margin-top:20px">
                                         Showing {{indexPage+1}} to {{(indexPage+10)>totalItems?totalItems:indexPage+10}}
-                                        of {{totalItems}}
+                                        of {{totalItems}} entries
                                     </div>
                                 </div>
                                 <div class="col-md-6">

@@ -20,6 +20,7 @@ export class ScopeModalEditComponent implements OnInit {
 
 	title: string;
 	isEditName: boolean;
+	isAddNew: boolean;
 	scope: Scope;
 
 	dropdownList = [];
@@ -34,7 +35,7 @@ export class ScopeModalEditComponent implements OnInit {
 
 		this.dropdownSettings = {
 			singleSelection: false,
-			text: 'Select Activities',
+			text: 'Select Permissions',
 			selectAllText: 'Select All',
 			unSelectAllText: 'UnSelect All',
 			enableSearchFilter: true,
@@ -150,6 +151,7 @@ export class ScopeModalEditComponent implements OnInit {
 					}
 					// show config
 					this.isEditName = false;
+					this.isAddNew = false;
 					this.errorMsg = '';
 				}
 				else {

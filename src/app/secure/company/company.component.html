@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">View Company list</h3>
+                    <h3 class="box-title">List of Companies</h3>
                     <span (click)="addNewComapny()" class="btn btn-primary pull-right">Add new</span>
                 </div>
                 <!-- /.box-header -->
@@ -55,8 +55,6 @@
                             <th>
                                 <mfDefaultSorter by="phone">Phone</mfDefaultSorter>
                             </th>
-                            <th style="width:100px;">Created by</th>
-                            <th style="width:120px;">Created at</th>
                             <th style="width: 120px">Action</th>
                         </tr>
                         </thead>
@@ -67,8 +65,6 @@
                             <td>{{company.address}}</td>
                             <td>{{company.taxCode}}</td>
                             <td>{{company.phone}}</td>
-                            <td class="text-center">{{company.createdBy}}</td>
-                            <td class="text-center">{{company.createdAt | date: 'dd/MM/yyyy H:MM'}}</td>
                             <td>
                                 <span style="padding-right:14px; cursor: pointer" (click)="viewCompany(company)"
                                       id="row{{(i)}}BtnView"
@@ -85,18 +81,26 @@
                             </td>
                         </tr>
                         </tbody>
-                        <tfoot>
+                        <tfoot *ngIf="totalItems>0">
                         <tr>
                             <td colspan="8">
-                                <pagination style="float:right;"
-                                            [totalItems]="totalItems"
-                                            (ngModel)="currentPage"
-                                            [itemsPerPage]="itemsPerPage"
-                                            class="pagination-sm"
-                                            [maxSize]="5"
-                                            [boundaryLinks]="true"
-                                            [rotate]="false"
-                                            (pageChanged)="pageChanged($event)"></pagination>
+                                <div class="col-md-6">
+                                    <div style="margin-top:20px">
+                                        Showing {{indexPage+1}} to {{(indexPage+10)>totalItems?totalItems:indexPage+10}}
+                                        of {{totalItems}} entries
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <pagination style="float:right;"
+                                                [totalItems]="totalItems"
+                                                (ngModel)="currentPage"
+                                                [itemsPerPage]="itemsPerPage"
+                                                class="pagination-sm"
+                                                [maxSize]="5"
+                                                [boundaryLinks]="true"
+                                                [rotate]="false"
+                                                (pageChanged)="pageChanged($event)"></pagination>
+                                </div>
                             </td>
                         </tr>
                         </tfoot>
