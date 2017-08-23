@@ -51,14 +51,15 @@ export class LoginComponent implements OnInit {
         this.message = 'login success';
         localStorage.clear();
         if (dataForm.remember) {
-          localStorage.setItem('token', data.token);
-          localStorage.setItem('expiresTime', data.expiresTime);
           localStorage.setItem('remember', 'true');
           localStorage.setItem('currentUser', data.user);
+          localStorage.setItem('expiresTime', data.expiresTime);
         }
+        localStorage.setItem('token', data.token);
+
         setTimeout(() => {
           window.location.href = '/admin/company';
-        }, 3000);
+        }, 2000);
       },
 
       err => {
