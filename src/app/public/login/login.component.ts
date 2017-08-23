@@ -44,18 +44,20 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin (email : string, password : string, remember: boolean, isvalid : boolean) {
+    const dataForm = this.adLoginForm.value;
 
-    const data = this.adLoginForm.value;
-
-    this.loginService.Login(data).subscribe(
+    this.loginService.Login(dataForm).subscribe(
       data => {
         this.message = 'login success';
         localStorage.clear();
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', data.user);
-        localStorage.setItem('expiresTime', data.expiresTime);
+        if (dataForm.remember) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', data.user);
+          localStorage.setItem('expiresTime', data.expiresTime);
+          localStorage.setItem('remember', 'true');
+        }
         setTimeout(() => {
-          window.location.href = '/';
+          window.location.href = '/admin/company';
         }, 3000);
       },
 
@@ -67,9 +69,9 @@ export class LoginComponent implements OnInit {
 
   createForm(){
     this.adLoginForm = this.formBuilder.group({
-      email: ["", [Validators.required] ],
+      email: ["nam@gmail.com", [Validators.required] ],
       password: [],
-      remember: false
+      remember: [true]
     });
 
     this.adLoginForm.valueChanges.subscribe(data => {
