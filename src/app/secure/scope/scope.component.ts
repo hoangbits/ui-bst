@@ -64,7 +64,7 @@ export class ScopeComponent implements OnInit {
   }
 
   addNew() {
-    this.openEditModal('Add new Scope', true, new Scope('', [], ''));
+    this.openEditModal('Add new Scope', true, new Scope(), true);
   }
 
   editName(scope) {
@@ -72,14 +72,15 @@ export class ScopeComponent implements OnInit {
   }
 
   editActivity(scope) {
-    this.openEditModal('Edit Scope activities', false, scope);
+    this.openEditModal('Config Scope', false, scope);
   }
 
-  openEditModal(title, isEditName, data?: Scope) {
+  openEditModal(title, isEditName, data?: Scope, isAddNew: boolean = false) {
     this.bsModalRef = this.modalService.show(ScopeModalEditComponent);
     this.bsModalRef.content.title = title;
     this.bsModalRef.content.isEditName = isEditName;
     this.bsModalRef.content.scope = data;
+    this.bsModalRef.content.isAddNew = isAddNew;
 
     this.modalService.onHide.subscribe(() => {
       this.loadScopes();

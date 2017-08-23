@@ -6,6 +6,7 @@ import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {Company, CompanyModalEditComponent, CompanyModalViewComponent} from './index';
 import {CompanyService} from './company.service';
 import * as _ from "lodash";
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-company',
@@ -26,7 +27,8 @@ export class CompanyComponent implements OnInit {
 
 	constructor(private companyService: CompanyService,
 							private modalService: BsModalService,
-							private dialog: MdDialog) {
+							private dialog: MdDialog,
+							private router: Router) {
 	}
 
 	ngOnInit() {
@@ -47,7 +49,7 @@ export class CompanyComponent implements OnInit {
 
 	openModal(title, viewMode, data?: Company) {
 
-		this.bsModalRef = this.modalService.show(CompanyModalEditComponent, {class: 'second'});
+		this.bsModalRef = this.modalService.show(CompanyModalEditComponent);
 		this.bsModalRef.content.title = title;
 		this.bsModalRef.content.company = data;
 		this.bsModalRef.content.viewMode = viewMode;
