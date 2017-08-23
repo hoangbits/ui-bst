@@ -52,9 +52,9 @@ export class LoginComponent implements OnInit {
         localStorage.clear();
         if (dataForm.remember) {
           localStorage.setItem('token', data.token);
-          localStorage.setItem('user', data.user);
           localStorage.setItem('expiresTime', data.expiresTime);
           localStorage.setItem('remember', 'true');
+          localStorage.setItem('currentUser', data.user);
         }
         setTimeout(() => {
           window.location.href = '/admin/company';

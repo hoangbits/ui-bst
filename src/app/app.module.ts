@@ -26,6 +26,8 @@ import {UserModule} from './secure/user';
 import {CompanyModule} from './secure/company';
 import {ActivityModule} from './secure/activity';
 import {AlertDialog} from './secure/dialog';
+import { AuthGuard } from './guards/index';
+
 
 @NgModule({
 	declarations: [
@@ -58,7 +60,10 @@ import {AlertDialog} from './secure/dialog';
 		UserModule,
 		CompanyModule
 	],
-	providers: [BsModalService],
+	providers: [
+		BsModalService,
+		AuthGuard
+	],
 	bootstrap: [AppComponent],
 	entryComponents: [
 		AlertDialog
