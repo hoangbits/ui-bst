@@ -57,9 +57,7 @@ export class LoginComponent implements OnInit {
         }
         localStorage.setItem('token', data.token);
 
-        setTimeout(() => {
-          window.location.href = '/admin/company';
-        }, 2000);
+        window.location.href = '/admin/company';
       },
 
       err => {
