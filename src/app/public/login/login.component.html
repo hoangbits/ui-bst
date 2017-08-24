@@ -1,0 +1,36 @@
+﻿<div class="login-box">
+  <div class="login-logo">
+    <h2 href="#"><b>TC </b> SYSTEM</h2>
+  </div>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">Sign in to start your session</p>
+
+    <form novalidate bind-formGroup="adLoginForm" (ngSubmit)="onLogin(email, password, remember, adLoginForm.valid)" (keyup.enter)="onLogin(email, password, remember, adLoginForm.valid)">
+      <div class="form-group has-feedback">
+        <input formControlName="email" name="email" required type="email" email class="form-control" placeholder="Email" />
+      </div>
+      <div class="text-danger" bind-hidden="!(formErrors.email)">{{formErrors.email}}</div>
+      <div class="form-group has-feedback">
+        <input formControlName="password" name="password" required type="password" minlength="6" class="form-control" placeholder="Password" />
+      </div>
+      <div class="text-danger" bind-hidden="!(formErrors.password)">{{formErrors.password}}</div>
+
+      <div class="row">
+        <div class="col-xs-12 p-l-r-30">
+          <input formControlName="remember" type="checkbox" name="remember" >
+          <span> Keep me signed in”</span>
+        </div>
+      </div>
+
+      <div *ngIf="message" class="text-center text-danger">{{message}}</div>
+      <div class="row">
+        <div class="col-xs-offset-4 col-xs-4 box-btn">
+          <button bind-disabled="adLoginForm.invalid" type="submit" class="btn btn-info btn-block btn-flat">Sign In</button>
+        </div>
+      </div>
+    </form>
+
+  </div>
+  <!-- /.login-box-body -->
+</div>

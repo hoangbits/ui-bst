@@ -1,0 +1,41 @@
+﻿.login h2{
+  margin: 100px 0 40px 0;
+  color: #18b7f7;
+  text-align: center;
+  font-size: 30px;
+}
+.btn-login {
+  width: 100%;
+  margin-bottom: 15px;
+  font-size: 17px;
+  height: 40px;
+  border-radius: 0;
+}
+
+form .form-control {
+  height: 40px;
+  border-radius: 0;
+}
+
+.login-bottom{
+  padding:20px 0;
+  border-top: 1px solid #ccc;
+}
+.login-bottom a{
+  float: right;
+  color: #333;
+  text-decoration: underline;
+}
+.form-group{
+  position: relative;
+}
+.form-group i{
+  position: absolute;
+  top:12px;
+  left: 8px;
+  font-size: 16px;
+  color:#ccc;
+}
+.form-group input{
+  padding-left: 30px;
+}
