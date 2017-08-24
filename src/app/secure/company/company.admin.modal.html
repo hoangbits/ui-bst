@@ -1,0 +1,23 @@
+<div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form role="form" ngNoForm (ngSubmit)="saveClose()">
+        <div>
+            <h2>User Search</h2>
+            <input type="text" [formControl]="adminCompanyFom"/>
+            <ul>
+                <li *ngFor="let item of items | async">{{item}}</li>
+            </ul>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Cancel</button>
+    <button type="submit" class="btn btn-primary" (click)="saveClose()">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Save & close
+    </button>
+</div>

@@ -4,14 +4,20 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DataTableModule} from "angular2-datatable";
 import {PaginationModule, TooltipModule} from 'ngx-bootstrap';
 import {MdProgressSpinnerModule} from '@angular/material';
+import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
+import { Ng2CompleterModule } from 'ng2-completer';
 
-import { CompanyComponent, CompanyModalEditComponent, CompanyModalViewComponent, CompanyService } from './index';
+import { CompanyComponent, CompanyModalEditComponent,
+	CompanyModalViewComponent, CompanyService,
+	CompanyAdminComponent
+} from './index';
 
 @NgModule({
 	declarations: [
 		CompanyComponent,
 		CompanyModalEditComponent,
-		CompanyModalViewComponent
+		CompanyModalViewComponent,
+		CompanyAdminComponent
 	],
 	imports: [
 		BrowserModule,
@@ -20,12 +26,15 @@ import { CompanyComponent, CompanyModalEditComponent, CompanyModalViewComponent,
 		PaginationModule,
 		TooltipModule.forRoot(),
 		ReactiveFormsModule,
-		MdProgressSpinnerModule
+		MdProgressSpinnerModule,
+		AngularMultiSelectModule,
+		Ng2CompleterModule
 	],
 	providers:[CompanyService],
 	entryComponents: [
 		CompanyModalEditComponent,
-		CompanyModalViewComponent
+		CompanyModalViewComponent,
+		CompanyAdminComponent
 	]
 })
 
