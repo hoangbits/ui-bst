@@ -52,13 +52,12 @@ export class CompanyComponent implements OnInit {
 	}
 
 	openModalAdminView (title, viewMode, data?: Company) {
-		this.bsModalRef = this.modalService.show(CompanyAdminComponent);
+		this.bsModalRef = this.modalService.show(CompanyAdminComponent, {class:'admin-company-modal'});
 		this.bsModalRef.content.title = title;
-		this.bsModalRef.content.company = data;
+		this.bsModalRef.content.companyId = data.id;
 		this.bsModalRef.content.viewMode = viewMode;
 
 		this.modalService.onHide.subscribe(() => {
-			this.loadCompanies();
 		});
 	}
 

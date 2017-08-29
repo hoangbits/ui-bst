@@ -1,9 +1,9 @@
-import {Company} from './index';
 import {CompanyService} from './company.service';
 
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
+import * as _ from 'lodash';
 
 @Component({
 	selector: 'company-modal-content',
@@ -12,69 +12,106 @@ import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 })
 
 export class CompanyAdminComponent implements OnInit  {
-	adminCompanyFom: FormGroup;
+	fg: FormGroup;
 	submitted: boolean;
-
+	admins: any[];
+	users: any[];
+	adminsChange: any[];
 	errorMsg: string;
-
-	title: string;
 	isEditName: boolean;
-	company: Company;
-	protected searchUser: string;
-
-	dropdownList = [
-		{id: 1, itemName: 'namnn'},
-		{id: 2, itemName: 'b namnn 32'},
-		{id: 3, itemName: 'c namnn 33'},
-		{id: 4, itemName: 'd namnn 34'},
-		{id: 5, itemName: 'e namnn 3'},
-		{id: 6, itemName: 'f namnn 3'},
-		{id: 7, itemName: 'g namnn 3'},
-		{id: 8, itemName: 'h namnn 3'},
-		{id: 8, itemName: 'i namnn 3'},
-		{id: 10, itemName: 'k namnn 3'},
-		{id: 11, itemName: 'l namnn 3'},
-	];
-	selectedItems = [];
-	dropdownSettings = {};
+	companyId: string;
+	searchText: string = '';
+	adminCompanyForm: FormGroup;
+	hdCompany: FormControl;
 
 	constructor(public bsModalRef: BsModalRef,
 	            private companyService: CompanyService,
-	            private fb: FormBuilder) {
-	}
-
-	ngOnInit() {
-		this.loadUsers();
-
-		this.dropdownSettings = {
-			singleSelection: true,
-			text: 'Select Users',
-			enableSearchFilter: true,
-			classes: 'myclass custom-class'
-		};
-
+	            private formBuilder: FormBuilder) {
+		
+		this.users = [];
 		this.createForm();
 	}
 
+	ngOnInit() {
+		this.hdCompany = new FormControl();  
+		this.hdCompany.valueChanges.subscribe(
+			data => {
+				this.loadAdmins(data);
+			}
+		);
+	}
+
 	createForm() {
-		this.adminCompanyFom = this.fb.group({
-			users: ''
+		this.adminCompanyForm = this.formBuilder.group({
+			users: ["", [Validators.required] ],
 		});
 	}
 
-	loadUsers() {
-		this.companyService.getUsersAdminCompany(1).subscribe(
-			users => {
-				if (!users) {
+	loadAdmins(companyId) {
+		if (companyId) {
+			this.companyId = companyId;
+			this.companyService.getUsersAdminCompany(companyId).subscribe(
+				adminsFound => {
+					if (!adminsFound) {
+						return;
+					}
+					this.adminsChange = adminsFound;
+					this.admins = adminsFound;
+				},
+				err => {
+				}
+			);
+		}		
+	}
+
+	searchUserByCompany() {
+		if (!this.searchText || this.searchText.trim() === '') {
+			return false;
+		}
+		this.companyService.searchUserByName(this.companyId, this.searchText).subscribe(
+			data => {
+				if (!data || data.length === 0) {
+					this.errorMsg = 'user not found';
 					return;
 				}
+				this.errorMsg = '';
+				this.users = data;
+				_.each(this.admins, (admin) => {
+					_.remove(this.users, (user) => {
+						return admin.id === user.id;
+					});
+				});
 			},
 			err => {
-				console.log(err);
-			});
+				this.errorMsg = 'user not found';
+			}
+		);
+	}
+
+	deleteAdmins(userId) {
+		_.remove(this.admins, function(admin) {
+			return admin.id === userId;
+		});
+	}
+
+	addAdmin(user) {
+		this.admins.push(user);
+		_.remove(this.users, function(userFind) {
+			return user.id === userFind.id;
+		});
 	}
 
 	saveClose() {
-		this.submitted = true;
+		let company = {
+			id: this.companyId,
+			admins: this.admins
+		};
+		this.companyService.UpdateAdminCompany(company).subscribe(
+			company => {
+				if (!company) {
+					return;
+				}
+			}
+		);
 	}
 }

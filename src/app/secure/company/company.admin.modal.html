@@ -4,20 +4,49 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-<div class="modal-body">
-    <form role="form" ngNoForm (ngSubmit)="saveClose()">
-        <div>
-            <h2>User Search</h2>
-            <input type="text" [formControl]="adminCompanyFom"/>
-            <ul>
-                <li *ngFor="let item of items | async">{{item}}</li>
-            </ul>
-        </div>
-    </form>
+
+<div class="modal-body row">
+    <div class="col-lg-6 col-md-6">
+        <form role="form" ngNoForm [formGroup]="adminCompanyForm" novalidate (ngSubmit)="saveClose()">
+            <div class="input-group">
+                <input formControlName="users" [(ngModel)]="searchText" (keyup.enter)="searchUserByCompany()"
+                       style="width:100%;" class="form-control" placeholder="Search Employee..." type="text">
+                <span class="input-group-btn">
+                  <button [disabled]="!searchText" name="search" (click)="searchUserByCompany()"
+                          type="button" id="search-btn" class="btn btn-info">
+                      <i class="fa fa-search"></i>
+                  </button>
+                </span>
+            </div>
+
+            <div class="input-group" style="width: 100%;margin-top: 10px;">
+                <div class="text-danger" *ngIf="errorMsg">{{errorMsg}}</div>
+                <ul class="list-group">
+                    <li class="list-group-item" *ngFor="let user of users">{{user.fullName}} - {{user.email}}
+                        <span class="badge badge-success"
+                              (click)="addAdmin({id:user.id, fullName:user.fullName, email: user.email})">ADD
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-lg-6 col-md-6">
+        <div *ngIf="admins?.length">Admins Company</div>
+        <div class="text-danger" *ngIf="!admins?.length">Admin not set</div>
+        <ul class="list-group">
+            <li class="list-group-item" *ngFor="let admin of admins">{{admin.fullName}} - {{admin.email}}
+                <span class="badge badge-danger" (click)="deleteAdmins(admin.id)">DELETE</span>
+            </li>
+        </ul>
+    </div>
 </div>
+
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Cancel</button>
-    <button type="submit" class="btn btn-primary" (click)="saveClose()">
-        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Save & close
+    <button type="button" class="btn btn-default" (click)="bsModalRef.hide()" id="btnCancel">Cancel</button>
+    <button type="submit" class="btn btn-primary" (click)="saveClose(); bsModalRef.hide()">
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Save
     </button>
+    <input type="hidden" [(ngModel)]="companyId" [formControl]="hdCompany">
 </div>
