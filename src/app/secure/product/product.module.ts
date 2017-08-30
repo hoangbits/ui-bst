@@ -1,11 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductComponent } from './index';
+import { ProductComponent, ProductService, ProductModalEditComponent } from './index';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DataTableModule } from "angular2-datatable";
+import { PaginationModule, TooltipModule } from 'ngx-bootstrap';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DataTableModule,
+    PaginationModule,
+    TooltipModule,
   ],
-  declarations: [ProductComponent]
+  providers: [ProductService],
+  declarations: [ProductComponent, ProductModalEditComponent],
+  entryComponents: [
+    ProductModalEditComponent
+  ]
 })
 export class ProductModule { }
