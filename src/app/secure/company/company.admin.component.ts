@@ -72,6 +72,7 @@ export class CompanyAdminComponent implements OnInit  {
 			data => {
 				if (!data || data.length === 0) {
 					this.errorMsg = 'user not found';
+					this.users = [];
 					return;
 				}
 				this.errorMsg = '';
