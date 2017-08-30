@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
 
     this.loginService.Login(dataForm).subscribe(
       data => {
-        this.message = 'login success';
         localStorage.clear();
         if (dataForm.remember) {
           localStorage.setItem('remember', 'true');
@@ -68,7 +67,7 @@ export class LoginComponent implements OnInit {
 
   createForm(){
     this.adLoginForm = this.formBuilder.group({
-      email: ["nam@gmail.com", [Validators.required] ],
+      email: ["", [Validators.required] ],
       password: [],
       remember: [true]
     });
