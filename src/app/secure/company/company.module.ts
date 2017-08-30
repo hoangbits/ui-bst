@@ -3,9 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DataTableModule} from "angular2-datatable";
 import {PaginationModule, TooltipModule} from 'ngx-bootstrap';
-import {MdProgressSpinnerModule} from '@angular/material';
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
-import { Ng2CompleterModule } from 'ng2-completer';
 
 import { CompanyComponent, CompanyModalEditComponent,
 	CompanyModalViewComponent, CompanyService,
@@ -26,9 +24,7 @@ import { CompanyComponent, CompanyModalEditComponent,
 		PaginationModule,
 		TooltipModule.forRoot(),
 		ReactiveFormsModule,
-		MdProgressSpinnerModule,
-		AngularMultiSelectModule,
-		Ng2CompleterModule
+		AngularMultiSelectModule
 	],
 	providers:[CompanyService],
 	entryComponents: [

@@ -4,7 +4,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app.routing';
 import {HttpModule, JsonpModule} from '@angular/http';
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
-//import {NgxAdminLteModule} from 'ngx-admin-lte';
 import {
 	ModalModule,
 	BsModalService,
@@ -25,6 +24,7 @@ import {RoleModule} from './secure/role';
 import {UserModule} from './secure/user';
 import {CompanyModule} from './secure/company';
 import {ActivityModule} from './secure/activity';
+import {ProductModule} from './secure/product';
 import {AlertDialog} from './secure/dialog';
 import { AuthGuard } from './guards/index';
 
@@ -46,7 +46,6 @@ import { AuthGuard } from './guards/index';
 		ReactiveFormsModule,
 		HttpModule, JsonpModule,
 		AngularMultiSelectModule,
-		//NgxAdminLteModule,
 		ModalModule.forRoot(),
 		PaginationModule.forRoot(),
 		TooltipModule.forRoot(),
@@ -58,7 +57,8 @@ import { AuthGuard } from './guards/index';
 		ActivityModule,
 		RoleModule,
 		UserModule,
-		CompanyModule
+		CompanyModule,
+		ProductModule
 	],
 	providers: [
 		BsModalService,

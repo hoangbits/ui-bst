@@ -16,6 +16,7 @@ export class SecureComponent implements OnInit {
 	bsModalRef: BsModalRef;
 	sideBar: any[] = [
 		{ name: 'Company', url: '/admin/company', icon: 'fa-building-o' },
+		{ name: 'Product', url: '/admin/product', icon: 'fa-product-hunt' },
 		{ name: 'User', url: '/admin/user', icon: 'fa-user' },
 		{ name: 'Role', url: '/admin/role', icon: 'fa-files-o' },
 		{ name: 'Scope', url: '/admin/scope', icon: 'fa-th' },
