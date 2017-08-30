@@ -14,7 +14,7 @@ import * as _ from 'lodash';
 export class CompanyAdminComponent implements OnInit  {
 	fg: FormGroup;
 	submitted: boolean;
-	admins: any[];
+	admins: any[] = [];
 	users: any[];
 	adminsChange: any[];
 	errorMsg: string;
