@@ -6,6 +6,6 @@
 export const environment = {
 	production: false,
 	apiEndpoint: 'http://localhost:9761/api/',
-	apiCompanyEndpoint: 'http://10.1.5.201:9762/api/',
+	apiCompanyEndpoint: 'http://localhost:9762/api/',
 	apiAuthentication : 'http://localhost:3001/'
 };

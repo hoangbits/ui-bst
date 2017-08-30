@@ -8,11 +8,13 @@ export class Company{
 	createdBy: string;
 	createdAt: Date;
 
-	constructor(companyName: string = '',
-							address: string = '',
-							taxCode: string = '',
-							phone: string = '',
-							fax: string = ''){
+	constructor(
+				id: string = '',
+				companyName: string = '',
+				address: string = '',
+				taxCode: string = '',
+				phone: string = '',
+				fax: string = ''){
 		this.companyName = companyName;
 		this.address = address;
 

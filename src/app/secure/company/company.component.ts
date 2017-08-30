@@ -3,7 +3,9 @@ import {MdDialog} from '@angular/material';
 import {AlertDialog} from '../dialog/alert.dialog.component';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
-import {Company, CompanyModalEditComponent, CompanyModalViewComponent} from './index';
+import {Company, CompanyModalEditComponent,
+	CompanyModalViewComponent, CompanyAdminComponent
+} from './index';
 import {CompanyService} from './company.service';
 import * as _ from "lodash";
 import { Router } from '@angular/router';
@@ -46,6 +48,21 @@ export class CompanyComponent implements OnInit {
 	viewCompany(company: Company) {
 		this.openModalView('View Company', true, company);
 	}
+
+	configAdmin(company: Company) {
+		this.openModalAdminView('Config Admin Company', true, company);
+	}
+
+	openModalAdminView (title, viewMode, data?: Company) {
+		this.bsModalRef = this.modalService.show(CompanyAdminComponent, {class:'admin-company-modal'});
+		this.bsModalRef.content.title = title;
+		this.bsModalRef.content.companyId = data.id;
+		this.bsModalRef.content.viewMode = viewMode;
+
+		this.modalService.onHide.subscribe(() => {
+		});
+	}
+
 
 	openModal(title, viewMode, data?: Company) {
 
