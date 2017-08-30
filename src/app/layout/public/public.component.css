@@ -1,0 +1,56 @@
+﻿.login form .form-control {
+  background-color: transparent;
+  height: 40px !important;
+  border-radius: 0;
+}
+
+.login .form-control:focus {
+  outline: none;
+}
+
+
+
+.btn-login {
+  width: 150px;
+  border-radius: 0;
+}
+
+.btn-login:hover {
+  outline: none;
+}
+
+.forgot-password-link {
+  margin-top: 10px;
+}
+
+.forgot-password-link a {
+  color: #333;
+}
+
+.mr-top {
+  margin-top: 100px;
+  clear: both;
+  display: block;
+}
+
+.login-title {
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+}
+
+.link {
+  color: #333;
+  line-height: 30px;
+}
+
+.link:hover {
+  text-decoration: underline;
+  color: #333;
+  line-height: 30px;
+}
+
+.link i {
+  padding-right: 10px;
+}

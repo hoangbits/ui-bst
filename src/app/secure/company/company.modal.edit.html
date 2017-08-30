@@ -10,51 +10,41 @@
 
         <div class="form-group">
             <label>Company name</label>
-            <input *ngIf="!viewMode" type="text" class="form-control" placeholder="Company name" id="txtName"
+            <input type="text" class="form-control" placeholder="Company name" id="txtName"
                    required maxlength="100"
                    [(ngModel)]="company.companyName" formControlName="companyName">
             <p [hidden]="(fg.controls['companyName'].valid || (fg.controls['companyName'].pristine && !isSubmited))" class="text-danger">This is required
                 field.</p>
-
-            <div *ngIf="viewMode">{{company.companyName}}</div>
         </div>
         <div class="form-group">
             <label>Address</label>
-            <input *ngIf="!viewMode" type="text" class="form-control" placeholder="Address" id="txtAddress"
+            <input type="text" class="form-control" placeholder="Address" id="txtAddress"
                    required maxlength="300"
                    [(ngModel)]="company.address" name="address" formControlName="address">
             <p [hidden]="(fg.controls['address'].valid || (fg.controls['address'].pristine && !isSubmited))" class="text-danger">This is required
                 field.</p>
-
-            <div *ngIf="viewMode">{{company.address}}</div>
         </div>
         <div class="form-group">
             <label>Tax code</label>
-            <input *ngIf="!viewMode" type="text" class="form-control" placeholder="Tax code" id="txtTaxCode"
+            <input type="text" class="form-control" placeholder="Tax code" id="txtTaxCode"
                    required maxlength="20" [(ngModel)]="company.taxCode" name="taxCode" formControlName="taxCode">
             <p [hidden]="(fg.controls['taxCode'].valid || (fg.controls['taxCode'].pristine && !isSubmited))" class="text-danger">This is required
                 field.</p>
-
-            <div *ngIf="viewMode">{{company.taxCode}}</div>
         </div>
         <div class="form-group">
             <label>Phone</label>
-            <input *ngIf="!viewMode" type="text" class="form-control" placeholder="Phone" id="txtPhoneNumber"
+            <input type="text" class="form-control" placeholder="Phone" id="txtPhoneNumber"
                    maxlength="20" [(ngModel)]="company.phone" name="phone" formControlName="phone">
-
-            <div *ngIf="viewMode">{{company.phone}}</div>
         </div>
         <div class="form-group">
             <label>Fax</label>
-            <input *ngIf="!viewMode" type="text" class="form-control" placeholder="Fax" id="txtFax"
+            <input type="text" class="form-control" placeholder="Fax" id="txtFax"
                    [(ngModel)]="company.fax" name="fax" formControlName="fax" maxlength="20">
-
-            <div *ngIf="viewMode">{{company.fax}}</div>
         </div>
 
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" (click)="bsModalRef.hide()" id="btnCancel">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="saveClose(fg.valid)" *ngIf="!viewMode" id="btnSave">Save</button>
+        <button type="button" class="btn btn-primary" (click)="saveClose(fg.valid)" id="btnSave">Save</button>
     </div>
 </form>

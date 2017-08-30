@@ -22,8 +22,6 @@
                             <th>
                                 <mfDefaultSorter by="urlRegex">UrlRegex</mfDefaultSorter>
                             </th>
-                            <th class="createdBy">Created by</th>
-                            <th class="createdAt">Created at</th>
                             <th class="action60">Action</th>
                         </tr>
                         </thead>
@@ -33,8 +31,6 @@
                             <td>{{activity.url}}</td>
                             <td>{{activity.method}}</td>
                             <td>{{activity.urlRegex}}</td>
-                            <td class="text-center">{{activity.createdBy}}</td>
-                            <td class="text-center">{{activity.createdAt | date: 'dd/MM/yyyy H:MM'}}</td>
                             <td><span style="padding-right:14px; cursor: pointer" (click)="edit(activity)"
                                       tooltip="Edit"><i
                                     class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
@@ -44,25 +40,26 @@
                             </td>
                         </tr>
                         </tbody>
-                        <tfoot>
+                        <tfoot *ngIf="totalItems>0">
                         <tr>
                             <td colspan="7">
                                 <div class="col-md-6">
                                     <div style="margin-top:20px">
-                                        Showing {{indexPage+1}} to {{(indexPage+itemsPerPage)>totalItems?totalItems:indexPage+itemsPerPage}}
-                                        of {{totalItems}}
+                                        Showing {{indexPage+1}} to
+                                        {{(indexPage+itemsPerPage)>totalItems?totalItems:indexPage+itemsPerPage}}
+                                        of {{totalItems}} entries
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                <pagination style="float:right;"
-                                            [totalItems]="totalItems"
-                                            (ngModel)="currentPage"
-                                            [itemsPerPage]="itemsPerPage"
-                                            class="pagination-sm"
-                                            [maxSize]="5"
-                                            [boundaryLinks]="true"
-                                            [rotate]="false"
-                                            (pageChanged)="pageChanged($event)"></pagination>
+                                    <pagination style="float:right;"
+                                                [totalItems]="totalItems"
+                                                (ngModel)="currentPage"
+                                                [itemsPerPage]="itemsPerPage"
+                                                class="pagination-sm"
+                                                [maxSize]="5"
+                                                [boundaryLinks]="true"
+                                                [rotate]="false"
+                                                (pageChanged)="pageChanged($event)"></pagination>
                                 </div>
                             </td>
                         </tr>

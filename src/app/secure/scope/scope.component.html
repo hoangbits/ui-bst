@@ -16,8 +16,6 @@
                                 <mfDefaultSorter by="scopeName">Scope name</mfDefaultSorter>
                             </th>
                             <th>Description</th>
-                            <th class="createdBy">Created by</th>
-                            <th class="createdAt">Created at</th>
                             <th class="action90">Action</th>
                         </tr>
                         </thead>
@@ -26,13 +24,11 @@
                             <td>{{indexPage + i + 1}}.</td>
                             <td>{{scope.scopeName}}</td>
                             <td>{{scope.description}}</td>
-                            <td class="text-center">{{scope.createdBy}}</td>
-                            <td class="text-center">{{scope.createdAt | date: 'dd/MM/yyyy H:MM'}}</td>
                             <td><span style="padding-right:14px; cursor: pointer" (click)="editName(scope)"
                                       tooltip="Edit"><i
                                     class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
                                 <span style="cursor: pointer" (click)="editActivity(scope)"
-                                      tooltip="Config Activity"><i class="fa fa-wrench"
+                                      tooltip="Config Scope"><i class="fa fa-wrench"
                                                                    aria-hidden="true"></i></span>
                                 <span (click)="showModal(scope.id)" style="float: right; cursor: pointer"
                                       tooltip="Delete"><i
@@ -40,13 +36,13 @@
                             </td>
                         </tr>
                         </tbody>
-                        <tfoot>
+                        <tfoot *ngIf="totalItems>0">
                         <tr>
                             <td colspan="6">
                                 <div class="col-md-6">
                                     <div style="margin-top:20px">
                                         Showing {{indexPage+1}} to {{(indexPage+10)>totalItems?totalItems:indexPage+10}}
-                                        of {{totalItems}}
+                                        of {{totalItems}} entries
                                     </div>
                                 </div>
                                 <div class="col-md-6">

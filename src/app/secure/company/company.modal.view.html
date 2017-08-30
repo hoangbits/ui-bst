@@ -12,34 +12,78 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="tab_1">
-                <input type="hidden" [(ngModel)]="company.id" [formControl]="hdCompany">
-                <b>General:</b>
-                <table class="tbl-info">
-                    <tr>
-                        <td class="td-head">Company name:</td>
-                        <td style="text-transform: uppercase">{{company.companyName}}</td>
-                    </tr>
-                    <tr>
-                        <td class="td-head">Address:</td>
-                        <td>{{company.address}}</td>
-                    </tr>
-                    <tr>
-                        <td class="td-head">Tax code:</td>
-                        <td>{{company.taxCode}}</td>
-                    </tr>
-                    <tr>
-                        <td class="td-head">Phone number:</td>
-                        <td>{{company.phone}}</td>
-                    </tr>
-                    <tr>
-                        <td class="td-head">Fax:</td>
-                        <td>{{company.fax}}</td>
-                    </tr>
-                </table>
+                <div class="form-horizontal">
+                    <form role="form" ngNoForm [formGroup]="fg" novalidate>
+                    <input type="hidden" [(ngModel)]="company.id" [formControl]="hdCompany">
+                    <table class="tbl-info">
+                        <tr>
+                            <td class="td-head">Company name:</td>
+                            <td style="text-transform: uppercase">
+                                <input *ngIf="isEdit" type="text" class="form-control" placeholder="Company name" id="txtName"
+                                       required maxlength="100"
+                                       [(ngModel)]="company.companyName" formControlName="companyName">
+                                <p *ngIf="isEdit" [hidden]="(fg.controls['companyName'].valid || (fg.controls['companyName'].pristine && !isSubmited))" class="text-danger">This is required
+                                    field.</p>
+                                <p *ngIf="!isEdit">{{company.companyName}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-head">Address:</td>
+                            <td>
+                                <input *ngIf="isEdit" type="text" class="form-control" placeholder="Address" id="txtAddress"
+                                       required maxlength="300"
+                                       [(ngModel)]="company.address" name="address" formControlName="address">
+                                <p *ngIf="isEdit" [hidden]="(fg.controls['address'].valid || (fg.controls['address'].pristine && !isSubmited))" class="text-danger">This is required
+                                    field.</p>
+                                <p *ngIf="!isEdit">
+                                {{company.address}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-head">Tax code:</td>
+                            <td>
+                                <input *ngIf="isEdit" type="text" class="form-control" placeholder="Tax code" id="txtTaxCode"
+                                       required maxlength="20" [(ngModel)]="company.taxCode" name="taxCode" formControlName="taxCode">
+                                <p *ngIf="isEdit" [hidden]="(fg.controls['taxCode'].valid || (fg.controls['taxCode'].pristine && !isSubmited))" class="text-danger">This is required
+                                    field.</p>
+                                <p *ngIf="!isEdit">{{company.taxCode}}</p></td>
+                        </tr>
+                        <tr>
+                            <td class="td-head">Phone number:</td>
+                            <td>
+                                <input *ngIf="isEdit" type="text" class="form-control" placeholder="Phone" id="txtPhoneNumber"
+                                       maxlength="20" [(ngModel)]="company.phone" name="phone" formControlName="phone">
+                            <p *ngIf="!isEdit">{{company.phone}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="td-head">Fax:</td>
+                            <td>
+                                <input *ngIf="isEdit" type="text" class="form-control" placeholder="Fax" id="txtFax"
+                                       [(ngModel)]="company.fax" name="fax" formControlName="fax" maxlength="20">
+                                <p *ngIf="!isEdit">{{company.fax}}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button type="button" class="btn btn-flat btn-primary pull-right" id="btnEdit"
+                                        *ngIf="isProfile && !isEdit"
+                                        (click)="showEdit()">Edit
+                                </button>
+                                <button type="button" class="btn btn-flat btn-primary pull-right" id="btnSave"
+                                        *ngIf="isEdit"
+                                        (click)="save()">Save
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                    </form>
+                </div>
             </div>
             <!-- /.tab-pane -->
             <div class="tab-pane" id="tab_2">
-                <p *ngIf="users?.length == 0" style="text-align: center; font-size:18px; margin:30px 0;">No data found.</p>
+                <p *ngIf="users?.length == 0" style="text-align: center; font-size:18px; margin:30px 0;">No data
+                    found.</p>
                 <div class="row" *ngIf="users?.length > 0">
                     <div class="col-md-8 col-md-offset-2">
                         <table style="margin: 20px 0">
@@ -60,7 +104,8 @@
                         </table>
                     </div>
                 </div>
-                <table class="table table-bordered table-striped" [mfData]="users" #mf="mfDataTable" *ngIf="users?.length > 0">
+                <table class="table table-bordered table-striped" [mfData]="users" #mf="mfDataTable"
+                       *ngIf="users?.length > 0">
                     <thead>
                     <tr>
                         <th style="width: 10px">No</th>
