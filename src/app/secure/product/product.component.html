@@ -1,0 +1,109 @@
+<section class="content">
+  <div class="row">
+      <div class="col-md-12">
+          <div class="box box-success">
+              <div class="box-header with-border">
+                  <h3 class="box-title">List of Products</h3>
+                  <span (click)="addNewProduct()" class="btn btn-primary pull-right">Add new</span>
+              </div>
+              <!-- /.box-header -->
+              <div class="box-body">
+                  <div class="row">
+                      <div class="col-md-6 col-md-offset-3">
+                          <div style="margin:20px 0">
+                              <table>
+                                  <tr>
+                                      <td width="100%"><input type="text" class="form-control"
+                                                              placeholder="Search product title"
+                                                              [(ngModel)]="searchText" id="txtSearch"
+                                                              style="width:100%" autofocus
+                                                              (keyup.enter)="search()"></td>
+                                      <td>
+                                          <button type="submit" class="btn btn-flat btn-primary" id="btnSearch"
+                                                  (click)="search()"><i
+                                                  class="fa fa-search" aria-hidden="true"
+                                                  style="margin-right: 6px"></i>Search
+                                          </button>
+                                      </td>
+                                      <td>
+                                          <button type="button" class="btn btn-flat btn-primary" (click)="refresh()"
+                                                  style="margin-left:10px" id="btnRefresh">
+                                              <i class="fa fa-repeat" aria-hidden="true"
+                                                 style="margin-right: 6px"></i>Clear
+                                          </button>
+                                      </td>
+                                  </tr>
+                              </table>
+
+
+                          </div>
+                      </div>
+                  </div>
+                  <table class="table table-bordered table-striped" [mfData]="products" #mf="mfDataTable">
+                      <thead>
+                      <tr>
+                          <th style="width: 10px">No</th>
+                          <th>
+                              <mfDefaultSorter by="productTitle">Product title</mfDefaultSorter>
+                          </th>
+                          <th>
+                              <mfDefaultSorter by="sku">SKU</mfDefaultSorter>
+                          </th>
+                          <th>
+                              <mfDefaultSorter by="shippingInfo">Shipping info</mfDefaultSorter>
+                          </th>
+                          <th>
+                              <mfDefaultSorter by="description">Description</mfDefaultSorter>
+                          </th>
+                          <th class="action90">Action</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let product of mf.data; let i = index">
+                          <td>{{indexPage+i+1}}.</td>
+                          <td>{{product.productTitle}}</td>
+                          <td>{{product.sku}}</td>
+                          <td>{{product.shippingInfo}}</td>
+                          <td>{{product.description}}</td>
+                          <td>
+                              <span style="padding-right:14px; cursor: pointer" (click)="viewProduct(product)"
+                                    id="row{{(i)}}BtnView"
+                                    tooltip="View"><i class="fa fa-eye"></i></span>
+                              <span style="cursor: pointer" (click)="updateProduct(product)"
+                                    id="row{{(i)}}BtnEdit"
+                                    tooltip="Edit"><i class="fa fa-pencil-square-o"></i></span>
+                              <span (click)="confirmDialog(product.id)" style="float: right; cursor: pointer"
+                                    id="row{{(i)}}BtnDelete"
+                                    tooltip="Delete"><i class="fa fa-trash"></i></span>
+                          </td>
+                      </tr>
+                      </tbody>
+                      <tfoot *ngIf="totalItems>0">
+                      <tr>
+                          <td colspan="8">
+                              <div class="col-md-6">
+                                  <div style="margin-top:20px">
+                                      Showing {{indexPage+1}} to {{(indexPage+10)>totalItems?totalItems:indexPage+10}}
+                                      of {{totalItems}} entries
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                  <pagination style="float:right;"
+                                              [totalItems]="totalItems"
+                                              (ngModel)="currentPage"
+                                              [itemsPerPage]="itemsPerPage"
+                                              class="pagination-sm"
+                                              [maxSize]="5"
+                                              [boundaryLinks]="true"
+                                              [rotate]="false"
+                                              (pageChanged)="pageChanged($event)"></pagination>
+                              </div>
+                          </td>
+                      </tr>
+                      </tfoot>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
