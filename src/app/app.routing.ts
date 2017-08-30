@@ -9,7 +9,8 @@ import { AuthGuard } from './guards/index';
  */
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '', component: SecureComponent, data: { title: 'Secure Views' }, children: SECURE_ROUTES, canActivateChild: [AuthGuard] },
+	//{ path: '', component: SecureComponent, data: { title: 'Secure Views' }, children: SECURE_ROUTES, canActivateChild: [AuthGuard] },
+	{ path: '', component: SecureComponent, data: { title: 'Secure Views' }, children: SECURE_ROUTES},
   { path: '', component: PublicComponent, data: { title: 'Public Views' }, children: PUBLIC_ROUTES },
   { path: '**', redirectTo: '' }
 ];

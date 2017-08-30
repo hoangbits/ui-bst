@@ -13,3 +13,9 @@ table.tbl-info td.td-head{
 table.tbl-info td{
     text-align: left;
 }
+.table{
+    margin-bottom: 0 !important;
+}
+.nav-tabs-custom{
+    margin-bottom: 0 !important;
+}
