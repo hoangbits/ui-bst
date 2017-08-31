@@ -3,7 +3,7 @@ import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Scope} from './index';
 import {Observable} from 'rxjs/Rx';
 
-import {environment} from '../../../environments/environment';
+import {AdminConfiguration} from '../../config/apiName/admin.config';
 
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -11,15 +11,11 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class ScopeService {
-
-	private urlScopeApi = environment.apiEndpoint + 'scope';
-	private urlActivityApi = environment.apiEndpoint + 'getActivitiesNoPaging';
-
 	constructor(private http: Http) {
 	}
 
 	getScopes(perPage, page): Observable<any> {
-		return this.http.get(this.urlScopeApi + '?perPage=' + perPage + '&page=' + page)
+		return this.http.get(AdminConfiguration.SCOPE_REST_URL + '?perPage=' + perPage + '&page=' + page)
 			.map((res: Response) => {
 				return res.json()
 			})
@@ -27,7 +23,7 @@ export class ScopeService {
 	}
 
 	getActivities(): Observable<any> {
-		return this.http.get(this.urlActivityApi)
+		return this.http.get(AdminConfiguration.ACTIVITY_GET_NO_PAGING_URL)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
@@ -37,7 +33,7 @@ export class ScopeService {
 		const headers = new Headers({'Content-Type': 'application/json'});
 		const options = new RequestOptions({headers: headers});
 
-		return this.http.post(this.urlScopeApi, bodyString, options)
+		return this.http.post(AdminConfiguration.SCOPE_REST_URL, bodyString, options)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
@@ -47,13 +43,13 @@ export class ScopeService {
 		const headers = new Headers({'Content-Type': 'application/json'});
 		const options = new RequestOptions({headers: headers});
 
-		return this.http.put(this.urlScopeApi, bodyString, options)
+		return this.http.put(AdminConfiguration.SCOPE_REST_URL, bodyString, options)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 
 	removeScope(id: string): Observable<Scope> {
-		return this.http.delete(this.urlScopeApi + '/' + id)
+		return this.http.delete(AdminConfiguration.SCOPE_REST_URL + '/' + id)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}

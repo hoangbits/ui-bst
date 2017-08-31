@@ -4,5 +4,6 @@
      CREATE_USER: 'http://localhost:9761/user/create',
      FIND_USER_BY_ID: 'http://localhost:9761/user/findOne/',
      UPDATE_USER: 'http://localhost:9761/user/update',
-     URL_LOGIN : 'api/login/'
+     URL_LOGIN : 'api/login/',
+     GET_LIST_COMPANY: 'http://localhost:9761/api/getCompaniesNoPaging'
  });

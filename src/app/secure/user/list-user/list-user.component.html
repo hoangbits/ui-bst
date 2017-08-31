@@ -1,11 +1,13 @@
 <section class="content">
+
+    <app-search-user  [listRole] =listRole [userTypes] = userType (clicked)="getAllUser($event)" ></app-search-user>
     <div class="row">
         <div class="col-md-12">
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title" id="lblPageTitle">List of Users</h3>
-                    <button type="button" id="btnAddNew" (keydown.enter)="$event.preventDefault()" (click)="addNew()"
-                            class="btn btn-primary pull-right">Add new user
+                    <button type="button" id="btnAddNew" (click)="addNew()" class="btn btn-primary pull-right">Add new
+                        user
                     </button>
                 </div>
                 <!-- /.box-header -->
@@ -13,32 +15,37 @@
                     <table class="table table-bordered table-striped"  [mfData]="listUsers" #mf="mfDataTable">
                         <thead>
                         <tr>
-                            <th class="no">No</th>
-                            <th><mfDefaultSorter by="email">Email</mfDefaultSorter></th>
-                            <th><mfDefaultSorter by="fullName">Full name</mfDefaultSorter></th>
-                            <th><mfDefaultSorter by="rollName">Role name</mfDefaultSorter></th>
-                            <th><mfDefaultSorter by="company">Company</mfDefaultSorter></th>
-                            <th class="action90">Action</th>
+                            <th>NO</th>
+                            <th>Email</th>
+                            <th>Fullname</th>
+                            <th>Role</th>
+                            <th>Company</th>
+                            <th>Create by</th>
+                            <th>Create at</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let user of mf.data; let i = index">
-                            <td> {{indexPage+i+1}}</td>
+                        <tr *ngFor="let user of listUsers; let i = index">
+
+
+                            <td> {{i+1}}</td>
                             <td> {{user.email}}</td>
                             <td> {{user.fullName}}</td>
                             <td>
-                                <p *ngIf="user.roles[0]">{{user.roles[0].roleName}}</p>
+                                <p *ngIf="user.roles">{{user.roles.roleName}}</p>
                             </td>
                             <td></td>
+                            <td></td>
+                            <td> {{user.createdAt | date:'dd/MM/yyyy hh:mm'}}</td>
                             <td>
                                 <span style="padding-right:14px; cursor: pointer" id="btnEdit{{i}}"
-                                      (click)="editUser(user.id)" tooltip="Edit"><i class="fa fa-pencil-square-o"
-                                                                                    aria-hidden="true"></i></span>
-                                <span style=" padding-right:14px; cursor: pointer" id="btnView{{i}}"
-                                      (click)="viewUser(user.id)" tooltip="View">
-                                        <i class="fa fa-eye" aria-hidden="true"></i></span>
-                                <span style=" cursor: pointer" id="btnDelete{{i}}" (click)="showModal(user.id)">
-                                        <i class="fa fa-trash" tooltip="Delete"></i></span>
+                                      (click)="editUser(user.id)" title="Edit user"><i class="fa fa-pencil-square-o"
+                                                                                       aria-hidden="true"></i></span>
+                                <span style=" padding-right:14px" id="btnView{{i}}" (click)="viewUser(user.id)"
+                                      title="View user"><i class="fa fa-wrench" aria-hidden="true"></i></span>
+                                <span style=" cursor: pointer" id="btnDelete{{i}}" (click)="showModal(user.id)"><i
+                                        class="fa fa-trash" title="Delete user"></i></span>
                             </td>
                         </tr>
                         </tbody>
@@ -66,6 +73,16 @@
                         </tr>
                         </tfoot>
                     </table>
+                    <pagination style="float:right;"
+                                [totalItems]="totalItems"
+                                (ngModel)="currentPage"
+                                [itemsPerPage]="itemsPerPage"
+                                class="pagination-sm"
+                                [maxSize]="5"
+                                [boundaryLinks]="true"
+                                [rotate]="false"
+                                (pageChanged)="pageChanged($event)">
+                    </pagination>
                 </div>
             </div>
         </div>

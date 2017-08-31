@@ -5,40 +5,33 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {environment} from '../../../environments/environment';
-import {COMPANY_CONFIG} from '../../config/apiName/company';
+import {CompanyConfiguration} from '../../config/apiName/company.config';
 
 @Injectable()
 export class CompanyService {
-	private urlCompanyApi = environment.apiCompanyEndpoint + 'company';
-	private urlApi = environment.apiCompanyEndpoint;
-	private urlUsersByCompanyApi = environment.apiCompanyEndpoint + 'getUsersByCompany';
-	// private urlCompanyAdminUser = environment.apiCompanyEndpoint + 'getAdminCompany';
-
-
 	constructor(private http: Http) {
 	}
 
 	getCompanies(searchText, perPage, page): Observable<any> {
-		return this.http.get(this.urlCompanyApi + '?searchText=' + searchText + '&perPage=' + perPage + '&page=' + page)
+		return this.http.get(CompanyConfiguration.COMPANY_REST_URL + '?searchText=' + searchText + '&perPage=' + perPage + '&page=' + page)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 
 	getCompany(id): Observable<Company> {
-		return this.http.get(this.urlApi + 'findOne?companyId='+id)
+		return this.http.get(CompanyConfiguration.COMPANY_REST_URL + '?companyId='+id)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 
 	getCompanyByUser(id): Observable<Company> {
-		return this.http.get(this.urlApi + 'getCompanyByUser?userId='+id)
+		return this.http.get(CompanyConfiguration.COMPANY_GET_BY_USER_URL + '?userId='+id)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 
 	getUsersByCompany(companyId, searchText, perPage, page): Observable<any> {
-		return this.http.get(this.urlUsersByCompanyApi + '?companyId='+ companyId
+		return this.http.get(CompanyConfiguration.COMPANY_GET_USER_BY_COMPANY_URL + '?companyId='+ companyId
 			+'&searchText=' + searchText
 			+ '&perPage=' + perPage
 			+ '&page=' + page)
@@ -51,7 +44,7 @@ export class CompanyService {
 		const headers = new Headers({'Content-Type': 'application/json'});
 		const options = new RequestOptions({headers: headers});
 
-		return this.http.post(this.urlCompanyApi, bodyString, options)
+		return this.http.post(CompanyConfiguration.COMPANY_REST_URL, bodyString, options)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
@@ -61,25 +54,25 @@ export class CompanyService {
 		const headers = new Headers({'Content-Type': 'application/json'});
 		const options = new RequestOptions({headers: headers});
 
-		return this.http.put(this.urlCompanyApi, bodyString, options)
+		return this.http.put(CompanyConfiguration.COMPANY_REST_URL, bodyString, options)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 
 	removeCompany(id: string): Observable<Company> {
-		return this.http.delete(this.urlCompanyApi + '/' + id)
+		return this.http.delete(CompanyConfiguration.COMPANY_REST_URL + id)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 
 	getUsersAdminCompany(companyId): Observable<any> {
-		return this.http.get(COMPANY_CONFIG.URL_API + COMPANY_CONFIG.URL_GET_ADMIN + companyId)
+		return this.http.get(CompanyConfiguration.COMPANY_GET_ADMIN_BY_COMPANY_URL + companyId)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 
 	searchUserByName(companyId, userName): Observable<any> {
-		return this.http.get(COMPANY_CONFIG.URL_API + COMPANY_CONFIG.URL_SEARCH_USER + companyId + '/' + userName)
+		return this.http.get(CompanyConfiguration.COMPANY_SEARCH_USER_BY_NAME_URL + companyId + '/' + userName)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
@@ -89,7 +82,7 @@ export class CompanyService {
 		const headers = new Headers({'Content-Type': 'application/json'});
 		const options = new RequestOptions({headers: headers});
 
-		return this.http.put(COMPANY_CONFIG.URL_API + COMPANY_CONFIG.URL_UPDATE_COMPANY, bodyString, options)
+		return this.http.put(CompanyConfiguration.COMPANY_REST_URL, bodyString, options)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}

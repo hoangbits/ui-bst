@@ -39,27 +39,19 @@
                             </div>
                         </div>
                     </div>
-                    <table class="table table-bordered table-striped" [mfData]="companies" #mf="mfDataTable">
+                    <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
                             <th style="width: 10px">No</th>
-                            <th>
-                                <mfDefaultSorter by="companyName">Company name</mfDefaultSorter>
-                            </th>
-                            <th>
-                                <mfDefaultSorter by="address">Address</mfDefaultSorter>
-                            </th>
-                            <th>
-                                <mfDefaultSorter by="taxCode">Tax code</mfDefaultSorter>
-                            </th>
-                            <th>
-                                <mfDefaultSorter by="phone">Phone</mfDefaultSorter>
-                            </th>
+                            <th>Company name</th>
+                            <th>Address</th>
+                            <th>Tax code</th>
+                            <th>Phone</th>
                             <th style="width: 120px">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let company of mf.data; let i = index">
+                        <tr *ngFor="let company of companies; let i = index">
                             <td>{{indexPage+i+1}}.</td>
                             <td>{{company.companyName}}</td>
                             <td>{{company.address}}</td>

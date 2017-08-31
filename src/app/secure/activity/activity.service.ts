@@ -3,7 +3,7 @@ import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Activity} from './index';
 import {Observable} from 'rxjs/Rx';
 
-import {environment} from '../../../environments/environment';
+import {AdminConfiguration} from '../../config/apiName/admin.config';
 
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -11,14 +11,11 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class ActivityService {
-
-    private urlActivityApi = environment.apiEndpoint + 'activity';
-
     constructor(private http: Http) {
     }
 
     getActivities(perPage, page): Observable<any> {
-        return this.http.get(this.urlActivityApi + '?perPage=' + perPage + '&page=' + page)
+        return this.http.get(AdminConfiguration.ACTIVITY_REST_URL + '?perPage=' + perPage + '&page=' + page)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
@@ -28,7 +25,7 @@ export class ActivityService {
         const headers = new Headers({'Content-Type': 'application/json'});
         const options = new RequestOptions({headers: headers});
 
-        return this.http.post(this.urlActivityApi, bodyString, options)
+        return this.http.post(AdminConfiguration.ACTIVITY_REST_URL, bodyString, options)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
@@ -38,13 +35,13 @@ export class ActivityService {
         const headers = new Headers({'Content-Type': 'application/json'});
         const options = new RequestOptions({headers: headers});
 
-        return this.http.put(this.urlActivityApi, bodyString, options)
+        return this.http.put(AdminConfiguration.ACTIVITY_REST_URL, bodyString, options)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }
 
     removeActivity(id: string): Observable<Activity> {
-        return this.http.delete(this.urlActivityApi + '/' + id)
+        return this.http.delete(AdminConfiguration.ACTIVITY_REST_URL + '/' + id)
             .map((res: Response) => res.json())
             .catch((error: any) => Observable.throw(error.json() || 'Server error'));
     }

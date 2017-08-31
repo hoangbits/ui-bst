@@ -7,9 +7,7 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {environment} from '../../../environments/environment';
-import {USER_API} from '../../config/apiName/userApi';
-
+import {LoginConfiguration} from '../../config/apiName/login.config';
 
 @Injectable()
 export class LoginService {
@@ -21,7 +19,7 @@ export class LoginService {
 	  const headers = new Headers({'Content-Type': 'application/json'});
 	  const options = new RequestOptions({headers: headers});
 
-	  return this.http.post(environment.apiAuthentication + USER_API.URL_LOGIN, bodyString, options)
+	  return this.http.post(LoginConfiguration.LOGIN_URL, bodyString, options)
 		  .map((res: Response) => res.json())
 		  .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }

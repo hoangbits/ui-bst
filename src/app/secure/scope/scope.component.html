@@ -8,19 +8,17 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="table table-bordered table-striped" [mfData]="scopes" #mf="mfDataTable">
+                    <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
                             <th class="no">No</th>
-                            <th>
-                                <mfDefaultSorter by="scopeName">Scope name</mfDefaultSorter>
-                            </th>
+                            <th>Scope name</th>
                             <th>Description</th>
                             <th class="action90">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let scope of mf.data; let i = index">
+                        <tr *ngFor="let scope of scopes; let i = index">
                             <td>{{indexPage + i + 1}}.</td>
                             <td>{{scope.scopeName}}</td>
                             <td>{{scope.description}}</td>

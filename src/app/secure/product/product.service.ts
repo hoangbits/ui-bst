@@ -5,23 +5,21 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {environment} from '../../../environments/environment';
+import {ProductConfiguration} from '../../config/apiName/product.config';
 
 @Injectable()
 export class ProductService {
-	private urlApi = environment.apiProductEndpoint + 'product';
-
 	constructor(private http: Http) {
 	}
 
 	getProducts(searchText, perPage, page): Observable<any> {
-		return this.http.get(this.urlApi + '?searchText=' + searchText + '&perPage=' + perPage + '&page=' + page)
+		return this.http.get(ProductConfiguration.REST_URL + '?searchText=' + searchText + '&perPage=' + perPage + '&page=' + page)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 
 	getProduct(id): Observable<Product> {
-		return this.http.get(this.urlApi + 'findOne?companyId='+id)
+		return this.http.get(ProductConfiguration.GET_PRODUCT_URL + '?companyId='+id)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
@@ -32,7 +30,7 @@ export class ProductService {
 		const headers = new Headers({'Content-Type': 'application/json'});
 		const options = new RequestOptions({headers: headers});
 
-		return this.http.post(this.urlApi, bodyString, options)
+		return this.http.post(ProductConfiguration.REST_URL, bodyString, options)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
@@ -42,13 +40,13 @@ export class ProductService {
 		const headers = new Headers({'Content-Type': 'application/json'});
 		const options = new RequestOptions({headers: headers});
 
-		return this.http.put(this.urlApi, bodyString, options)
+		return this.http.put(ProductConfiguration.REST_URL, bodyString, options)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}
 
 	removeProduct(id: string): Observable<Product> {
-		return this.http.delete(this.urlApi + '/' + id)
+		return this.http.delete(ProductConfiguration.REST_URL + '/' + id)
 			.map((res: Response) => res.json())
 			.catch((error: any) => Observable.throw(error.json() || 'Server error'));
 	}	
