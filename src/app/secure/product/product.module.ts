@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductComponent, ProductService, ProductModalEditComponent } from './index';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DataTableModule } from "angular2-datatable";
 import { PaginationModule, TooltipModule } from 'ngx-bootstrap';
 
 @NgModule({
@@ -10,7 +9,6 @@ import { PaginationModule, TooltipModule } from 'ngx-bootstrap';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    DataTableModule,
     PaginationModule,
     TooltipModule,
   ],

@@ -8,9 +8,11 @@ import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {ModalDirective} from 'ngx-bootstrap/modal/modal.component';
 import {ModalModule, BsModalService, PaginationModule, TooltipModule} from 'ngx-bootstrap';
 import {EqualValidatorDirective} from './equal-validator.directive';
+import { SearchUserComponent } from './search-user/search-user.component';
+import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 
 @NgModule({
-  declarations: [ListUserComponent, CreateUserComponent, EditUserComponent, EqualValidatorDirective],
+  declarations: [ListUserComponent, CreateUserComponent, EditUserComponent, EqualValidatorDirective, SearchUserComponent],
   imports: [
     ModalModule.forRoot(),
     PaginationModule,
@@ -18,7 +20,8 @@ import {EqualValidatorDirective} from './equal-validator.directive';
     BrowserModule,
     FormsModule,
     UserRouting,
-    DataTableModule
+    DataTableModule,
+    AngularMultiSelectModule
   ],
   entryComponents: [
     EditUserComponent, CreateUserComponent

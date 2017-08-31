@@ -9,24 +9,18 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="table table-bordered table-striped" [mfData]="activities" #mf="mfDataTable">
+                    <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
                             <th class="no">No</th>
-                            <th>
-                                <mfDefaultSorter by="url">URL</mfDefaultSorter>
-                            </th>
-                            <th>
-                                <mfDefaultSorter by="method">Method</mfDefaultSorter>
-                            </th>
-                            <th>
-                                <mfDefaultSorter by="urlRegex">UrlRegex</mfDefaultSorter>
-                            </th>
+                            <th>URL</th>
+                            <th>Method</th>
+                            <th>UrlRegex</th>
                             <th class="action60">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let activity of mf.data; let i = index">
+                        <tr *ngFor="let activity of activities; let i = index">
                             <td>{{indexPage + i + 1}}.</td>
                             <td>{{activity.url}}</td>
                             <td>{{activity.method}}</td>

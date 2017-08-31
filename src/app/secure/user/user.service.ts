@@ -16,8 +16,8 @@ export class UserService {
   constructor(private http: Http) {
   }
 
-  getUsers(currentPage, itemsPerPage): Observable<any> {
-    return this.http.get(USER_API.GET_LIST_USER + currentPage + '/' + itemsPerPage)
+  getUsers(currentPage, itemsPerPage, criterial): Observable<any> {
+    return this.http.get(USER_API.GET_LIST_USER + currentPage + '/' + itemsPerPage + '/' + criterial)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
@@ -52,4 +52,9 @@ export class UserService {
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
+  getAllCompany(): Observable<any> {
+    return this.http.get(USER_API.GET_LIST_COMPANY)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
 }
