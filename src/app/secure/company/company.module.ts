@@ -3,7 +3,6 @@ import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PaginationModule, TooltipModule} from 'ngx-bootstrap';
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
-import {SelectModule} from 'ng2-select';
 
 import { CompanyComponent, CompanyModalEditComponent,
 	CompanyModalViewComponent, CompanyService,
@@ -23,8 +22,7 @@ import { CompanyComponent, CompanyModalEditComponent,
 		PaginationModule,
 		TooltipModule.forRoot(),
 		ReactiveFormsModule,
-		AngularMultiSelectModule,
-		SelectModule
+		AngularMultiSelectModule
 	],
 	providers:[CompanyService],
 	entryComponents: [
