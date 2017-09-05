@@ -7,6 +7,7 @@ export class Company{
 	fax: string;
 	createdBy: string;
 	createdAt: Date;
+	locations:any;
 
 	constructor(
 				id: string = '',
@@ -17,6 +18,6 @@ export class Company{
 				fax: string = ''){
 		this.companyName = companyName;
 		this.address = address;
-
+		this.locations = [];
 	}
 }

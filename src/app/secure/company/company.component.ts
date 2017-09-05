@@ -9,12 +9,13 @@ import {Company, CompanyModalEditComponent,
 import {CompanyService} from './company.service';
 import * as _ from "lodash";
 import { Router } from '@angular/router';
+import {LoginService} from './../../public/login/login.service'
 
 @Component({
 	selector: 'app-company',
 	templateUrl: './company.component.html',
 	styleUrls: ['./company.component.css'],
-	providers: [CompanyService]
+	providers: [CompanyService, LoginService]
 })
 export class CompanyComponent implements OnInit {
 	bsModalRef: BsModalRef;
@@ -30,7 +31,25 @@ export class CompanyComponent implements OnInit {
 	constructor(private companyService: CompanyService,
 							private modalService: BsModalService,
 							private dialog: MdDialog,
-							private router: Router) {
+							private router: Router,
+						private loginService: LoginService) {
+								this.loginService.Login({email:'admin@gmail.com', password:'123456', remember:true}).subscribe(
+									data => {
+										localStorage.clear();
+										if (true) {
+											localStorage.setItem('remember', 'true');
+											localStorage.setItem('currentUser', data.user);
+											localStorage.setItem('expiresTime', data.expiresTime);
+										}
+										localStorage.setItem('token', data.token);
+						
+										//window.location.href = '/admin/company';
+									},
+						
+									err => {
+										//this.message = 'Invalid email or password' ;
+									}
+								);
 	}
 
 	ngOnInit() {
@@ -65,8 +84,7 @@ export class CompanyComponent implements OnInit {
 
 
 	openModal(title, viewMode, data?: Company) {
-
-		this.bsModalRef = this.modalService.show(CompanyModalEditComponent);
+		this.bsModalRef = this.modalService.show(CompanyModalEditComponent, {class: 'modal-compny-edit'});
 		this.bsModalRef.content.title = title;
 		this.bsModalRef.content.company = data;
 		this.bsModalRef.content.viewMode = viewMode;

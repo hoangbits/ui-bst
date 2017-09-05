@@ -32,6 +32,12 @@
 .second{
     width:800px !important;
 }
+.modal-compny-edit{
+    width:800px !important;
+}
+.cdk-overlay-container{
+    z-index: 2000 !important;
+  }
 .alert {
     background: #f2edda;
     padding: 7px;
