@@ -9,91 +9,86 @@
         <ul class="nav nav-tabs">
             <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Company information</a></li>
             <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">User information</a></li>
+            <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Location information</a></li>
         </ul>
         <div class="tab-content">
+            <!-- company info tab -->
             <div class="tab-pane active" id="tab_1">
                 <div class="form-horizontal">
                     <form role="form" ngNoForm [formGroup]="fg" novalidate>
-                    <input type="hidden" [(ngModel)]="company.id" [formControl]="hdCompany">
-                    <table class="tbl-info">
-                        <tr>
-                            <td class="td-head">Company name:</td>
-                            <td style="text-transform: uppercase">
-                                <input *ngIf="isEdit" type="text" class="form-control" placeholder="Company name" id="txtName"
-                                       required maxlength="100"
-                                       [(ngModel)]="company.companyName" formControlName="companyName">
-                                <p *ngIf="isEdit" [hidden]="(fg.controls['companyName'].valid || (fg.controls['companyName'].pristine && !isSubmited))" class="text-danger">This is required
-                                    field.</p>
-                                <p *ngIf="!isEdit">{{company.companyName}}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="td-head">Address:</td>
-                            <td>
-                                <input *ngIf="isEdit" type="text" class="form-control" placeholder="Address" id="txtAddress"
-                                       required maxlength="300"
-                                       [(ngModel)]="company.address" name="address" formControlName="address">
-                                <p *ngIf="isEdit" [hidden]="(fg.controls['address'].valid || (fg.controls['address'].pristine && !isSubmited))" class="text-danger">This is required
-                                    field.</p>
-                                <p *ngIf="!isEdit">
-                                {{company.address}}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="td-head">Tax code:</td>
-                            <td>
-                                <input *ngIf="isEdit" type="text" class="form-control" placeholder="Tax code" id="txtTaxCode"
-                                       required maxlength="20" [(ngModel)]="company.taxCode" name="taxCode" formControlName="taxCode">
-                                <p *ngIf="isEdit" [hidden]="(fg.controls['taxCode'].valid || (fg.controls['taxCode'].pristine && !isSubmited))" class="text-danger">This is required
-                                    field.</p>
-                                <p *ngIf="!isEdit">{{company.taxCode}}</p></td>
-                        </tr>
-                        <tr>
-                            <td class="td-head">Phone number:</td>
-                            <td>
-                                <input *ngIf="isEdit" type="text" class="form-control" placeholder="Phone" id="txtPhoneNumber"
-                                       maxlength="20" [(ngModel)]="company.phone" name="phone" formControlName="phone">
-                            <p *ngIf="!isEdit">{{company.phone}}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="td-head">Fax:</td>
-                            <td>
-                                <input *ngIf="isEdit" type="text" class="form-control" placeholder="Fax" id="txtFax"
-                                       [(ngModel)]="company.fax" name="fax" formControlName="fax" maxlength="20">
-                                <p *ngIf="!isEdit">{{company.fax}}</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <button type="button" class="btn btn-flat btn-primary pull-right" id="btnEdit"
-                                        *ngIf="isProfile && !isEdit"
-                                        (click)="showEdit()">Edit
+                        <input type="hidden" [(ngModel)]="company.id" [formControl]="hdCompany">
+                        <table class="tbl-info">
+                            <tr>
+                                <td class="td-head">Company name:</td>
+                                <td style="text-transform: uppercase">
+                                    <input *ngIf="isEdit" type="text" class="form-control" placeholder="Company name" id="txtName" required maxlength="100" [(ngModel)]="company.companyName"
+                                        formControlName="companyName">
+                                    <p *ngIf="isEdit" [hidden]="(fg.controls['companyName'].valid || (fg.controls['companyName'].pristine && !isSubmited))" class="text-danger">This is required field.
+                                    </p>
+                                    <p *ngIf="!isEdit">{{company.companyName}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-head">Address:</td>
+                                <td>
+                                    <input *ngIf="isEdit" type="text" class="form-control" placeholder="Address" id="txtAddress" required maxlength="300" [(ngModel)]="company.address"
+                                        name="address" formControlName="address">
+                                    <p *ngIf="isEdit" [hidden]="(fg.controls['address'].valid || (fg.controls['address'].pristine && !isSubmited))" class="text-danger">This is required field.
+                                    </p>
+                                    <p *ngIf="!isEdit">
+                                        {{company.address}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-head">Tax code:</td>
+                                <td>
+                                    <input *ngIf="isEdit" type="text" class="form-control" placeholder="Tax code" id="txtTaxCode" required maxlength="20" [(ngModel)]="company.taxCode"
+                                        name="taxCode" formControlName="taxCode">
+                                    <p *ngIf="isEdit" [hidden]="(fg.controls['taxCode'].valid || (fg.controls['taxCode'].pristine && !isSubmited))" class="text-danger">This is required field.
+                                    </p>
+                                    <p *ngIf="!isEdit">{{company.taxCode}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-head">Phone number:</td>
+                                <td>
+                                    <input *ngIf="isEdit" type="text" class="form-control" placeholder="Phone" id="txtPhoneNumber" maxlength="20" [(ngModel)]="company.phone"
+                                        name="phone" formControlName="phone">
+                                    <p *ngIf="!isEdit">{{company.phone}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="td-head">Fax:</td>
+                                <td>
+                                    <input *ngIf="isEdit" type="text" class="form-control" placeholder="Fax" id="txtFax" [(ngModel)]="company.fax" name="fax"
+                                        formControlName="fax" maxlength="20">
+                                    <p *ngIf="!isEdit">{{company.fax}}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <button type="button" class="btn btn-flat btn-primary pull-right" id="btnEdit" *ngIf="isProfile && !isEdit" (click)="showEdit()">Edit
                                 </button>
-                                <button type="button" class="btn btn-flat btn-primary pull-right" id="btnSave"
-                                        *ngIf="isEdit"
-                                        (click)="save()">Save
+                                    <button type="button" class="btn btn-flat btn-primary pull-right" id="btnSave" *ngIf="isEdit" (click)="save()">Save
                                 </button>
-                            </td>
-                        </tr>
-                    </table>
+                                </td>
+                            </tr>
+                        </table>
                     </form>
                 </div>
             </div>
-            <!-- /.tab-pane -->
-            <div class="tab-pane" id="tab_2">                
+            <!-- end company info tab -->
+
+            <!-- user info tab -->
+            <div class="tab-pane" id="tab_2">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <table style="margin: 20px 0">
                             <tr>
-                                <td width="100%"><input type="text" class="form-control"
-                                                        placeholder="Search user"
-                                                        [(ngModel)]="searchText" id="txtSearch"
-                                                        style="width:100%" autofocus
-                                                        (keyup.enter)="search()"></td>
+                                <td width="100%"><input type="text" class="form-control" placeholder="Search user" [(ngModel)]="searchText"
+                                        id="txtSearch" style="width:100%" autofocus (keyup.enter)="search()"></td>
                                 <td>
-                                    <button type="submit" class="btn btn-flat btn-primary" id="btnSearch"
-                                            (click)="search()"><i
+                                    <button type="submit" class="btn btn-flat btn-primary" id="btnSearch" (click)="search()"><i
                                             class="fa fa-search" aria-hidden="true"
                                             style="margin-right: 6px"></i>Search
                                     </button>
@@ -104,38 +99,57 @@
                 </div>
                 <table class="table table-bordered table-striped">
                     <thead>
-                    <tr>
-                        <th style="width: 10px">No</th>
-                        <th>Email</th>
-                        <th>Full name</th>
-                        <th>Role</th>
-                    </tr>
+                        <tr>
+                            <th style="width: 10px">No</th>
+                            <th>Email</th>
+                            <th>Full name</th>
+                            <th>Role</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let user of users; let i = index">
-                        <td>{{indexPage+i+1}}.</td>
-                        <td>{{user.email}}</td>
-                        <td>{{user.fullName}}</td>
-                        <td>{{user.role}}</td>
-                    </tr>
+                        <tr *ngFor="let user of users; let i = index">
+                            <td>{{indexPage+i+1}}.</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.fullName}}</td>
+                            <td>{{user.role}}</td>
+                        </tr>
                     </tbody>
                     <tfoot>
-                    <tr>
-                        <td colspan="4">
-                            <pagination style="float:right;"
-                                        [totalItems]="totalItems"
-                                        (ngModel)="currentPage"
-                                        [itemsPerPage]="itemsPerPage"
-                                        class="pagination-sm"
-                                        [maxSize]="5"
-                                        [boundaryLinks]="true"
-                                        [rotate]="false"
-                                        (pageChanged)="pageChanged($event)"></pagination>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td colspan="4">
+                                <pagination style="float:right;" [totalItems]="totalItems" (ngModel)="currentPage" [itemsPerPage]="itemsPerPage" class="pagination-sm"
+                                    [maxSize]="5" [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)"></pagination>
+                            </td>
+                        </tr>
                     </tfoot>
                 </table>
             </div>
+            <!-- end user info tab -->
+
+            <!-- location info tab -->
+            <div class="tab-pane" id="tab_3">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>State/ Province</th>
+                            <th>City/ District</th>
+                            <th>Address</th>
+                            <th>Postcode</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let location of company.locations; let i = index">
+                            <td>{{location.country}}</td>
+                            <td>{{location.state}}</td>
+                            <td>{{location.city}}</td>
+                            <td>{{location.address}}</td>
+                            <td>{{location.postCode}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- end location info tab -->
         </div>
     </div>
 </div>
