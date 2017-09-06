@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit,ViewContainerRef} from '@angular/core';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {ScopeModalEditComponent} from './scope.modal.edit.component';
-
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import {MdDialog} from '@angular/material';
 import {AlertDialog} from '../dialog/alert.dialog.component';
 
@@ -26,9 +26,11 @@ export class ScopeComponent implements OnInit {
 
   constructor(private scopeService: ScopeService,
               private modalService: BsModalService,
-              private dialog: MdDialog) {
+              private dialog: MdDialog,
+							public toastr: ToastsManager,
+							vcr: ViewContainerRef) {
     this.loadScopes();
-
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   loadScopes() {
@@ -58,6 +60,7 @@ export class ScopeComponent implements OnInit {
       if (result === 'OK') {
         this.scopeService.removeScope(id).subscribe(() => {
           this.loadScopes();
+          this.toastr.success('Delete Scope successfully!', 'Success!');
         });
       }
     });

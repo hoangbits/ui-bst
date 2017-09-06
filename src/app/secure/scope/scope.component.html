@@ -4,7 +4,7 @@
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">List of Scopes</h3>
-                    <span (click)="addNew()" class="btn btn-primary pull-right">Add new</span>
+                    <span (click)="addNew()" class="btn btn-primary pull-right">New Scope</span>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -33,6 +33,9 @@
                                         class="fa fa-trash"></i></span>
                             </td>
                         </tr>
+                        <tr *ngIf="totalItems == 0">
+                                <td colspan="8">There is no item</td>
+                            </tr>
                         </tbody>
                         <tfoot *ngIf="totalItems>0">
                         <tr>

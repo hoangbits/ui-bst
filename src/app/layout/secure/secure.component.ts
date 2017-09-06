@@ -3,12 +3,13 @@ import { Router } from '@angular/router';
 import { CompanyModalViewComponent, CompanyService } from './../../secure/company';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
+import { LoginService } from './../../public/login/login.service';
 
 @Component({
 	selector: 'app-secure',
 	templateUrl: './secure.component.html',
 	styleUrls: ['./secure.component.css'],
-	providers: [CompanyService]
+	providers: [CompanyService, LoginService]
 })
 export class SecureComponent implements OnInit {
 
@@ -25,7 +26,26 @@ export class SecureComponent implements OnInit {
 
 	constructor(router: Router,
 		private modalService: BsModalService,
+		private loginService: LoginService,
 		private companyService: CompanyService) {
+
+			this.loginService.Login({ email: 'admin@gmail.com', password: '123456', remember: true }).subscribe(
+				data => {
+					localStorage.clear();
+					if (true) {
+						localStorage.setItem('remember', 'true');
+						localStorage.setItem('currentUser', data.user);
+						localStorage.setItem('expiresTime', data.expiresTime);
+					}
+					localStorage.setItem('token', data.token);
+	
+					//window.location.href = '/admin/company';
+				},
+	
+				err => {
+					//this.message = 'Invalid email or password' ;
+				}
+			);
 	}
 
 	ngOnInit() {

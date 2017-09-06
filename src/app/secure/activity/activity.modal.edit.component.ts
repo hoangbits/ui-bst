@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit,ViewContainerRef} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import {Activity} from './activity.model';
 import {ActivityService} from './activity.service';
@@ -20,8 +21,11 @@ export class ActivityModalEditComponent implements OnInit {
 
 	constructor(public bsModalRef: BsModalRef,
 							private activityService: ActivityService,
-							private fb: FormBuilder) {
+							private fb: FormBuilder,
+							public toastr: ToastsManager,
+							vcr: ViewContainerRef) {
 		this.activity = this.activity || new Activity();
+		this.toastr.setRootViewContainerRef(vcr);
 	}
 
 	ngOnInit() {
@@ -58,11 +62,11 @@ export class ActivityModalEditComponent implements OnInit {
 					this.bsModalRef.hide();
 				}
 				else {
-					this.errorMsg = 'Update failed';
+					this.toastr.warning('Save Permission failed!', 'Alert!');
 				}
 			},
 			err => {
-				this.errorMsg = err;
+				this.toastr.warning('Save Permission failed!', 'Alert!');
 			});
 	}
 
@@ -72,11 +76,11 @@ export class ActivityModalEditComponent implements OnInit {
 					this.bsModalRef.hide();
 				}
 				else {
-					this.errorMsg = 'Create failed';
+					this.toastr.warning('Save Permission failed!', 'Alert!');
 				}
 			},
 			err => {
-				this.errorMsg = err;
+				this.toastr.warning('Save Permission failed!', 'Alert!');
 			});
 	}
 

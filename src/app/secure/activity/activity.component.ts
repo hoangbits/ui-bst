@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit,ViewContainerRef} from '@angular/core';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import {MdDialog} from '@angular/material';
 import {AlertDialog} from '../dialog/alert.dialog.component';
@@ -26,8 +27,11 @@ export class ActivityComponent implements OnInit {
 
 	constructor(private activityService: ActivityService,
 							private modalService: BsModalService,
-							private dialog: MdDialog) {
+							private dialog: MdDialog,
+							public toastr: ToastsManager,
+							vcr: ViewContainerRef) {
 		this.loadActivities();
+		this.toastr.setRootViewContainerRef(vcr);
 	}
 
 	ngOnInit() {
@@ -55,12 +59,10 @@ export class ActivityComponent implements OnInit {
 				title: 'Confirm dialog', message: 'Are you sure you want to delete this item?'
 			}
 		}).afterClosed().subscribe(result => {
-
 			if (result === 'OK') {
 				this.activityService.removeActivity(id).subscribe(() => {
-
-					// Reload Activity table
-					this.loadActivities();
+					this.toastr.success('Delete Permission successfully!', 'Success!');
+					this.loadActivities();					
 				});
 			}
 		});

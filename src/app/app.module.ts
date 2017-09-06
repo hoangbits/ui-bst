@@ -4,13 +4,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app.routing';
 import {HttpModule, JsonpModule} from '@angular/http';
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
+import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import {
 	ModalModule,
 	BsModalService,
 	PaginationModule,
 	TooltipModule
 } from 'ngx-bootstrap';
-import {DataTableModule} from "angular2-datatable";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MdDialogModule, MdButtonModule} from '@angular/material';
 import {AppComponent} from './app.component';
@@ -49,7 +49,7 @@ import { AuthGuard } from './guards/index';
 		ModalModule.forRoot(),
 		PaginationModule.forRoot(),
 		TooltipModule.forRoot(),
-		DataTableModule,
+		ToastModule.forRoot(),
 		BrowserAnimationsModule,
 		MdDialogModule,
 		MdButtonModule,
