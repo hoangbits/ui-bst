@@ -6,7 +6,6 @@ import {ModalDirective} from 'ngx-bootstrap/modal/modal.component';
 import {ModalModule, BsModalService, PaginationModule, TooltipModule} from 'ngx-bootstrap';
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 
-import {DataTableModule} from 'angular2-datatable';
 import {ListRoleComponent, EditRoleComponent} from './index';
 import {RoleRouting} from './role.routing';
 
@@ -24,8 +23,7 @@ import {RoleRouting} from './role.routing';
 		TooltipModule,
 		ReactiveFormsModule,
 		AngularMultiSelectModule,
-		RoleRouting,
-		DataTableModule
+		RoleRouting
 	],
 	entryComponents: [
 		EditRoleComponent
