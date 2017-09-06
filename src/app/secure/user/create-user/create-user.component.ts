@@ -20,6 +20,7 @@ export class CreateUserComponent implements OnInit {
   errorMsg: string;
   selectedItems = [];
   selectedItemsOtherUser = [];
+  dropdownList = [];
   dropdownSettings = {};
   company = {
     'companyId': '',
