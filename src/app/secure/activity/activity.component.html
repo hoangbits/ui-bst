@@ -4,7 +4,7 @@
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">List of Permissions</h3>
-                    <span (click)="addNew()" class="btn btn-primary pull-right" id="btnAddNew">Add new
+                    <span (click)="addNew()" class="btn btn-primary pull-right" id="btnAddNew">New Permission
                     </span>
                 </div>
                 <!-- /.box-header -->
@@ -33,6 +33,9 @@
                                         class="fa fa-trash"></i></span>
                             </td>
                         </tr>
+                        <tr *ngIf="totalItems == 0">
+                                <td colspan="8">There is no item</td>
+                            </tr>
                         </tbody>
                         <tfoot *ngIf="totalItems>0">
                         <tr>

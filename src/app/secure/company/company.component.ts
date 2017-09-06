@@ -1,21 +1,23 @@
-import {Component, OnInit} from '@angular/core';
-import {MdDialog} from '@angular/material';
-import {AlertDialog} from '../dialog/alert.dialog.component';
-import {BsModalService} from 'ngx-bootstrap/modal';
-import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
-import {Company, CompanyModalEditComponent,
-	CompanyModalViewComponent, CompanyAdminComponent
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { MdDialog } from '@angular/material';
+import { AlertDialog } from '../dialog/alert.dialog.component';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import {
+	Company, CompanyModalEditComponent,
+	CompanyModalViewComponent, CompanyAdminComponent, CompanyModalAddComponent
 } from './index';
-import {CompanyService} from './company.service';
+import { CompanyService } from './company.service';
 import * as _ from "lodash";
 import { Router } from '@angular/router';
-import {LoginService} from './../../public/login/login.service'
+
 
 @Component({
 	selector: 'app-company',
 	templateUrl: './company.component.html',
 	styleUrls: ['./company.component.css'],
-	providers: [CompanyService, LoginService]
+	providers: [CompanyService]
 })
 export class CompanyComponent implements OnInit {
 	bsModalRef: BsModalRef;
@@ -29,27 +31,12 @@ export class CompanyComponent implements OnInit {
 	totalItems: number = 0;
 
 	constructor(private companyService: CompanyService,
-							private modalService: BsModalService,
-							private dialog: MdDialog,
-							private router: Router,
-						private loginService: LoginService) {
-								this.loginService.Login({email:'admin@gmail.com', password:'123456', remember:true}).subscribe(
-									data => {
-										localStorage.clear();
-										if (true) {
-											localStorage.setItem('remember', 'true');
-											localStorage.setItem('currentUser', data.user);
-											localStorage.setItem('expiresTime', data.expiresTime);
-										}
-										localStorage.setItem('token', data.token);
-						
-										//window.location.href = '/admin/company';
-									},
-						
-									err => {
-										//this.message = 'Invalid email or password' ;
-									}
-								);
+		private modalService: BsModalService,
+		private dialog: MdDialog,
+		private router: Router,
+		public toastr: ToastsManager,
+		vcr: ViewContainerRef) {
+		this.toastr.setRootViewContainerRef(vcr);
 	}
 
 	ngOnInit() {
@@ -57,7 +44,7 @@ export class CompanyComponent implements OnInit {
 	}
 
 	addNewComapny() {
-		this.openModal('Add new Company', false, new Company());
+		this.openModalAdd('Add new Company');
 	}
 
 	updateCompany(company: Company) {
@@ -72,8 +59,8 @@ export class CompanyComponent implements OnInit {
 		this.openModalAdminView('Config Admin Company', true, company);
 	}
 
-	openModalAdminView (title, viewMode, data?: Company) {
-		this.bsModalRef = this.modalService.show(CompanyAdminComponent, {class:'admin-company-modal'});
+	openModalAdminView(title, viewMode, data?: Company) {
+		this.bsModalRef = this.modalService.show(CompanyAdminComponent, { class: 'admin-company-modal' });
 		this.bsModalRef.content.title = title;
 		this.bsModalRef.content.companyId = data.id;
 		this.bsModalRef.content.viewMode = viewMode;
@@ -84,11 +71,19 @@ export class CompanyComponent implements OnInit {
 
 
 	openModal(title, viewMode, data?: Company) {
-		this.bsModalRef = this.modalService.show(CompanyModalEditComponent, {class: 'modal-compny-edit'});
+		this.bsModalRef = this.modalService.show(CompanyModalEditComponent, { class: 'modal-compny-edit' });
 		this.bsModalRef.content.title = title;
 		this.bsModalRef.content.company = data;
 		this.bsModalRef.content.viewMode = viewMode;
 
+		this.modalService.onHide.subscribe(() => {
+			this.loadCompanies();
+		});
+	}
+
+	openModalAdd(title) {
+		this.bsModalRef = this.modalService.show(CompanyModalAddComponent, { class: 'modal-compny-add' });
+		this.bsModalRef.content.title = title;
 		this.modalService.onHide.subscribe(() => {
 			this.loadCompanies();
 		});
@@ -109,13 +104,6 @@ export class CompanyComponent implements OnInit {
 			result => {
 				this.companies = result.companies;
 				this.totalItems = result.meta.paginate.totalCount;
-			},
-			err => {
-				this.dialog.open(AlertDialog, {
-					width: '500px', height: '170px', data: {
-						title: 'Information dialog', message: 'No data found.'
-					}
-				});
 			});
 	}
 
@@ -142,7 +130,8 @@ export class CompanyComponent implements OnInit {
 		}).afterClosed().subscribe(result => {
 			if (result === 'OK') {
 				this.companyService.removeCompany(id).subscribe(() => {
-					this.loadCompanies();
+					this.toastr.success('Delete company successfully!', 'Success!');
+					this.loadCompanies();					
 				});
 			}
 		});

@@ -6,7 +6,7 @@ import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown/angular2-m
 
 import { CompanyComponent, CompanyModalEditComponent,
 	CompanyModalViewComponent, CompanyService,
-	CompanyAdminComponent
+	CompanyAdminComponent, CompanyModalAddComponent
 } from './index';
 
 @NgModule({
@@ -14,7 +14,8 @@ import { CompanyComponent, CompanyModalEditComponent,
 		CompanyComponent,
 		CompanyModalEditComponent,
 		CompanyModalViewComponent,
-		CompanyAdminComponent
+		CompanyAdminComponent,
+		CompanyModalAddComponent
 	],
 	imports: [
 		BrowserModule,
@@ -28,7 +29,8 @@ import { CompanyComponent, CompanyModalEditComponent,
 	entryComponents: [
 		CompanyModalEditComponent,
 		CompanyModalViewComponent,
-		CompanyAdminComponent
+		CompanyAdminComponent,
+		CompanyModalAddComponent
 	]
 })
 

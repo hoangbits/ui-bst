@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 import { Company } from './index';
 import { CompanyService } from './company.service';
@@ -21,15 +22,19 @@ export class CompanyModalEditComponent implements OnInit {
 	viewMode: boolean;
 	fg: FormGroup;
 	hdCompany: FormControl;
+	locationCount: number;
 
 	constructor(public bsModalRef: BsModalRef,
 		private companyService: CompanyService,
 		private fb: FormBuilder,
-		private dialog: MdDialog) {
+		private dialog: MdDialog,
+		public toastr: ToastsManager,
+		vcr: ViewContainerRef) {
 		this.company = this.company || new Company();
 		this.viewMode = this.viewMode || true;
 		this.createForm();
 		this.getCountries();
+		this.toastr.setRootViewContainerRef(vcr);
 	}
 
 	ngOnInit() {
@@ -45,14 +50,13 @@ export class CompanyModalEditComponent implements OnInit {
 	createForm() {
 		this.fg = this.fb.group({
 			companyName: new FormControl('', Validators.required),
-			address: new FormControl('', Validators.required),
 			taxCode: new FormControl('', Validators.required),
 			phone: '',
 			fax: ''
 		});
 	}
 
-	saveClose() {
+	public saveClose() {
 		this.isSubmited = true;
 		if (this.fg.invalid) {
 			return;
@@ -207,10 +211,10 @@ export class CompanyModalEditComponent implements OnInit {
 			company: this.company.id
 		};
 
-		let dupl = _.find(this.company.locations, location);
+		let dupl = _.find(this.locations, location);
 		this.msgLocation = '';
 		if (dupl) {
-			this.msgLocation = 'Duplicated location data';
+			this.toastr.warning('This location is exiting!', 'Alert!');
 			return false;
 		}
 
@@ -219,9 +223,10 @@ export class CompanyModalEditComponent implements OnInit {
 		this.companyService.updateLocation(location).subscribe(data => {
 			this.locationSubmit = false;
 			this.getCompanyLocations(this.company.id);
+			this.toastr.success('A new location is added successfully!', 'Success!');
 		},
 			err => {
-				this.msgLocation = 'Failed update';
+				this.toastr.warning('Save location failed!', 'Alert!');
 			})
 	}
 
@@ -229,15 +234,17 @@ export class CompanyModalEditComponent implements OnInit {
 	getCompanyLocations(companyId) {
 		this.companyService.getCompanyLocations(companyId).subscribe(data => {
 			this.locations = data;
+			this.locationCount = data.length;
 		})
 	}
 
 	removeLocation(id) {
 		this.companyService.removeCompanyLocation(id).subscribe(data => {
 			this.getCompanyLocations(this.company.id);
+			this.toastr.success('Delete Location successfully!', 'Success!');
 		},
 			err => {
-				console.log(err);
+				this.toastr.warning('Delete location failed!', 'Alert!');
 			})
 	}
 

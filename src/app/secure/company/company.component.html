@@ -4,7 +4,7 @@
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">List of Companies</h3>
-                    <span (click)="addNewComapny()" class="btn btn-primary pull-right">Add new</span>
+                    <span (click)="addNewComapny()" class="btn btn-primary pull-right">New Company</span>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -44,9 +44,8 @@
                         <tr>
                             <th style="width: 10px">No</th>
                             <th>Company name</th>
-                            <th>Address</th>
-                            <th>Tax code</th>
-                            <th>Phone</th>
+                            <th width="100">Phone</th>
+                            <th width="150">Tax code</th>                            
                             <th style="width: 120px">Action</th>
                         </tr>
                         </thead>
@@ -54,9 +53,8 @@
                         <tr *ngFor="let company of companies; let i = index">
                             <td>{{indexPage+i+1}}.</td>
                             <td>{{company.companyName}}</td>
-                            <td>{{company.address}}</td>
-                            <td>{{company.taxCode}}</td>
                             <td>{{company.phone}}</td>
+                            <td>{{company.taxCode}}</td>                            
                             <td>
                                 <span style="padding-right:14px; cursor: pointer" (click)="viewCompany(company)"
                                       id="row{{(i)}}BtnView"
@@ -71,6 +69,9 @@
                                       id="row{{(i)}}BtnSetComAdminUser"
                                       ><i class="fa fa-cogs"></i></span>
                             </td>
+                        </tr>
+                        <tr *ngIf="totalItems == 0">
+                            <td colspan="8">There is no item</td>
                         </tr>
                         </tbody>
                         <tfoot *ngIf="totalItems>0">

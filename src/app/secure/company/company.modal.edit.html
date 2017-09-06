@@ -13,45 +13,35 @@
         <div class="tab-content">
             <div class="tab-pane active" id="tab_1">
                 <form role="form" ngNoForm [formGroup]="fg" novalidate>
-                    <div class="modal-body">
-                        <div class="alert alert-warning alert-dismissible" *ngIf="errorMsg">{{errorMsg}}</div>
-                        <input type="hidden" [(ngModel)]="company.id" [formControl]="hdCompany">
-                        <div class="form-group">
-                            <label>Company name</label>
-                            <input type="text" class="form-control" placeholder="Company name" id="txtName" required maxlength="100" [(ngModel)]="company.companyName"
-                                formControlName="companyName">
-                            <p [hidden]="(fg.controls['companyName'].valid || (fg.controls['companyName'].pristine && !isSubmited))" class="text-danger">Company name is required.
-                            </p>
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <input type="text" class="form-control" placeholder="Address" id="txtAddress" required maxlength="300" [(ngModel)]="company.address"
-                                name="address" formControlName="address">
-                            <p [hidden]="(fg.controls['address'].valid || (fg.controls['address'].pristine && !isSubmited))" class="text-danger">Address is required.
-                            </p>
-                        </div>
-                        <div class="form-group">
-                            <label>Tax code</label>
-                            <input type="text" class="form-control" placeholder="Tax code" id="txtTaxCode" required maxlength="20" [(ngModel)]="company.taxCode"
-                                name="taxCode" formControlName="taxCode">
-                            <p [hidden]="(fg.controls['taxCode'].valid || (fg.controls['taxCode'].pristine && !isSubmited))" class="text-danger">Tax code is required.
-                            </p>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="text" class="form-control" placeholder="Phone" id="txtPhoneNumber" maxlength="20" [(ngModel)]="company.phone"
-                                name="phone" formControlName="phone">
-                        </div>
-                        <div class="form-group">
-                            <label>Fax</label>
-                            <input type="text" class="form-control" placeholder="Fax" id="txtFax" [(ngModel)]="company.fax" name="fax" formControlName="fax"
-                                maxlength="20">
-                        </div>
-
+                    <div class="alert alert-warning alert-dismissible" *ngIf="errorMsg">{{errorMsg}}</div>
+                    <input type="hidden" [(ngModel)]="company.id" [formControl]="hdCompany">
+                    <div class="form-group">
+                        <label>Company name</label>
+                        <input type="text" class="form-control" placeholder="Company name" id="txtName" required maxlength="100" [(ngModel)]="company.companyName"
+                            formControlName="companyName">
+                        <p [hidden]="(fg.controls['companyName'].valid || (fg.controls['companyName'].pristine && !isSubmited))" class="text-danger">Company name is required.
+                        </p>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" (click)="bsModalRef.hide()" id="btnCancel">Cancel</button>
-                        <button type="button" class="btn btn-primary" (click)="saveClose(fg.valid)" id="btnSave">Save</button>
+                    <div class="form-group">
+                        <label>Tax code</label>
+                        <input type="text" class="form-control" placeholder="Tax code" id="txtTaxCode" required maxlength="20" [(ngModel)]="company.taxCode"
+                            name="taxCode" formControlName="taxCode">
+                        <p [hidden]="(fg.controls['taxCode'].valid || (fg.controls['taxCode'].pristine && !isSubmited))" class="text-danger">Tax code is required.
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" class="form-control" placeholder="Phone" id="txtPhoneNumber" maxlength="20" [(ngModel)]="company.phone"
+                            name="phone" formControlName="phone">
+                    </div>
+                    <div class="form-group">
+                        <label>Fax</label>
+                        <input type="text" class="form-control" placeholder="Fax" id="txtFax" [(ngModel)]="company.fax" name="fax" formControlName="fax"
+                            maxlength="20">
+                    </div>
+
+                    <div class="form-group" style="text-align: right">
+                        <button type="button" class="btn btn-primary" (click)="saveClose()" id="btnSave">Save</button>
                     </div>
                 </form>
             </div>
@@ -66,14 +56,14 @@
                                     <select [(ngModel)]="selectedCountry" (ngModelChange)="countryOnChange($event)" class="ddl">
                                             <option *ngFor="let c of countries" value="{{c.code}}">{{c.name}}</option>
                                          </select>
-                                    <p *ngIf="!selectedCountry && locationSubmit" class="text-danger">This is required field. {{locationSubmit}}</p>
+                                    <p *ngIf="!selectedCountry && locationSubmit" class="text-danger">Country is required.</p>
                                 </td>
                                 <td width="15%" class="td-label">City/ District</td>
                                 <td width="35%">
                                     <select [(ngModel)]="selectedCity" class="ddl">
                                                 <option *ngFor="let c of cities" value="{{c.code}}">{{c.name}}</option>
                                              </select>
-                                    <p *ngIf="!selectedCity && locationSubmit" class="text-danger">This is required field.</p>
+                                    <p *ngIf="!selectedCity && locationSubmit" class="text-danger">City is required.</p>
                                 </td>
                             </tr>
                             <tr>
@@ -82,17 +72,17 @@
                                     <select [(ngModel)]="selectedState" (ngModelChange)="stateOnChange($event)" class="ddl">
                                                 <option *ngFor="let c of states" value="{{c.code}}">{{c.name}}</option>
                                              </select>
-                                    <p *ngIf="!selectedState && locationSubmit" class="text-danger">This is required field.</p>
+                                    <p *ngIf="!selectedState && locationSubmit" class="text-danger">State is required.</p>
                                 </td>
-                                <td class="td-label">Postcode</td>
+                                <td class="td-label">PostCode</td>
                                 <td><input type="text" class="width100 form-control" [(ngModel)]="postCode" name="postCode" placeholder="Post code">
-                                    <p *ngIf="!postCode && locationSubmit" class="text-danger">This is required field.</p>
+                                    <p *ngIf="!postCode && locationSubmit" class="text-danger">PostCode is required.</p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Address</td>
                                 <td colspan="3"><input class="width100 form-control" type="text" [(ngModel)]="address" name="address" placeholder="Address">
-                                    <p *ngIf="!address && locationSubmit" class="text-danger">This is required field.</p>
+                                    <p *ngIf="!address && locationSubmit" class="text-danger">Address is required.</p>
                                 </td>
                             </tr>
                             <tr>
@@ -121,13 +111,15 @@
                             <td>{{location.cityName}}</td>
                             <td>{{location.address}}</td>
                             <td>{{location.postCode}}</td>
-                            <td class="text-center"><span (click)="confirmDialog(location.id)" style="cursor: pointer" id="row{{(i)}}BtnDelete" tooltip="Delete"><i class="fa fa-trash"></i></span></td>
+                            <td class="text-center"><span *ngIf="locationCount>1" (click)="confirmDialog(location.id)" style="cursor: pointer" id="row{{(i)}}BtnDelete"
+                                    tooltip="Delete"><i class="fa fa-trash"></i></span></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
-
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="bsModalRef.hide()" id="btnCancel">Cancel</button>
+    </div>
 </div>
