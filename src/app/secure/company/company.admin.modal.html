@@ -45,7 +45,7 @@
 
 <div class="modal-footer">
     <button type="button" class="btn btn-default" (click)="bsModalRef.hide()" id="btnCancel">Cancel</button>
-    <button type="submit" class="btn btn-primary" (click)="saveClose(); bsModalRef.hide()">
+    <button type="submit" class="btn btn-primary" (click)="saveClose()">
         <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Save
     </button>
     <input type="hidden" [(ngModel)]="companyId" [formControl]="hdCompany">

@@ -21,6 +21,7 @@ export class CompanyAdminComponent implements OnInit  {
 	isEditName: boolean;
 	companyId: string;
 	searchText: string = '';
+	title: string;
 	adminCompanyForm: FormGroup;
 	hdCompany: FormControl;
 
