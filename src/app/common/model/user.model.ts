@@ -7,10 +7,11 @@ export class User {
   password: string;
   company: any;
   location: any;
+  confirmPassword: string;
 
   constructor(id: string = '', email: string = '', fullName: string = ''
     , roles: any = '', password: string = '', userType: string = ''
-    , company: any = '', location: any = '') {
+    , company: any = '', location: any = '', confirmPassword: string = '') {
     this.id = id;
     this.email = email;
     this.fullName = fullName;
@@ -19,5 +20,6 @@ export class User {
     this.userType = userType;
     this.company = company;
     this.location = location;
+    this.confirmPassword = confirmPassword;
   }
 }
