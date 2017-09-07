@@ -28,10 +28,19 @@ export class CreateUserCompanyComponent implements OnInit {
     'roleName': '',
   };
 
+  company = {
+    'companyId' : '5996a7ee734d98493461e83a',
+    'companyName' : 'company 1'
+  };
+
   constructor(public bsModalRef: BsModalRef, private userService: UserService) {
+    // this.currentUserData = JSON.parse(localStorage.getItem('currentUser'));
+    // this.currentUserCompany = this.currentUserData.user.company;
+    // this.currentUserType = this.currentUserData.user.userType;
+
     this.currentUserData = JSON.parse(localStorage.getItem('currentUser'));
     this.currentUserCompany = this.currentUserData.user.company;
-    this.currentUserType = this.currentUserData.user.userType;
+    this.currentUserType = '1';
   }
 
   ngOnInit() {
@@ -50,7 +59,7 @@ export class CreateUserCompanyComponent implements OnInit {
       this.user.email = formValue.txtEmail;
       this.user.fullName = formValue.fullName;
       this.user.userType = this.currentUserType;
-      this.user.company = this.currentUserCompany;
+      this.user.company = this.company;
       this.saveUserFunction(this.user);
     } else {
       return;

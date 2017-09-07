@@ -48,9 +48,13 @@ export class ListUserCompanyComponent implements OnInit {
   constructor(private userService: UserService,
               private modalService: BsModalService,
               private dialog: MdDialog) {
-    this.currentUserData = JSON.parse(localStorage.getItem('currentUser'));
-    this.currentUserType = this.currentUserData.user.userType;
-    this.currentUserCompanyId = this.currentUserData.user.company.companyId;
+
+    this.currentUserType = '1';
+    this.currentUserCompanyId = '5996a809734d98493461e848'
+
+    // this.currentUserData = JSON.parse(localStorage.getItem('currentUser'));
+    // this.currentUserType = this.currentUserData.user.userType;
+    // this.currentUserCompanyId = this.currentUserData.user.company.companyId;
     this.getAllUser();
     this.getListRole();
     this.userType = SYSTEM_CONFIG.USER_TYPE;
@@ -78,7 +82,7 @@ export class ListUserCompanyComponent implements OnInit {
     this.userService.getRoles().subscribe(
       data => this.listRole = data,
       err => {
-        console.log(err);
+        alert('Server error');
       });
   }
 

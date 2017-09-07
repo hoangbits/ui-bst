@@ -26,7 +26,7 @@ export class ListUserComponent implements OnInit {
   bsModalRef: BsModalRef;
   listRole: string[];
   role: Role;
-  companys: Company;
+  company: Company;
   title: string;
   currentPage = 0;
   itemsPerPage = 10;
@@ -34,7 +34,7 @@ export class ListUserComponent implements OnInit {
   indexPage = 0;
   criteria: any;
   userType = [];
-  companie: Companies;
+  companies: Companies;
 
 
   dropdownList = [];
@@ -99,8 +99,8 @@ export class ListUserComponent implements OnInit {
     const dropdownList = [];
     this.userService.getAllCompany().subscribe(
       data => {
-        this.companys = data;
-        _.each(this.companys, (data) => {
+        this.company = data;
+        _.each(this.company, (data) => {
           dropdownList.push({id: data.id, itemName: data.companyName});
         });
       },
@@ -126,8 +126,8 @@ export class ListUserComponent implements OnInit {
     const dropdownList = [];
     this.userService.getAllCompany().subscribe(
       data => {
-        this.companie = data;
-        _.each(this.companie, (data) => {
+        this.companies = data;
+        _.each(this.companies, (data) => {
           dropdownList.push({id: data.id, itemName: data.companyName});
         });
         this.findUserById(userId, true, this.title, dropdownList);
@@ -143,8 +143,8 @@ export class ListUserComponent implements OnInit {
     const dropdownList = [];
     this.userService.getAllCompany().subscribe(
       data => {
-        this.companys = data;
-        _.each(this.companys, (data) => {
+        this.company = data;
+        _.each(this.company, (data) => {
           dropdownList.push({id: data.id, itemName: data.companyName});
         });
 
@@ -162,8 +162,8 @@ export class ListUserComponent implements OnInit {
       data => {
         this.user = data;
         if (this.user.company) {
-          this.companie = this.user.company;
-          selectedItems.push({id: this.companie.companyId, itemName: this.companie.companyName});
+          this.companies = this.user.company;
+          selectedItems.push({id: this.companies.companyId, itemName: this.companies.companyName});
         }
         this.role = data.roles[0];
         this.openEditModal(this.listRole, this.user, this.role, disableInput, title, dropdownList, selectedItems);

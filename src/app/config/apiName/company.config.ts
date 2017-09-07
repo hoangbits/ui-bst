@@ -14,5 +14,7 @@ export const CompanyConfiguration = Object.freeze({
 	COMPANY_GET_STATES_URL:						apiEndpoint + 'api/state',
 	COMPANY_GET_CITIES_URL:						apiEndpoint + 'api/city',
 	COMPANY_LOCATION:									apiEndpoint + 'api/location',
+	FIND_ONE_COMPANY:                 apiEndpoint + 'api/company/findOne/',
+	GET_LIST_COMPANY:                 apiEndpoint + 'api/company/getCompaniesNoPaging',
 
 });
