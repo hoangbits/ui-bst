@@ -1,0 +1,66 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{title}}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="alert alert-warning alert-dismissible" *ngIf="errorMsg">{{errorMsg}}</div>
+  <form #frmVP="ngForm" (ngSubmit)="updateUser(frmVP.valid, user,roleSelect.value,selectLocation.value)">
+    <div class="form-group">
+      <input type="hidden" class="form-control" name="userId" #userId [value]="user.id"  placeholder="User id">
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="text" class="form-control" name="email"
+             [(ngModel)]="user.email"
+             required
+             pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+             #email="ngModel"  [disabled]="!disableInput" placeholder="Role name">
+      <small class="text-danger" *ngIf="email.errors && email.errors.required && (email.dirty || email.touched || frmVP.submitted)">
+        Email is required
+      </small>
+      <small class="text-danger" *ngIf="email.errors && email.errors.pattern && (email.dirty || email.touched || frmVP.submitted)">
+        Email invalid format.
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" class="form-control" name="fullName"  [(ngModel)]="user.fullName" required #fullName="ngModel" [disabled]="!disableInput"  placeholder=" Role description">
+      <small class="text-danger" *ngIf="fullName.errors && fullName.errors.required && (fullName.dirty || fullName.touched || frmVP._submitted)">FullName is required
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label>Role</label>
+      <select class="form-control" id="cbxRoleEdit" name="roleSelect" #roleSelect  [disabled]="!disableInput" >
+        <option value ="" >Select a Role</option>
+        <option *ngFor="let roles of roleData" [value]="roles.id"  [selected]="user.roles && roles.id === user.roles.roleId" >{{roles.roleName}}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="location">Location</label>
+      <select id="cbxLocation" name="locationSelect" #selectLocation  class="form-control"   [disabled]="!disableInput">
+        <option value="">Select a Location</option>
+        <option *ngFor="let location of locationData" [value]="location.id" [selected]="user.location && location.id === user.location.id">
+          {{location.countryName}}-
+          {{location.stateName}}-
+          {{location.cityName}}-
+          {{location.address}}-
+          {{location.postCode}}
+        </option>
+      </select>
+    </div>
+
+
+    <div class="text-right">
+      <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Cancel</button>
+      <button type="submit" *ngIf="disableInput" class="btn btn-primary" >Save</button>
+    </div>
+
+
+  </form>
+</div>
