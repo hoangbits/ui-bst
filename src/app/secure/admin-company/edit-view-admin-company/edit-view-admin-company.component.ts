@@ -27,6 +27,11 @@ export class EditViewAdminCompanyComponent implements OnInit {
     'roleName': '',
   };
 
+  company = {
+    'companyId' : '5996a7ee734d98493461e83a',
+    'companyName' : 'company 1'
+  };
+
   public currentUserData: any;
   public currentUserCompany: any;
   public currentUserType: any;
@@ -36,9 +41,13 @@ export class EditViewAdminCompanyComponent implements OnInit {
     this.user = this.user || new User();
     this.role = this.role || new Role();
 
+    // this.currentUserData = JSON.parse(localStorage.getItem('currentUser'));
+    // this.currentUserCompany = this.currentUserData.user.company;
+    // this.currentUserType = this.currentUserData.user.userType;
+
     this.currentUserData = JSON.parse(localStorage.getItem('currentUser'));
     this.currentUserCompany = this.currentUserData.user.company;
-    this.currentUserType = this.currentUserData.user.userType;
+    this.currentUserType = '1';
   }
 
   ngOnInit() {
@@ -52,7 +61,7 @@ export class EditViewAdminCompanyComponent implements OnInit {
         this.getRoleData(roleId, this.roleData);
         this.user.roles = this.roles;
       }
-      this.user.company = this.currentUserCompany;
+      this.user.company = this.company;
       this.user.userType = this.currentUserType;
       this.getLocationData(locationId, this.locationData);
       this.userService.updateUsers(this.user).subscribe(

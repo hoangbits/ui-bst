@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import {AdminConfiguration} from '../../config/apiName/admin.config';
+import {CompanyConfiguration} from '../../config/apiName/company.config';
 
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -49,13 +50,13 @@ export class UserService {
   }
 
   getAllCompany(): Observable<any> {
-    return this.http.get(AdminConfiguration.GET_LIST_COMPANY)
+    return this.http.get(CompanyConfiguration.GET_LIST_COMPANY)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   findOneCompany(companyId: string): Observable<any> {
-    return this.http.get(AdminConfiguration.FIND_ONE_COMPANY + companyId)
+    return this.http.get(CompanyConfiguration.FIND_ONE_COMPANY + companyId)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }

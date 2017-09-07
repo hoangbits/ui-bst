@@ -6,8 +6,7 @@ export const AdminConfiguration = Object.freeze({
 
   USER_REST_URL:                 apiEndpoint + 'api/user',
   FIND_USER_BY_ID:               apiEndpoint + 'api/user/findOne/',
-  FIND_ONE_COMPANY:              apiEndpoint + 'api/company/findOne/',
-  GET_LIST_COMPANY:              apiEndpoint + 'api/getCompaniesNoPaging',
+
 
   ROLE_REST_URL:                 apiEndpoint + 'api/role',
   GET_LIST_SCOPE:                apiEndpoint + 'api/scope/getAllScopes',

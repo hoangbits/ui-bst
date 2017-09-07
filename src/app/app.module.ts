@@ -4,7 +4,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app.routing';
 import {HttpModule, JsonpModule} from '@angular/http';
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
-import {ToastModule} from 'ng2-toastr/ng2-toastr';
 import {
 	ModalModule,
 	BsModalService,
@@ -51,7 +50,6 @@ import {UserShareModule} from './common/shareModule/user-share-module.module';
 		ModalModule.forRoot(),
 		PaginationModule.forRoot(),
 		TooltipModule.forRoot(),
-		ToastModule.forRoot(),
 		BrowserAnimationsModule,
 		MdDialogModule,
 		MdButtonModule,

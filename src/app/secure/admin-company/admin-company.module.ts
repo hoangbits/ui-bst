@@ -8,7 +8,6 @@ import {
   EditViewAdminCompanyComponent
 } from './index';
 import {UserCompanyRouting} from './admin-company.routing';
-import {DataTableModule} from 'angular2-datatable';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {ModalDirective} from 'ngx-bootstrap/modal/modal.component';
 import {ModalModule, BsModalService, PaginationModule, TooltipModule} from 'ngx-bootstrap';
@@ -26,7 +25,6 @@ import {UserShareModule} from '../../common/shareModule/user-share-module.module
     BrowserModule,
     FormsModule,
     UserCompanyRouting,
-    DataTableModule,
     AngularMultiSelectModule,
     UserShareModule
   ],
