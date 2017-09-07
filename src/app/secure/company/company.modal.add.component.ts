@@ -7,6 +7,8 @@ import { CompanyService } from './company.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AlertDialog } from '../dialog/alert.dialog.component';
 import * as _ from 'lodash';
+import { BsModalService } from 'ngx-bootstrap/modal';
+
 @Component({
   selector: 'company-modal-content',
   templateUrl: './company.modal.add.html',
@@ -23,6 +25,7 @@ export class CompanyModalAddComponent implements OnInit {
     private companyService: CompanyService,
     private fb: FormBuilder,
     public toastr: ToastsManager,
+    private modalService: BsModalService,
     vcr: ViewContainerRef) {
     this.createForm();
     this.getCountries();
@@ -84,13 +87,13 @@ export class CompanyModalAddComponent implements OnInit {
         };
 
         this.companyService.updateLocation(location).subscribe(data => {
-          this.locationSubmit = false;
           this.toastr.success('A new location is added successfully!', 'Success!');
         },
           err => {
             this.toastr.warning('Save location failed!', 'Alert!');
             return;
           })
+        this.modalService.setDismissReason('Yes');
         this.bsModalRef.hide();
       }
       else {
@@ -122,9 +125,8 @@ export class CompanyModalAddComponent implements OnInit {
     this.companyService.getCountries().subscribe(
       result => {
         if (result.length) {
-          this.countries = result;
-          this.selectedCountry = 'MY';
-          this.getStates(this.selectedCountry);
+          this.countries = result;   
+          this.selectedCountry = 'MY';       
         }
         else {
           this.selectedCountry = '';
@@ -138,12 +140,14 @@ export class CompanyModalAddComponent implements OnInit {
   }
 
   getStates(countryCode) {
+    if (!countryCode) {
+      return;
+    }
     this.companyService.getStates(countryCode).subscribe(
       result => {
         if (result.length) {
           this.states = result;
           this.selectedState = result[0].code;
-          this.getCities(this.selectedState);
         }
         else {
           this.selectedState = '';
@@ -175,62 +179,5 @@ export class CompanyModalAddComponent implements OnInit {
       err => {
         console.log(err);
       });
-  }
-
-  public postCode: string;
-  public address: string;
-  locationSubmit: boolean = false;
-  msgLocation: string;
-  locations: any;
-
-  addLocation() {
-    this.locationSubmit = true;
-    if (!this.selectedCountry
-      || !this.selectedState
-      || !this.selectedCity
-      || !this.address
-      || !this.postCode) {
-      return false;
-    }
-
-    let data = [];
-
-    let countryName = '',
-      stateName = '',
-      cityName = '';
-    _.each(this.countries, data => { if (data.code === this.selectedCountry) { countryName = data.name; } });
-    _.each(this.states, data => { if (data.code === this.selectedState) { stateName = data.name; } });
-    _.each(this.cities, data => { if (data.code === this.selectedCity) { cityName = data.name; } });
-
-    let state = _.find(this.states, this.selectedState);
-    let city = _.find(this.cities, this.selectedCity);
-    let location = {
-      countryCode: this.selectedCountry,
-      countryName: countryName,
-      stateCode: this.selectedState,
-      stateName: stateName,
-      cityCode: this.selectedCity,
-      cityName: cityName,
-      address: this.address,
-      postCode: this.postCode,
-      //company: this.company.id
-    };
-
-    let dupl = _.find(this.locations, location);
-    this.msgLocation = '';
-    if (dupl) {
-      this.toastr.warning('This location is exiting!', 'Alert!');
-      return false;
-    }
-
-    data.push(location);
-
-    this.companyService.updateLocation(location).subscribe(data => {
-      this.locationSubmit = false;
-      this.toastr.success('A new location is added successfully!', 'Success!');
-    },
-      err => {
-        this.toastr.warning('Save location failed!', 'Alert!');
-      })
   }
 }

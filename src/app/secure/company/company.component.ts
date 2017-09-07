@@ -81,11 +81,15 @@ export class CompanyComponent implements OnInit {
 		});
 	}
 
-	openModalAdd(title) {
+	openModalAdd(title) {		
 		this.bsModalRef = this.modalService.show(CompanyModalAddComponent, { class: 'modal-compny-add' });
 		this.bsModalRef.content.title = title;
-		this.modalService.onHide.subscribe(() => {
-			this.loadCompanies();
+		this.modalService.onHide.subscribe((result) => {
+			if(result){
+				this.loadCompanies();
+				this.toastr.success('Company is created successfully!', 'Success!');
+			}
+			return false;
 		});
 	}
 
