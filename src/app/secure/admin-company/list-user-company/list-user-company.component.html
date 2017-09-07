@@ -1,0 +1,82 @@
+<section class="content">
+  <app-search-user-company  [listRole] =listRole [userTypes] = userType (clicked)="getAllUser($event)" ></app-search-user-company>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box box-success">
+        <div class="box-header with-border">
+          <h3 class="box-title" id="lblPageTitle">List of Users</h3>
+          <button  (click)="addNew()" type="button" id="btnAddNew"  class="btn btn-primary pull-right">Add new
+            user
+          </button>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+          <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+              <th>NO</th>
+              <th>Email</th>
+              <th>Fullname</th>
+              <th>Role</th>
+              <th>Create by</th>
+              <th>Create at</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="listUsers?.length === 0">
+                 <td colspan="7"> <p align="center"> There are no data </p></td>
+            </tr>
+            <tr *ngFor="let user of listUsers; let i = index">
+
+
+              <td> {{i+1}}</td>
+              <td> {{user.email}}</td>
+              <td> {{user.fullName}}</td>
+              <td>
+                <p *ngIf="user.roles">{{user.roles.roleName}}</p>
+              </td>
+
+              <td></td>
+              <td> {{user.createdAt | date:'dd/MM/yyyy hh:mm'}}</td>
+              <td>
+                <span style="padding-right:14px; cursor: pointer" id="btnEdit{{i}}"
+                      (click)="editViewUser(user.id,0)" title="Edit user"><i class="fa fa-pencil-square-o"
+                                                                                       aria-hidden="true"></i></span>
+                <span style=" padding-right:14px;cursor: pointer" id="btnView{{i}}" (click)="editViewUser(user.id,1)"
+                      title="View user"><i class="fa fa-wrench" aria-hidden="true"></i></span>
+                <span style=" cursor: pointer" id="btnDelete{{i}}" (click)="showModal(user.id)"><i
+                        class="fa fa-trash" title="Delete user"></i></span>
+              </td>
+            </tr>
+            </tbody>
+            <tfoot *ngIf="totalItems>0">
+            <tr>
+              <td colspan="8">
+                <div class="col-md-6">
+                  <div style="margin-top:20px">
+                    Showing {{indexPage+1}} to {{(indexPage+10)>totalItems?totalItems:indexPage+10}}
+                    of {{totalItems}} entries
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <pagination style="float:right;"
+                              [totalItems]="totalItems"
+                              (ngModel)="currentPage"
+                              [itemsPerPage]="itemsPerPage"
+                              class="pagination-sm"
+                              [maxSize]="5"
+                              [boundaryLinks]="true"
+                              [rotate]="false"
+                              (pageChanged)="pageChanged($event)"></pagination>
+                </div>
+              </td>
+            </tr>
+            </tfoot>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

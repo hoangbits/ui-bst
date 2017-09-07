@@ -1,0 +1,7 @@
+<div class="col-xs-4">
+  <select id="cbxRole" name="userOther.roles" #role class="form-control">
+    <option value="">All roles</option>
+    <option *ngFor="let role of listRole" [value]="role.id">{{role.roleName}}</option>
+  </select>
+
+</div>

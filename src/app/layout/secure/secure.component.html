@@ -66,6 +66,23 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="active treeview menu-open">
+                <a href="#">
+                    <i class="fa fa-server"></i> <span>Admin Company</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li *ngFor="let item of sideBarForCompanyAdmin">
+                        <a [routerLink]="[item.url]">
+                            <i class="fa {{item.icon}}"></i>
+                            <span>{{item.name}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </section>
 </aside>

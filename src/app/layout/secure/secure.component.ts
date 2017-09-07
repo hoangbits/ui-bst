@@ -23,6 +23,13 @@ export class SecureComponent implements OnInit {
 		{ name: 'Permission', url: '/admin/activity', icon: 'fa-bus' },
 	];
 
+
+		sideBarForCompanyAdmin: any[] = [
+
+		{ name: 'AdminCompany', url: '/admin/companyUser', icon: 'fa-user' },
+
+	];
+
 	constructor(router: Router,
 		private modalService: BsModalService,
 		private companyService: CompanyService) {

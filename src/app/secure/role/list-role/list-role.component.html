@@ -20,6 +20,9 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <tr *ngIf="roles?.length === 0">
+                            <td colspan="3"> <p align="center"> There are no data </p></td>
+                        </tr>
                         <tr *ngFor="let role of roles; let i = index">
                             <td> {{i+1}}</td>
                             <td> {{role.roleName}}</td>

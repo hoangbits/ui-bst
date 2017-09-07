@@ -5,10 +5,12 @@ export class User {
   userType: string;
   roles: any;
   password: string;
-  confirmPassword: string;
   company: any;
+  location: any;
 
-  constructor(id: string = '', email: string = '', fullName: string = '', roles: any = '', password: string = '', userType: string = '', company: any = '') {
+  constructor(id: string = '', email: string = '', fullName: string = ''
+    , roles: any = '', password: string = '', userType: string = ''
+    , company: any = '', location: any = '') {
     this.id = id;
     this.email = email;
     this.fullName = fullName;
@@ -16,5 +18,6 @@ export class User {
     this.password = password;
     this.userType = userType;
     this.company = company;
+    this.location = location;
   }
 }

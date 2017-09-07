@@ -2,9 +2,7 @@ import {Injectable} from '@angular/core';
 
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
-import {USER_API} from '../../config/apiName/userApi';
-import {ROLE_API} from '../../config/apiName/roleApi';
-import {User} from '../user/user.model';
+import {AdminConfiguration} from '../../config/apiName/admin.config';
 
 // Import RxJs required methods
 import 'rxjs/add/operator/map';
@@ -17,43 +15,47 @@ export class UserService {
   }
 
   getUsers(currentPage, itemsPerPage, criterial): Observable<any> {
-    return this.http.get(USER_API.GET_LIST_USER + currentPage + '/' + itemsPerPage + '/' + criterial)
+    return this.http.get(AdminConfiguration.USER_REST_URL + '/' + currentPage + '/' + itemsPerPage + '/' + criterial)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   deleteUser(userId: string): Observable<any> {
-    return this.http.delete(USER_API.DELETE_USER + userId);
+    return this.http.delete(AdminConfiguration.USER_REST_URL + '/' + userId);
   }
 
   createUsers(user): Observable<any> {
-
-    return this.http.post(USER_API.CREATE_USER, user)
+    return this.http.post(AdminConfiguration.USER_REST_URL, user)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   updateUsers(user): Observable<any> {
-
-    return this.http.put(USER_API.UPDATE_USER, user)
+    return this.http.put(AdminConfiguration.USER_REST_URL, user)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   getRoles(): Observable<any> {
-    return this.http.get(ROLE_API.GET_LIST_ROLE)
+    return this.http.get(AdminConfiguration.ROLE_REST_URL)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   findOne(userId: string): Observable<any> {
-    return this.http.get(USER_API.FIND_USER_BY_ID + userId)
+    return this.http.get(AdminConfiguration.FIND_USER_BY_ID + userId)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
   getAllCompany(): Observable<any> {
-    return this.http.get(USER_API.GET_LIST_COMPANY)
+    return this.http.get(AdminConfiguration.GET_LIST_COMPANY)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+  }
+
+  findOneCompany(companyId: string): Observable<any> {
+    return this.http.get(AdminConfiguration.FIND_ONE_COMPANY + companyId)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }

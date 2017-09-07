@@ -1,0 +1,105 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left" id="lblPageTitle">{{title}}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="alert alert-warning alert-dismissible" *ngIf="errorMsg">{{errorMsg}}</div>
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="details">
+
+      <form #adUserForm="ngForm" (ngSubmit)="saveAdUser(adUserForm.value,selectRole.value,selectLocation.value,adUserForm.valid)"
+            style="margin-top:5px">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="text" class="form-control" name="txtEmail" id="txtEmail" [(ngModel)]="user.email"
+                 required #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" placeholder="Email">
+          <small class="text-danger"
+                 *ngIf="email.errors && email.errors.required && (email.dirty || email.touched || adUserForm.submitted)">
+            Email is required
+          </small>
+          <small class="text-danger"
+                 *ngIf="email.errors && email.errors.pattern && (email.dirty || email.touched || adUserForm.submitted)">
+            Email invalid format.
+          </small>
+
+
+        </div>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" class="form-control" name="fullName" id="txtFullNameAd"
+                 [(ngModel)]="user.fullName" required #fullName="ngModel" placeholder="Full name">
+          <small class="text-danger"
+                 *ngIf="fullName.errors && fullName.errors.required && (fullName.dirty || fullName.touched || adUserForm.submitted)">
+            FullName is required
+          </small>
+        </div>
+
+        <div class="form-group" *ngIf="ortherUserFlag">
+          <label for="">Password</label>
+          <input type="password" class="form-control"  name="password"  id="txtPassword" [ngModel]="user.password"
+                 required
+                 minlength="6"
+                 validateEqual="confirmPassword"
+                 reverse="true" #password="ngModel">
+          <small class="text-danger"
+                 *ngIf="password.errors && password.errors.required && (password.dirty || password.touched || adUserForm.submitted)">
+
+            Password is required
+          </small>
+          <small class="text-danger" *ngIf="password.errors && password.errors.minlength && (password.dirty || password.touched || adUserForm.submitted)">
+            Password should be 6 character
+          </small>
+        </div>
+
+        <div class="form-group" *ngIf="ortherUserFlag">
+          <label for="">Confirm password</label>
+          <input type="password" class="form-control" id="txtConfPassword" name="confirmPassword" [ngModel]="adUserForm.confirmPassword"
+                 required validateEqual="password" reverse="false" #confirmPassword="ngModel">
+          <small [hidden]="confirmPassword.valid || (confirmPassword.pristine && !adUserForm.submitted)" class="text-danger">
+            Password mismatch
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>Role:</label>
+          <select id="cbxRoleCreate" name="roleSelect" #selectRole  class="form-control">
+            <option value="">Select a Role</option>
+            <option *ngFor="let role of roleData" [value]="role.id">{{role.roleName}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Location</label>
+          <select id="cbxLocation" name="selectLocation"  #selectLocation class="form-control">
+            <option  value="" class="hideoption">Select a Location</option>
+            <option *ngFor="let location of locationData" [value]="location.id">
+              {{location.countryName}}-
+              {{location.stateName}}-
+              {{location.cityName}}-
+              {{location.address}}-
+              {{location.postCode}}
+            </option>
+          </select>
+
+          <small class="text-danger"
+                 *ngIf="selectLocation.errors && selectLocation.errors.required && (selectLocation.dirty || selectLocation.touched || adUserForm.submitted)">
+            Location is required
+          </small>
+        </div>
+
+        <div class="text-right">
+          <button class="btn  btn-default" id="btnSaveAdUser" type="button" (click)="bsModalRef.hide()">
+            Cancel
+          </button>
+          <button type="submit" id="btnCancel" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+
+    </div>
+
+    <!--Orther user form-->
+  </div>
+</div>

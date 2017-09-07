@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
-import {User} from '../user.model';
-import {Role} from '../role.model';
+import {
+  User, Role
+} from '../index';
 import {UserService} from '../user.service';
 import * as _ from 'lodash';
 @Component({
