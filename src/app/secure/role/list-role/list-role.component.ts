@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {RoleService} from '../role.service';
-import {EditRoleComponent} from '../edit-role/edit-role.component';
-import {Scope} from '../scope.model';
-import {Role} from '../role.model';
-
+import {
+  Scope, Role, EditRoleComponent
+} from '../index';
+import {SYSTEM_CONFIG} from '../../../config/system/systemConfig';
 import {MdDialog} from '@angular/material';
 import {AlertDialog} from '../../dialog/alert.dialog.component';
 
@@ -25,15 +25,17 @@ export class ListRoleComponent implements OnInit {
   bsModalRef: BsModalRef;
   selectedItems = [];
   dropdownList = [];
+  roleType = [];
 
-  constructor(private roleService: RoleService,
-              private modalService: BsModalService,
-              private dialog: MdDialog) {
+  constructor(private roleService: RoleService, private modalService: BsModalService, private dialog: MdDialog) {
     this.getAllRoles();
+    this.roleType = SYSTEM_CONFIG.ROLE_TYPE;
   }
 
   ngOnInit() {
   }
+
+
 
   getAllRoles() {
     this.roleService.getRoles()
@@ -65,7 +67,7 @@ export class ListRoleComponent implements OnInit {
     this.roleService.findOne(roleId).subscribe(
       data => {
         this.role = data;
-        this.openEditModal('Edit Name', true, data.roles, '', '', true);
+        this.openEditModal('Edit Name', true, data.roles, '', '', true, this.roleType);
       }
     );
   }
@@ -88,7 +90,7 @@ export class ListRoleComponent implements OnInit {
             this.dropdownList.push({id: scope.id, itemName: scope.scopeName});
           });
         }
-        this.openEditModal('Edit Scope', false, data.roles, this.selectedItems, this.dropdownList, true);
+        this.openEditModal('Edit Scope', false, data.roles, this.selectedItems, this.dropdownList, true, this.roleType);
       }
     );
   }
@@ -101,7 +103,7 @@ export class ListRoleComponent implements OnInit {
         _.each(this.scopes, (scope) => {
           dropdownList.push({id: scope.id, itemName: scope.scopeName});
         });
-        this.openEditModal('Add new Role', true, new Role(), [], dropdownList, false);
+        this.openEditModal('Add new Role', true, new Role(), [], dropdownList, false, this.roleType);
       },
       err => {
         console.log(err);
@@ -109,15 +111,19 @@ export class ListRoleComponent implements OnInit {
 
   }
 
-  openEditModal(title, isEdit, data?: Role, selectedItems?: any, dropdownList?: any, isSaveConfig?: boolean) {
+  openEditModal(title, isEdit, data?: Role, selectedItems?: any, dropdownList?: any, isSaveConfig?: boolean, roleType?: any) {
     this.bsModalRef = this.modalService.show(EditRoleComponent);
     this.bsModalRef.content.title = title;
     this.bsModalRef.content.isEdit = isEdit;
     this.bsModalRef.content.role = data;
+    this.bsModalRef.content.roleType = roleType;
     this.bsModalRef.content.isSaveConfig = isSaveConfig;
     this.bsModalRef.content.selectedItems = selectedItems;
     this.bsModalRef.content.dropdownList = dropdownList;
-    this.modalService.onHide.subscribe(() => this.getAllRoles());
+    this.modalService.onHide.subscribe(() => {
+       this.getAllRoles();
+      }
+    );
   }
 
 }

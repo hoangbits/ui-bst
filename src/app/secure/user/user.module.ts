@@ -6,12 +6,13 @@ import {UserRouting} from './user.routing';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {ModalDirective} from 'ngx-bootstrap/modal/modal.component';
 import {ModalModule, BsModalService, PaginationModule, TooltipModule} from 'ngx-bootstrap';
-import {EqualValidatorDirective} from './equal-validator.directive';
 import { SearchUserComponent } from './search-user/search-user.component';
 import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 
+import {UserShareModule} from '../../common/shareModule/user-share-module.module';
+
 @NgModule({
-  declarations: [ListUserComponent, CreateUserComponent, EditUserComponent, EqualValidatorDirective, SearchUserComponent],
+  declarations: [ListUserComponent, CreateUserComponent, EditUserComponent, SearchUserComponent],
   imports: [
     ModalModule.forRoot(),
     PaginationModule,
@@ -19,7 +20,8 @@ import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown/angular2-m
     BrowserModule,
     FormsModule,
     UserRouting,
-    AngularMultiSelectModule
+    AngularMultiSelectModule,
+    UserShareModule
   ],
   entryComponents: [
     EditUserComponent, CreateUserComponent

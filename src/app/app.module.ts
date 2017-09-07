@@ -27,6 +27,9 @@ import {ActivityModule} from './secure/activity';
 import {ProductModule} from './secure/product';
 import {AlertDialog} from './secure/dialog';
 import { AuthGuard } from './guards/index';
+import {AdminCompanyModule} from './secure/admin-company';
+import {UserShareModule} from './common/shareModule/user-share-module.module';
+
 
 
 @NgModule({
@@ -36,8 +39,7 @@ import { AuthGuard } from './guards/index';
 		LoginComponent,
 		SecureComponent,
 		PublicComponent,
-		AlertDialog,
-
+		AlertDialog
 	],
 	imports: [
 		BrowserModule,
@@ -58,7 +60,9 @@ import { AuthGuard } from './guards/index';
 		RoleModule,
 		UserModule,
 		CompanyModule,
-		ProductModule
+		ProductModule,
+		AdminCompanyModule,
+		UserShareModule,
 	],
 	providers: [
 		BsModalService,

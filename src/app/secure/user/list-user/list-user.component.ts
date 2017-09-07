@@ -2,13 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {UserService} from '../user.service';
-import {User} from '../user.model';
-import {Role} from '../role.model';
+import {
+  EditUserComponent, CreateUserComponent,
+  User, Role
+} from '../index';
 import {Company} from '../company.model';
 import {Companies} from '../companies.model';
-import {EditUserComponent} from '../edit-user/edit-user.component';
-import {CreateUserComponent} from '../create-user/create-user.component';
-
 import {MdDialog} from '@angular/material';
 import {AlertDialog} from '../../dialog/alert.dialog.component';
 import {SYSTEM_CONFIG} from '../../../config/system/systemConfig';
@@ -32,6 +31,7 @@ export class ListUserComponent implements OnInit {
   currentPage = 0;
   itemsPerPage = 10;
   totalItems = 0;
+  indexPage = 0;
   criteria: any;
   userType = [];
   companie: Companies;
@@ -115,7 +115,7 @@ export class ListUserComponent implements OnInit {
     this.bsModalRef.content.roleData = roles;
     this.bsModalRef.content.dropdownList = dropdownList;
     this.bsModalRef.content.title = 'Add new User';
-    this.modalService.onHide.subscribe(data => this.getAllUser(),
+    this.modalService.onHide.subscribe(() => this.getAllUser(),
       err => {
         console.log(err);
       });
@@ -160,7 +160,6 @@ export class ListUserComponent implements OnInit {
     const selectedItems = [];
     this.userService.findOne(userId).subscribe(
       data => {
-        console.log('user data', JSON.stringify(data));
         this.user = data;
         if (this.user.company) {
           this.companie = this.user.company;
@@ -181,7 +180,7 @@ export class ListUserComponent implements OnInit {
     this.bsModalRef.content.disableInput = disableInput;
     this.bsModalRef.content.dropdownList = dropdownList;
     this.bsModalRef.content.selectedItems = selectedItems;
-    this.modalService.onHide.subscribe(data => this.getAllUser(),
+    this.modalService.onHide.subscribe(() => this.getAllUser(),
       err => {
         console.log(err);
       });
@@ -189,6 +188,7 @@ export class ListUserComponent implements OnInit {
 
   pageChanged(event: any): void {
     this.currentPage = event.page;
+    this.indexPage = this.currentPage > 1 ? (this.currentPage - 1) * this.itemsPerPage : 0;
     this.getAllUser(this.criteria);
   }
 }
