@@ -4,7 +4,7 @@
           <div class="box box-success">
               <div class="box-header with-border">
                   <h3 class="box-title">List of Products</h3>
-                  <span (click)="addNewProduct()" class="btn btn-primary pull-right">New Product</span>
+                  <span (click)="addNewProduct()" class="btn btn-primary btn-flat pull-right">New Product</span>
               </div>
               <!-- /.box-header -->
               <div class="box-body">
@@ -42,7 +42,7 @@
                   <table class="table table-bordered table-striped">
                       <thead>
                       <tr>
-                          <th style="width: 10px">No</th>
+                          <th class="no">No</th>
                           <th>Product title</th>
                           <th>SKU</th>
                           <th>Shipping info</th>
@@ -52,7 +52,7 @@
                       </thead>
                       <tbody>
                       <tr *ngFor="let product of products; let i = index">
-                          <td>{{indexPage+i+1}}.</td>
+                          <td class="no">{{indexPage+i+1}}</td>
                           <td>{{product.productTitle}}</td>
                           <td>{{product.sku}}</td>
                           <td>{{product.shippingInfo}}</td>
@@ -79,7 +79,7 @@
                               <div class="col-md-6">
                                   <div style="margin-top:20px">
                                       Showing {{indexPage+1}} to {{(indexPage+10)>totalItems?totalItems:indexPage+10}}
-                                      of {{totalItems}} entries
+                                      of {{totalItems}} products
                                   </div>
                               </div>
                               <div class="col-md-6">

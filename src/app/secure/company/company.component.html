@@ -4,7 +4,7 @@
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">List of Companies</h3>
-                    <span (click)="addNewComapny()" class="btn btn-primary pull-right">New Company</span>
+                    <span (click)="addNewComapny()" class="btn btn-primary btn-flat pull-right">New Company</span>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -42,16 +42,16 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th style="width: 10px">No</th>
+                            <th class="no">No</th>
                             <th>Company name</th>
-                            <th width="100">Phone</th>
-                            <th width="150">Tax code</th>                            
+                            <th width="120">Phone</th>
+                            <th width="120">Tax code</th>                            
                             <th style="width: 120px">Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr *ngFor="let company of companies; let i = index">
-                            <td>{{indexPage+i+1}}.</td>
+                            <td class="no">{{indexPage+i+1}}</td>
                             <td>{{company.companyName}}</td>
                             <td>{{company.phone}}</td>
                             <td>{{company.taxCode}}</td>                            
@@ -80,7 +80,7 @@
                                 <div class="col-md-6">
                                     <div style="margin-top:20px">
                                         Showing {{indexPage+1}} to {{(indexPage+10)>totalItems?totalItems:indexPage+10}}
-                                        of {{totalItems}} entries
+                                        of {{totalItems}} companies
                                     </div>
                                 </div>
                                 <div class="col-md-6">

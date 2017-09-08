@@ -4,7 +4,7 @@
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">List of Permissions</h3>
-                    <span (click)="addNew()" class="btn btn-primary pull-right" id="btnAddNew">New Permission
+                    <span (click)="addNew()" class="btn btn-flat btn-primary pull-right" id="btnAddNew">New Permission
                     </span>
                 </div>
                 <!-- /.box-header -->
@@ -21,7 +21,7 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let activity of activities; let i = index">
-                            <td>{{indexPage + i + 1}}.</td>
+                            <td class="no">{{indexPage + i + 1}}</td>
                             <td>{{activity.url}}</td>
                             <td>{{activity.method}}</td>
                             <td>{{activity.urlRegex}}</td>
@@ -44,7 +44,7 @@
                                     <div style="margin-top:20px">
                                         Showing {{indexPage+1}} to
                                         {{(indexPage+itemsPerPage)>totalItems?totalItems:indexPage+itemsPerPage}}
-                                        of {{totalItems}} entries
+                                        of {{totalItems}} permissions
                                     </div>
                                 </div>
                                 <div class="col-md-6">

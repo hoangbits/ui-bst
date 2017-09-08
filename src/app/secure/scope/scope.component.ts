@@ -2,7 +2,7 @@ import {Component, OnInit,ViewContainerRef} from '@angular/core';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {ScopeModalEditComponent} from './scope.modal.edit.component';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import {ToastrService} from 'ngx-toastr';
 import {MdDialog} from '@angular/material';
 import {AlertDialog} from '../dialog/alert.dialog.component';
 
@@ -27,10 +27,8 @@ export class ScopeComponent implements OnInit {
   constructor(private scopeService: ScopeService,
               private modalService: BsModalService,
               private dialog: MdDialog,
-							public toastr: ToastsManager,
-							vcr: ViewContainerRef) {
+              private toastr: ToastrService) {
     this.loadScopes();
-    this.toastr.setRootViewContainerRef(vcr);
   }
 
   loadScopes() {
@@ -40,11 +38,8 @@ export class ScopeComponent implements OnInit {
         this.totalItems = result.meta.paginate.totalCount;
       },
       err => {
-        this.dialog.open(AlertDialog, {
-          width: '500px', height: '170px', data: {
-            title: 'Information dialog', message: 'Load scope list has error, contact administrator to help'
-          }
-        });
+        //TODO handler message error
+        console.log(err);
       });
   }
 
@@ -84,9 +79,12 @@ export class ScopeComponent implements OnInit {
     this.bsModalRef.content.isEditName = isEditName;
     this.bsModalRef.content.scope = data;
     this.bsModalRef.content.isAddNew = isAddNew;
-
-    this.modalService.onHide.subscribe(() => {
-      this.loadScopes();
+    this.modalService.onHide.observers = [];
+    this.modalService.onHide.subscribe((result) => {
+      if(result){
+        this.loadScopes();
+        this.toastr.success('Scope is updated successfully!', 'Success!');
+      }
     });
   }
 

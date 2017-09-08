@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 import { Company } from './index';
 import { CompanyService } from './company.service';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MdDialog } from '@angular/material';
 import { AlertDialog } from '../dialog/alert.dialog.component';
@@ -28,13 +29,12 @@ export class CompanyModalEditComponent implements OnInit {
 		private companyService: CompanyService,
 		private fb: FormBuilder,
 		private dialog: MdDialog,
-		public toastr: ToastsManager,
-		vcr: ViewContainerRef) {
+		private modalService: BsModalService,
+		private toastr: ToastrService) {
 		this.company = this.company || new Company();
 		this.viewMode = this.viewMode || true;
 		this.createForm();
 		this.getCountries();
-		this.toastr.setRootViewContainerRef(vcr);
 	}
 
 	ngOnInit() {
@@ -56,45 +56,23 @@ export class CompanyModalEditComponent implements OnInit {
 		});
 	}
 
-	public saveClose() {
+	private saveClose() {
 		this.isSubmited = true;
 		if (this.fg.invalid) {
 			return;
 		}
 
-		if (!this.company.id) {
-			this.add();
-		}
-		else {
-			this.save();
-		}
-	}
-
-	private save() {
 		this.companyService.updateCompany(this.company).subscribe(data => {
 			if (data) {
+				this.modalService.setDismissReason('Yes');
 				this.bsModalRef.hide();
 			}
 			else {
-				this.errorMsg = 'Update failed';
+				this.toastr.warning('Update failed', 'Alert!');
 			}
 		},
 			err => {
-				this.errorMsg = err;
-			});
-	}
-
-	private add() {
-		this.companyService.addCompany(this.company).subscribe(data => {
-			if (data) {
-				this.bsModalRef.hide();
-			}
-			else {
-				this.errorMsg = 'Insert failed';
-			}
-		},
-			err => {
-				this.errorMsg = err;
+				this.toastr.warning(err, 'Alert!');
 			});
 	}
 

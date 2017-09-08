@@ -7,9 +7,9 @@
 <div class="modal-body">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Company information</a></li>
-            <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">User information</a></li>
-            <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Location information</a></li>
+            <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">Company</a></li>
+            <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">User</a></li>
+            <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">Location</a></li>
         </ul>
         <div class="tab-content">
             <!-- company info tab -->
@@ -26,17 +26,6 @@
                                     <p *ngIf="isEdit" [hidden]="(fg.controls['companyName'].valid || (fg.controls['companyName'].pristine && !isSubmited))" class="text-danger">This is required field.
                                     </p>
                                     <p *ngIf="!isEdit">{{company.companyName}}</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="td-head">Address:</td>
-                                <td>
-                                    <input *ngIf="isEdit" type="text" class="form-control" placeholder="Address" id="txtAddress" required maxlength="300" [(ngModel)]="company.address"
-                                        name="address" formControlName="address">
-                                    <p *ngIf="isEdit" [hidden]="(fg.controls['address'].valid || (fg.controls['address'].pristine && !isSubmited))" class="text-danger">This is required field.
-                                    </p>
-                                    <p *ngIf="!isEdit">
-                                        {{company.address}}</p>
                                 </td>
                             </tr>
                             <tr>
@@ -100,7 +89,7 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th style="width: 10px">No</th>
+                            <th class="no">No</th>
                             <th>Email</th>
                             <th>Full name</th>
                             <th>Role</th>
@@ -108,13 +97,16 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let user of users; let i = index">
-                            <td>{{indexPage+i+1}}.</td>
+                            <td class="no">{{indexPage+i+1}}</td>
                             <td>{{user.email}}</td>
                             <td>{{user.fullName}}</td>
                             <td>{{user.role}}</td>
                         </tr>
+                        <tr *ngIf="totalItems == 0">
+                            <td colspan="8">There is no item</td>
+                        </tr>
                     </tbody>
-                    <tfoot>
+                    <tfoot *ngIf="totalItems > 0">
                         <tr>
                             <td colspan="4">
                                 <pagination style="float:right;" [totalItems]="totalItems" (ngModel)="currentPage" [itemsPerPage]="itemsPerPage" class="pagination-sm"
@@ -146,6 +138,9 @@
                             <td>{{location.address}}</td>
                             <td>{{location.postCode}}</td>
                         </tr>
+                        <tr *ngIf="company.locations?.length === 0">
+                            <td colspan="8">There is no item</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -154,5 +149,5 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" (click)="bsModalRef.hide()" id="btnCancel">Cancel</button>
+    <button type="button" class="btn btn-flat btn-default" (click)="bsModalRef.hide()" id="btnCancel">Cancel</button>
 </div>

@@ -4,7 +4,7 @@
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">List of Scopes</h3>
-                    <span (click)="addNew()" class="btn btn-primary pull-right">New Scope</span>
+                    <span (click)="addNew()" class="btn btn-flat btn-primary pull-right">New Scope</span>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -19,7 +19,7 @@
                         </thead>
                         <tbody>
                         <tr *ngFor="let scope of scopes; let i = index">
-                            <td>{{indexPage + i + 1}}.</td>
+                            <td class="no">{{indexPage + i + 1}}</td>
                             <td>{{scope.scopeName}}</td>
                             <td>{{scope.description}}</td>
                             <td><span style="padding-right:14px; cursor: pointer" (click)="editName(scope)"
@@ -43,7 +43,7 @@
                                 <div class="col-md-6">
                                     <div style="margin-top:20px">
                                         Showing {{indexPage+1}} to {{(indexPage+10)>totalItems?totalItems:indexPage+10}}
-                                        of {{totalItems}} entries
+                                        of {{totalItems}} scopes
                                     </div>
                                 </div>
                                 <div class="col-md-6">
