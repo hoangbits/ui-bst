@@ -26,10 +26,10 @@
     "angular2-multiselect-dropdown": "^1.2.2",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
-    "ng2-toastr": "^4.1.2",
     "ngx-admin-lte": "^0.4.0",
     "ngx-bootstrap": "^1.8.1",
     "ngx-modal": "0.0.29",
+    "ngx-toastr": "^6.1.4",
     "rxjs": "^5.4.1",
     "zone.js": "^0.8.14"
   },

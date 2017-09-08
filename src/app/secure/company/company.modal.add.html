@@ -78,9 +78,9 @@
                     <option *ngFor="let c of cities" value="{{c.code}}">{{c.name}}</option>
                  </select>
           </td>
-          <td class="label-cus">PostCode*</td>
+          <td class="label-cus">Postcode*</td>
           <td width="35%">
-            <input type="text" class="form-control" placeholder="PostCode" id="txtPostCode" required maxlength="300" formControlName="postCode">
+            <input type="text" class="form-control" placeholder="Postcode" id="txtPostCode" required maxlength="300" formControlName="postCode">
           </td>
         </tr>
 
@@ -92,7 +92,7 @@
           </td>
           <td></td>
           <td>
-            <p [hidden]="(fg.controls['postCode'].valid || (fg.controls['postCode'].pristine && !isSubmited))" class="text-danger">PostCode is required.
+            <p [hidden]="(fg.controls['postCode'].valid || (fg.controls['postCode'].pristine && !isSubmited))" class="text-danger">Postcode is required.
             </p>
           </td>
         </tr>
@@ -117,8 +117,8 @@
         </tr>
       </table>
     <div class="modal-footer">
-      <button type="button" class="btn btn-default" (click)="bsModalRef.hide()" id="btnCancel">Cancel</button>
-      <button type="button" class="btn btn-primary" (click)="saveClose()" id="btnSave">Save</button>
+      <button type="button" class="btn btn-flat btn-default" (click)="bsModalRef.hide()" id="btnCancel">Cancel</button>
+      <button type="button" class="btn btn-flat btn-primary" (click)="saveClose()" id="btnSave">Save</button>
     </div>
   </form>
 

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
-
-import { Product } from './index';
-import { ProductService } from './product.service';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
+import {Product} from './index';
+import {ProductService} from './product.service';
+import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'product-modal-content',
@@ -19,8 +19,9 @@ export class ProductModalEditComponent implements OnInit {
   fg: FormGroup;
 
   constructor(public bsModalRef: BsModalRef,
-    private productService: ProductService,
-    private fb: FormBuilder) {
+              private productService: ProductService,
+              private modalService: BsModalService,
+              private fb: FormBuilder) {
     this.product = this.product || new Product();
     this.createForm();
   }
@@ -34,13 +35,13 @@ export class ProductModalEditComponent implements OnInit {
       productTitle: new FormControl('', Validators.required),
       shippingInfo: new FormControl('', Validators.required),
       description: '',
-      sku: ''
+      sku: new FormControl('', Validators.required)
     });
   }
 
   saveClose() {
     this.isSubmited = true;
-    if (this.fg.invalid) {
+    if (!this.fg.valid) {
       return;
     }
 
@@ -54,13 +55,14 @@ export class ProductModalEditComponent implements OnInit {
 
   private save() {
     this.productService.updateProduct(this.product).subscribe(data => {
-      if (data) {
-        this.bsModalRef.hide();
-      }
-      else {
-        this.errorMsg = 'Update failed';
-      }
-    },
+        if (data) {
+          this.modalService.setDismissReason('Yes');
+          this.bsModalRef.hide();
+        }
+        else {
+          this.errorMsg = 'Update failed';
+        }
+      },
       err => {
         this.errorMsg = err;
       });
@@ -68,13 +70,14 @@ export class ProductModalEditComponent implements OnInit {
 
   private add() {
     this.productService.addProduct(this.product).subscribe(data => {
-      if (data) {
-        this.bsModalRef.hide();
-      }
-      else {
-        this.errorMsg = 'Insert failed';
-      }
-    },
+        if (data) {
+          this.modalService.setDismissReason('Yes');
+          this.bsModalRef.hide();
+        }
+        else {
+          this.errorMsg = 'Insert failed';
+        }
+      },
       err => {
         this.errorMsg = err;
       });

@@ -26,11 +26,11 @@
     </form>
 </div>
 <div class="modal-footer">
-    <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Cancel</button>
-    <button type="submit" class="btn btn-primary" (click)="saveClose()">
+    <button type="button" class="btn btn-flat btn-default" (click)="bsModalRef.hide()">Cancel</button>
+    <button type="submit" class="btn btn-flat btn-primary" (click)="saveClose()">
         <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Save
     </button>
-    <button type="button" class="btn btn-primary" (click)="saveConfig()" *ngIf="isAddNew" [disabled]="!scopeForm.valid">
+    <button type="button" class="btn btn-flat btn-primary" (click)="saveConfig()" *ngIf="isAddNew" [disabled]="!scopeForm.valid">
         <i class="fa fa-wrench" aria-hidden="true"></i> Save & config
     </button>
 </div>

@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 
 import { Company } from './index';
 import { CompanyService } from './company.service';
@@ -24,12 +24,10 @@ export class CompanyModalAddComponent implements OnInit {
   constructor(public bsModalRef: BsModalRef,
     private companyService: CompanyService,
     private fb: FormBuilder,
-    public toastr: ToastsManager,
-    private modalService: BsModalService,
-    vcr: ViewContainerRef) {
+    private toastr: ToastrService,
+    private modalService: BsModalService) {
     this.createForm();
     this.getCountries();
-    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
@@ -87,7 +85,6 @@ export class CompanyModalAddComponent implements OnInit {
         };
 
         this.companyService.updateLocation(location).subscribe(data => {
-          this.toastr.success('A new location is added successfully!', 'Success!');
         },
           err => {
             this.toastr.warning('Save location failed!', 'Alert!');

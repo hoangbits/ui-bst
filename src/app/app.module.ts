@@ -10,6 +10,7 @@ import {
 	PaginationModule,
 	TooltipModule
 } from 'ngx-bootstrap';
+import { ToastrModule } from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MdDialogModule, MdButtonModule} from '@angular/material';
 import {AppComponent} from './app.component';
@@ -50,6 +51,7 @@ import {UserShareModule} from './common/shareModule/user-share-module.module';
 		ModalModule.forRoot(),
 		PaginationModule.forRoot(),
 		TooltipModule.forRoot(),
+		ToastrModule.forRoot(),
 		BrowserAnimationsModule,
 		MdDialogModule,
 		MdButtonModule,

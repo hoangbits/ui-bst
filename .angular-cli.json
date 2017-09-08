@@ -25,6 +25,7 @@
         "../node_modules/admin-lte/dist/css/AdminLTE.css",
         "../node_modules/admin-lte/dist/css/skins/skin-blue-light.css",
         "../node_modules/ionicons/dist/css/ionicons.css",
+        "../node_modules/ngx-toastr/toastr.css",
         "styles.css"
       ],
       "scripts": [

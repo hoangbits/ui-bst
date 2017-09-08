@@ -1,8 +1,8 @@
-import {Component, OnInit,ViewContainerRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
-
+import { ToastrService } from 'ngx-toastr';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import {Activity} from './activity.model';
 import {ActivityService} from './activity.service';
 
@@ -22,10 +22,9 @@ export class ActivityModalEditComponent implements OnInit {
 	constructor(public bsModalRef: BsModalRef,
 							private activityService: ActivityService,
 							private fb: FormBuilder,
-							public toastr: ToastsManager,
-							vcr: ViewContainerRef) {
+              private modalService: BsModalService,
+              private toastr: ToastrService) {
 		this.activity = this.activity || new Activity();
-		this.toastr.setRootViewContainerRef(vcr);
 	}
 
 	ngOnInit() {
@@ -59,6 +58,7 @@ export class ActivityModalEditComponent implements OnInit {
 	private save() {
 		this.activityService.updateActivity(this.activity).subscribe(data => {
 				if (data) {
+          this.modalService.setDismissReason('Yes');
 					this.bsModalRef.hide();
 				}
 				else {
@@ -73,6 +73,7 @@ export class ActivityModalEditComponent implements OnInit {
 	private add() {
 		this.activityService.addActivity(this.activity).subscribe(data => {
 				if (data) {
+          this.modalService.setDismissReason('Yes');
 					this.bsModalRef.hide();
 				}
 				else {

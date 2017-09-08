@@ -3,7 +3,7 @@ import { MdDialog } from '@angular/material';
 import { AlertDialog } from '../dialog/alert.dialog.component';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { ToastrService } from 'ngx-toastr';
 import {
 	Company, CompanyModalEditComponent,
 	CompanyModalViewComponent, CompanyAdminComponent, CompanyModalAddComponent
@@ -34,9 +34,8 @@ export class CompanyComponent implements OnInit {
 		private modalService: BsModalService,
 		private dialog: MdDialog,
 		private router: Router,
-		public toastr: ToastsManager,
-		vcr: ViewContainerRef) {
-		this.toastr.setRootViewContainerRef(vcr);
+		private toastr: ToastrService) {
+		
 	}
 
 	ngOnInit() {
@@ -44,7 +43,7 @@ export class CompanyComponent implements OnInit {
 	}
 
 	addNewComapny() {
-		this.openModalAdd('Add new Company');
+		this.openModalAdd('New Company');
 	}
 
 	updateCompany(company: Company) {
@@ -64,9 +63,6 @@ export class CompanyComponent implements OnInit {
 		this.bsModalRef.content.title = title;
 		this.bsModalRef.content.companyId = data.id;
 		this.bsModalRef.content.viewMode = viewMode;
-
-		this.modalService.onHide.subscribe(() => {
-		});
 	}
 
 
@@ -76,31 +72,31 @@ export class CompanyComponent implements OnInit {
 		this.bsModalRef.content.company = data;
 		this.bsModalRef.content.viewMode = viewMode;
 
-		this.modalService.onHide.subscribe(() => {
-			this.loadCompanies();
+    this.modalService.onHide.observers = [];
+		this.modalService.onHide.subscribe((result) => {
+			if(result){
+				this.loadCompanies();
+				this.toastr.success('Company is updated successfully!', 'Success!');
+			}
 		});
 	}
 
 	openModalAdd(title) {		
 		this.bsModalRef = this.modalService.show(CompanyModalAddComponent, { class: 'modal-compny-add' });
 		this.bsModalRef.content.title = title;
+    this.modalService.onHide.observers = [];
 		this.modalService.onHide.subscribe((result) => {
 			if(result){
 				this.loadCompanies();
 				this.toastr.success('Company is created successfully!', 'Success!');
 			}
-			return false;
 		});
 	}
 
 	openModalView(title, viewMode, data?: Company) {
-
 		this.bsModalRef = this.modalService.show(CompanyModalViewComponent);
 		this.bsModalRef.content.title = title;
 		this.bsModalRef.content.company = data;
-
-		this.modalService.onHide.subscribe(() => {
-		});
 	}
 
 	loadCompanies() {

@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { MdDialog } from '@angular/material';
-import { AlertDialog } from '../dialog/alert.dialog.component';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
-import { ProductService } from './product.service';
-import { Product, ProductModalEditComponent } from './index';
-import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import {Component, OnInit} from '@angular/core';
+import {MdDialog} from '@angular/material';
+import {AlertDialog} from '../dialog/alert.dialog.component';
+import {BsModalService} from 'ngx-bootstrap/modal';
+import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
+import {ProductService} from './product.service';
+import {Product, ProductModalEditComponent} from './index';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-product',
@@ -22,12 +22,11 @@ export class ProductComponent implements OnInit {
   itemsPerPage: number = 10;
   indexPage: number = 0;
   totalItems: number = 0;
+
   constructor(private productService: ProductService,
-    private modalService: BsModalService,
-    private dialog: MdDialog,
-    public toastr: ToastsManager,
-    vcr: ViewContainerRef) {
-    this.toastr.setRootViewContainerRef(vcr);
+              private modalService: BsModalService,
+              private dialog: MdDialog,
+              private toastr: ToastrService) {
   }
 
   ngOnInit() {
@@ -35,7 +34,7 @@ export class ProductComponent implements OnInit {
   }
 
   addNewProduct() {
-    this.openModal('Add new Product', false, new Product());
+    this.openModal('New Product', false, new Product());
   }
 
   updateProduct(product: Product) {
@@ -52,9 +51,12 @@ export class ProductComponent implements OnInit {
     this.bsModalRef.content.title = title;
     this.bsModalRef.content.product = data;
     this.bsModalRef.content.isView = isView;
-
-    this.modalService.onHide.subscribe(() => {
-      this.loadProducts();
+    this.modalService.onHide.observers = [];
+    this.modalService.onHide.subscribe((result) => {
+      if(result){
+        this.loadProducts();
+        this.toastr.success('Product is updated successfully!', 'Success!');
+      }
     });
   }
 
@@ -65,11 +67,7 @@ export class ProductComponent implements OnInit {
         this.totalItems = result.meta.paginate.totalCount;
       },
       err => {
-        this.dialog.open(AlertDialog, {
-          width: '500px', height: '170px', data: {
-            title: 'Information dialog', message: 'No data found.'
-          }
-        });
+        console.log(err);
       });
   }
 
@@ -96,8 +94,9 @@ export class ProductComponent implements OnInit {
     }).afterClosed().subscribe(result => {
       if (result === 'OK') {
         this.productService.removeProduct(id).subscribe(() => {
-          this.toastr.success('Delete Product successfully!', 'Success!');
+          this.toastr.toasts = [];
           this.loadProducts();
+          this.toastr.success('Delete Product successfully!', 'Success!');
         });
       }
     });
