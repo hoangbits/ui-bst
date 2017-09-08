@@ -5,6 +5,7 @@ import {ListUserComponent} from '../../secure/user';
 import {ScopeComponent} from './../../secure/scope';
 import {ActivityComponent} from './../../secure/activity';
 import {ProductComponent} from './../../secure/product';
+import {CatalogComponent} from './../../secure/catalog';
 
 export const SECURE_ROUTES: Routes = [
 	{path: 'admin/company', component: CompanyComponent},
@@ -13,4 +14,5 @@ export const SECURE_ROUTES: Routes = [
 	{path: 'admin/scope', component: ScopeComponent},
 	{path: 'admin/activity', component: ActivityComponent},
 	{path: 'admin/product', component: ProductComponent},
+	{path: 'admin/catalog', component: CatalogComponent},
 ];

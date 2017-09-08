@@ -27,6 +27,7 @@ import {ActivityModule} from './secure/activity';
 import {ProductModule} from './secure/product';
 import {AlertDialog} from './secure/dialog';
 import { AuthGuard } from './guards/index';
+import { CatalogModule } from './secure/catalog';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { AuthGuard } from './guards/index';
 		RoleModule,
 		UserModule,
 		CompanyModule,
-		ProductModule
+		ProductModule,
+		CatalogModule
 	],
 	providers: [
 		BsModalService,

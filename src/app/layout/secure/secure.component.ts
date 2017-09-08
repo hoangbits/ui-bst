@@ -21,6 +21,7 @@ export class SecureComponent implements OnInit {
 		{ name: 'Role', url: '/admin/role', icon: 'fa-files-o' },
 		{ name: 'Scope', url: '/admin/scope', icon: 'fa-th' },
 		{ name: 'Permission', url: '/admin/activity', icon: 'fa-bus' },
+		{ name: 'Catalog', url: '/admin/catalog', icon: 'fa-bus' },
 	];
 
 	constructor(router: Router,
