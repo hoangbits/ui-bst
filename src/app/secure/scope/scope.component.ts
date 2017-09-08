@@ -1,4 +1,4 @@
-import {Component, OnInit,ViewContainerRef} from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {ScopeModalEditComponent} from './scope.modal.edit.component';
@@ -22,7 +22,7 @@ export class ScopeComponent implements OnInit {
   currentPage: number = 0;
   itemsPerPage: number = 10;
   totalItems: number = 0;
-	indexPage: number = 0;
+  indexPage: number = 0;
 
   constructor(private scopeService: ScopeService,
               private modalService: BsModalService,
@@ -62,7 +62,7 @@ export class ScopeComponent implements OnInit {
   }
 
   addNew() {
-    this.openEditModal('Add new Scope', true, new Scope(), true);
+    this.openEditModal('New Scope', true, new Scope(), true);
   }
 
   editName(scope) {
@@ -81,16 +81,17 @@ export class ScopeComponent implements OnInit {
     this.bsModalRef.content.isAddNew = isAddNew;
     this.modalService.onHide.observers = [];
     this.modalService.onHide.subscribe((result) => {
-      if(result){
+      if (result) {
         this.loadScopes();
-        this.toastr.success('Scope is updated successfully!', 'Success!');
+        let update = title === 'New Scope' ? 'created' : 'updated';
+        this.toastr.success('Scope is ' + update + ' successfully!', 'Success!');
       }
     });
   }
 
   pageChanged(event: any): void {
     this.currentPage = event.page;
-		this.indexPage = this.currentPage > 1 ? (this.currentPage - 1) * this.itemsPerPage : 0;
+    this.indexPage = this.currentPage > 1 ? (this.currentPage - 1) * this.itemsPerPage : 0;
     this.loadScopes();
   }
 }

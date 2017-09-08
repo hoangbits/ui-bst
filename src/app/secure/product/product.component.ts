@@ -53,9 +53,10 @@ export class ProductComponent implements OnInit {
     this.bsModalRef.content.isView = isView;
     this.modalService.onHide.observers = [];
     this.modalService.onHide.subscribe((result) => {
-      if(result){
+      if (result) {
         this.loadProducts();
-        this.toastr.success('Product is updated successfully!', 'Success!');
+        let update = title === 'New Product' ? 'created' : 'updated';
+        this.toastr.success('Product is ' + update + ' successfully!', 'Success!');
       }
     });
   }
