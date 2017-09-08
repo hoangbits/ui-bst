@@ -56,7 +56,7 @@ export class CompanyModalEditComponent implements OnInit {
 		});
 	}
 
-	private saveClose() {
+	public saveClose() {
 		this.isSubmited = true;
 		if (this.fg.invalid) {
 			return;
