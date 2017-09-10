@@ -3,7 +3,7 @@
     <img src="../../../assets/catalog/cart_white.svg" alt="cart" />
     <div class="indicator"><span>{{numProducts}}</span></div>
   </button>
-    <div class="fill" [style.height]="expanded ? expandedHeight : inherit" [class.not-shown]='!products.length' [class.animate-plop]='animatePlop' [class.shown]='animatePopout && !expanded'>
+    <div class="fill" [style.height]="expanded ? expandedHeight : ''" [class.not-shown]='!products.length' [class.animate-plop]='animatePlop' [class.shown]='animatePopout && !expanded'>
         <div class="expanded-info" [class.shown]='expanded'>
             <h3>This is what you're gonna buy...</h3>
             <div class="product" *ngFor="let item of products">
