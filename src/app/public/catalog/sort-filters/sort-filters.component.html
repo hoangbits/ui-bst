@@ -1,0 +1,8 @@
+<!-- <label for="">Ordered by</label> -->
+<div class="form-group">
+    <select (change)='onSelectChange($event)' class="form-control" placeholder="Ordered by">
+    <!-- <option>Ordered by</option> -->
+    <option *ngFor='let filter of filters' [value]="filter.value">{{filter.name}}</option>
+  </select>
+    <div class="triangle"></div>
+</div>

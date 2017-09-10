@@ -29,7 +29,7 @@ import {AlertDialog} from './secure/dialog';
 import { AuthGuard } from './guards/index';
 import {AdminCompanyModule} from './secure/admin-company';
 import {UserShareModule} from './common/shareModule/user-share-module.module';
-
+import {CatalogModule} from './public/catalog';
 
 
 @NgModule({
@@ -63,6 +63,7 @@ import {UserShareModule} from './common/shareModule/user-share-module.module';
 		ProductModule,
 		AdminCompanyModule,
 		UserShareModule,
+    CatalogModule
 	],
 	providers: [
 		BsModalService,
