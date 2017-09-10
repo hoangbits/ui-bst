@@ -1,14 +1,14 @@
-@import "./shared/colors";
-@import "./shared/mixins";
-@import "./sort-filters/sort-filters.component";
-@import "./product/product.component";
-@import "./filters/filters.component";
-@import "./product-thumbnail/product-thumbnail.component";
-@import "./search-bar/search-bar.component";
-@import "./showcase/showcase.component";
-@import "./url-form/url-form.component";
-@import "./cart/cart.component";
-@import "./cart-preview/cart-preview.component";
+@import "shared/colors";
+@import "shared/mixins";
+@import "sort-filters/sort-filters.component";
+@import "product/product.component";
+@import "filters/filters.component";
+@import "product-thumbnail/product-thumbnail.component";
+@import "search-bar/search-bar.component";
+@import "showcase/showcase.component";
+@import "url-form/url-form.component";
+@import "cart/cart.component";
+@import "cart-preview/cart-preview.component";
 .main-container {
     padding-top: 30px;
 }

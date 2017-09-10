@@ -3,7 +3,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
 
 import { MdDialog } from '@angular/material';
-import { AlertDialog } from '../dialog/alert.dialog.component';
+import { AlertDialog } from '../../secure/dialog/alert.dialog.component';
 
 import { Product } from './shared/product.model';
 import { CatalogService } from './catalog.service';
