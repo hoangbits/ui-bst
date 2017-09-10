@@ -32,6 +32,7 @@
 npm-debug.log
 testem.log
 /typings
+Release.key
 
 # e2e
 /e2e/*.js
