@@ -1,31 +1,5 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
-.tbl-location{
-  width:100%;
-}
-.tbl-location tr{
-  height: 40px;
-}
-.tbl-location td.td-head{
-  padding-right:20px !important;
-  text-align: right;
-  width:130px;
-  font-weight: bold;
-}
-
-.table{
-  margin-bottom: 0 !important;
-}
-.nav-tabs-custom{
-  margin-bottom: 0 !important;
-}
-.width100{
-  width:100%;
-}
-.td-label{
-  padding-left: 10px;
-}
-.select{
-  width:150px;
+.phone{
+  width:300px;
 }
 
 .ddl{
@@ -33,16 +7,6 @@
   background-color: #f4f4f4;
   color: #444;
   border-color: #ddd;
-  width:100%; 
-}
-td.label-cus{
-  padding-left:10px;
-  font-size: 90%;
-  width:15%;
-}
-tr.tr-error{
-  height: 15px !important;
-}
-tr.tr-error p{
-  margin:0;
+  width:300px;
+  display: block;
 }
