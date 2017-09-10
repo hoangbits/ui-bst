@@ -82,7 +82,7 @@ export class CompanyComponent implements OnInit {
 	}
 
 	openModalAdd(title) {		
-		this.bsModalRef = this.modalService.show(CompanyModalAddComponent, { class: 'modal-compny-add' });
+		this.bsModalRef = this.modalService.show(CompanyModalAddComponent);
 		this.bsModalRef.content.title = title;
     this.modalService.onHide.observers = [];
 		this.modalService.onHide.subscribe((result) => {
@@ -94,7 +94,7 @@ export class CompanyComponent implements OnInit {
 	}
 
 	openModalView(title, viewMode, data?: Company) {
-		this.bsModalRef = this.modalService.show(CompanyModalViewComponent);
+		this.bsModalRef = this.modalService.show(CompanyModalViewComponent, { class: 'second' });
 		this.bsModalRef.content.title = title;
 		this.bsModalRef.content.company = data;
 	}

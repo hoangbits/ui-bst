@@ -75,7 +75,7 @@
                                     <p *ngIf="!selectedState && locationSubmit" class="text-danger">State is required.</p>
                                 </td>
                                 <td class="td-label">Postcode</td>
-                                <td><input type="text" class="width100 form-control" [(ngModel)]="postCode" name="postCode" placeholder="Postcode">
+                                <td><input type="text" class="width100 form-control" [(ngModel)]="postCode" name="postCode" placeholder="Postcode" maxlength="20">
                                     <p *ngIf="!postCode && locationSubmit" class="text-danger">Postcode is required.</p>
                                 </td>
                             </tr>
