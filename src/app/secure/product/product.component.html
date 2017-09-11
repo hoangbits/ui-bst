@@ -26,7 +26,7 @@
                                           </button>
                                       </td>
                                       <td>
-                                          <button type="button" class="btn btn-flat btn-primary" (click)="refresh()"
+                                          <button type="button" class="btn btn-flat btn-default" (click)="refresh()"
                                                   style="margin-left:10px" id="btnRefresh">
                                               <i class="fa fa-repeat" aria-hidden="true"
                                                  style="margin-right: 6px"></i>Clear
@@ -47,20 +47,17 @@
                           <th>SKU</th>
                           <th>Shipping info</th>
                           <th>Description</th>
-                          <th class="action90">Action</th>
+                          <th class="action60">Action</th>
                       </tr>
                       </thead>
                       <tbody>
                       <tr *ngFor="let product of products; let i = index">
                           <td class="no">{{indexPage+i+1}}</td>
-                          <td>{{product.productTitle}}</td>
+                          <td><a class="link-view" (click)="viewProduct(product)">{{product.productTitle}}</a></td>
                           <td>{{product.sku}}</td>
                           <td>{{product.shippingInfo}}</td>
                           <td>{{product.description}}</td>
                           <td>
-                              <span style="padding-right:14px; cursor: pointer" (click)="viewProduct(product)"
-                                    id="row{{(i)}}BtnView"
-                                    tooltip="View"><i class="fa fa-eye"></i></span>
                               <span style="cursor: pointer" (click)="updateProduct(product)"
                                     id="row{{(i)}}BtnEdit"
                                     tooltip="Edit"><i class="fa fa-pencil-square-o"></i></span>

@@ -26,7 +26,7 @@
                                             </button>
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-flat btn-primary" (click)="refresh()"
+                                            <button type="button" class="btn btn-flat btn-default" (click)="refresh()"
                                                     style="margin-left:10px" id="btnRefresh">
                                                 <i class="fa fa-repeat" aria-hidden="true"
                                                    style="margin-right: 6px"></i>Clear
@@ -46,28 +46,22 @@
                             <th>Company name</th>
                             <th width="120">Phone</th>
                             <th width="120">Tax code</th>                            
-                            <th style="width: 120px">Action</th>
+                            <th class="action90">Action</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr *ngFor="let company of companies; let i = index">
                             <td class="no">{{indexPage+i+1}}</td>
-                            <td>{{company.companyName}}</td>
+                            <td><a style="cursor: pointer" (click)="viewCompany(company)">{{company.companyName}}</a></td>
                             <td>{{company.phone}}</td>
                             <td>{{company.taxCode}}</td>                            
                             <td>
-                                <span style="padding-right:14px; cursor: pointer" (click)="viewCompany(company)"
-                                      id="row{{(i)}}BtnView"
-                                      tooltip="View"><i class="fa fa-eye" aria-hidden="true"></i></span>
-                                <span style="padding-right:14px; cursor: pointer" (click)="updateCompany(company)"
-                                      id="row{{(i)}}BtnEdit"
+                                <span style="padding-right:14px; cursor: pointer" (click)="updateCompany(company)" id="row{{(i)}}BtnEdit"
                                       tooltip="Edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
-                                <span (click)="confirmDialog(company.id)" style="padding-right:14px; cursor: pointer"
-                                      id="row{{(i)}}BtnDelete"
+                                <span style="cursor: pointer" (click)="configAdmin(company)" id="row{{(i)}}BtnSetComAdminUser" tooltip="Edit user">
+                                    <i class="fa fa-user-o"></i></span>
+                                <span (click)="confirmDialog(company.id)" style="float:right; cursor: pointer" id="row{{(i)}}BtnDelete"
                                       tooltip="Delete"><i class="fa fa-trash"></i></span>
-                                <span style="float: right; cursor: pointer" (click)="configAdmin(company)"
-                                      id="row{{(i)}}BtnSetComAdminUser"
-                                      ><i class="fa fa-cogs"></i></span>
                             </td>
                         </tr>
                         <tr *ngIf="totalItems == 0">

@@ -53,10 +53,10 @@
               <p *ngIf="!isEdit">{{company.fax}}</p>
             </div>
             <div class="form-group">
-              <button type="button" class="btn btn-flat btn-primary pull-right" id="btnEdit"
+              <button type="button" class="btn btn-flat btn-primary" id="btnEdit"
                       *ngIf="isProfile && !isEdit" (click)="showEdit()">Edit
               </button>
-              <button type="button" class="btn btn-flat btn-primary pull-right" id="btnSave" *ngIf="isEdit"
+              <button type="button" class="btn btn-flat btn-primary" id="btnSave" *ngIf="isEdit"
                       (click)="save()">Save
               </button>
             </div>

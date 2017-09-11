@@ -27,10 +27,8 @@
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-flat btn-default" (click)="bsModalRef.hide()">Cancel</button>
-    <button type="submit" class="btn btn-flat btn-primary" (click)="saveClose()">
-        <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Save
+    <button type="submit" class="btn btn-flat btn-primary" (click)="saveClose()">Save
     </button>
-    <button type="button" class="btn btn-flat btn-primary" (click)="saveConfig()" *ngIf="isAddNew" [disabled]="!scopeForm.valid">
-        <i class="fa fa-wrench" aria-hidden="true"></i> Save & config
+    <button type="button" class="btn btn-flat btn-primary" (click)="saveConfig()" *ngIf="isAddNew" [disabled]="!scopeForm.valid"> Save & config
     </button>
 </div>
