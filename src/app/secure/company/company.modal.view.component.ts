@@ -52,7 +52,6 @@ export class CompanyModalViewComponent implements OnInit{
   createForm(){
     this.fg = this.fb.group({
       companyName: new FormControl('', Validators.required),
-      address: new FormControl('', Validators.required),
       taxCode: new FormControl('', Validators.required),
       phone: '',
       fax: ''

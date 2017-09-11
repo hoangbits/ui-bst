@@ -1,112 +1,112 @@
-<header class="main-header">
-    <!-- Logo -->
-    <a href="" class="logo">
+<div class="hold-transition skin-black sidebar-mini">
+  <div class="wrapper">
+    <header class="main-header">
+      <!-- Logo -->
+      <a href="" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini">DMP</span>
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg">Digital Market Place</span>
-    </a>
-    <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
+      </a>
+      <!-- Header Navbar: style can be found in header.less -->
+      <nav class="navbar navbar-static-top">
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
+          <span class="sr-only">Toggle navigation</span>
         </a>
 
         <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-                <!-- User Account: style can be found in dropdown.less -->
-                <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img class="user-image" alt="User Image" src="./assets/images/avatar.jpg">
-                        <span class="hidden-xs">{{user? user.userName: ''}}</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <!-- User image -->
-                        <li class="user-header">
-                            <img src="./assets/images/avatar.jpg" class="img-circle" alt="User Image">
+          <ul class="nav navbar-nav">
+            <!-- User Account: style can be found in dropdown.less -->
+            <li class="dropdown user user-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <img class="user-image" alt="User Image" src="./assets/images/avatar.jpg">
+                <span class="hidden-xs">{{user? user.userName: ''}}</span>
+              </a>
+              <ul class="dropdown-menu">
+                <!-- User image -->
+                <li class="user-header">
+                  <img src="./assets/images/avatar.jpg" class="img-circle" alt="User Image">
 
-                            <p>
-                                Alexander Pierce - Web Developer
-                            </p>
-                        </li>
-
-                        <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a (click)="openModal()" class="btn btn-default btn-flat">Profile</a>
-                            </div>
-                            <div class="pull-right">
-                                <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                            </div>
-                        </li>
-                    </ul>
+                  <p>
+                    Alexander Pierce - Web Developer
+                  </p>
                 </li>
-            </ul>
+
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <div class="pull-left">
+                    <a (click)="openModal()" class="btn btn-default btn-flat">Profile</a>
+                  </div>
+                  <div class="pull-right">
+                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </div>
-    </nav>
-</header>
-<aside class="main-sidebar">
-    <section class="sidebar">
+      </nav>
+    </header>
+    <aside class="main-sidebar">
+      <section class="sidebar">
         <ul class="sidebar-menu">
-            <li class="header">MAIN NAVIGATION</li>
-            <li class="active treeview menu-open">
-                <a href="#">
-                    <i class="fa fa-server"></i> <span>Administration</span>
-                    <span class="pull-right-container">
+          <li class="header">MAIN NAVIGATION</li>
+          <li class="active treeview menu-open">
+            <a href="#">
+              <i class="fa fa-server"></i> <span>Administration</span>
+              <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
+            </a>
+            <ul class="treeview-menu">
+              <li *ngFor="let item of sideBar">
+                <a [routerLink]="[item.url]">
+                  <i class="fa {{item.icon}}"></i>
+                  <span>{{item.name}}</span>
                 </a>
-                <ul class="treeview-menu">
-                    <li *ngFor="let item of sideBar">
-                        <a [routerLink]="[item.url]">
-                            <i class="fa {{item.icon}}"></i>
-                            <span>{{item.name}}</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+              </li>
+            </ul>
+          </li>
 
-            <li class="active treeview menu-open">
-                <a href="#">
-                    <i class="fa fa-server"></i> <span>Admin Company</span>
-                    <span class="pull-right-container">
+          <li class="active treeview menu-open">
+            <a href="#">
+              <i class="fa fa-server"></i> <span>Admin Company</span>
+              <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
+            </a>
+            <ul class="treeview-menu">
+              <li *ngFor="let item of sideBarForCompanyAdmin">
+                <a [routerLink]="[item.url]">
+                  <i class="fa {{item.icon}}"></i>
+                  <span>{{item.name}}</span>
                 </a>
-                <ul class="treeview-menu">
-                    <li *ngFor="let item of sideBarForCompanyAdmin">
-                        <a [routerLink]="[item.url]">
-                            <i class="fa {{item.icon}}"></i>
-                            <span>{{item.name}}</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
+              </li>
+            </ul>
+          </li>
         </ul>
-    </section>
-</aside>
-<div class="content-wrapper">
-    <section class="content-header">
+      </section>
+    </aside>
+    <div class="content-wrapper">
+      <section class="content-header">
         <h1>
-            Dashboard
-            <small>Control panel</small>
+          Dashboard
+          <small>Control panel</small>
         </h1>
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Dashboard</li>
-        </ol>
-    </section>
+      </section>
 
-    <section class="content">
+      <section class="content">
         <app-root></app-root>
-    </section>
+      </section>
 
-</div>
-<aside class="control-sidebar control-sidebar-dark"></aside>
-<footer class="main-footer">
-    <div class="pull-right hidden-xs">
-        <b>Version</b> 0.1
     </div>
-    <strong>© 2017 TC Systems (Vietnam). All rights reserved.</strong>
-</footer>
+    <aside class="control-sidebar control-sidebar-dark"></aside>
+    <footer class="main-footer">
+      <div class="pull-right hidden-xs">
+        <b>Version</b> 0.1
+      </div>
+      <strong>© 2017 TC Systems (Vietnam). All rights reserved.</strong>
+    </footer>
+  </div>
+</div>
