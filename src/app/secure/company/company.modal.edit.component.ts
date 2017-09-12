@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {ToastrService} from 'ngx-toastr';
 
-import {Company} from './index';
+import {Company, Location} from './index';
 import {CompanyService} from './company.service';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
@@ -25,6 +25,20 @@ export class CompanyModalEditComponent implements OnInit{
   fg: FormGroup;
   hdCompany: FormControl;
   locationCount: number;
+  location: Location;
+  locations: any[];
+  locationSubmit: boolean = false;
+
+  public countries: any;
+  public states: any;
+  public cities: any;
+  public selectedCountry: string;
+  public selectedState: string;
+  public selectedCity: string;
+  public postCode: string;
+  public address: string;
+  public locationName: string;
+  public description: string;
 
   constructor(public bsModalRef: BsModalRef,
               private companyService: CompanyService,
@@ -33,6 +47,7 @@ export class CompanyModalEditComponent implements OnInit{
               private modalService: BsModalService,
               private toastr: ToastrService){
     this.company = this.company || new Company();
+    this.location = new Location();
     this.viewMode = this.viewMode || true;
     this.createForm();
     this.getCountries();
@@ -76,14 +91,6 @@ export class CompanyModalEditComponent implements OnInit{
         this.toastr.warning(err, 'Alert!');
       });
   }
-
-  public countries: any;
-  public states: any;
-  public cities: any;
-  public selectedCountry: string;
-  public selectedState: string;
-  public selectedCity: string;
-
 
   countryOnChange(value){
     this.getStates(value);
@@ -149,76 +156,60 @@ export class CompanyModalEditComponent implements OnInit{
       });
   }
 
-  public postCode: string;
-  public address: string;
-  locationSubmit: boolean = false;
-  msgLocation: string;
-  locations: any;
-
   addLocation(){
     this.locationSubmit = true;
     if(!this.selectedCountry
       || !this.selectedState
       || !this.selectedCity
       || !this.address
-      || !this.postCode){
+      || !this.postCode
+      || !this.locationName){
       return false;
     }
-    if(!this.company.locations){
-      this.company.locations = [];
-    }
-    let data = this.company.locations || [];
 
-    let countryName = '',
-      stateName = '',
-      cityName = '';
     _.each(this.countries, data =>{
       if(data.code === this.selectedCountry){
-        countryName = data.name;
+        this.location.countryName = data.name;
       }
     });
     _.each(this.states, data =>{
       if(data.code === this.selectedState){
-        stateName = data.name;
+        this.location.stateName = data.name;
       }
     });
     _.each(this.cities, data =>{
       if(data.code === this.selectedCity){
-        cityName = data.name;
+        this.location.cityName = data.name;
       }
     });
 
-    let location = {
-      countryCode: this.selectedCountry,
-      countryName: countryName,
-      stateCode: this.selectedState,
-      stateName: stateName,
-      cityCode: this.selectedCity,
-      cityName: cityName,
-      address: this.address,
-      postCode: this.postCode,
-      company: this.company.id
-    };
 
-    let dupl = _.find(this.locations, location);
-    this.msgLocation = '';
+    this.location.locationName = this.locationName;
+    this.location.description = this.description;
+    this.location.address = this.address;
+    this.location.countryCode = this.selectedCountry;
+    this.location.stateCode = this.selectedState;
+    this.location.cityCode = this.selectedCity;
+    this.location.postCode = this.postCode;
+    this.location.company = this.company.id
+
+    let dupl = _.find(this.locations, this.location);
+
     if(dupl){
       this.toastr.warning('This location is exiting!', 'Alert!');
       return false;
     }
 
-    data.push(location);
-
-    this.companyService.updateLocation(location).subscribe(() =>{
+    this.companyService.updateLocation(this.location).subscribe(() =>{
         this.locationSubmit = false;
         this.getCompanyLocations(this.company.id);
-        this.toastr.success('A new location is added successfully!', 'Success!');
+        this.toastr.success('A new location is added successfully!','Success!');
       },
       err =>{
         this.toastr.warning('Save location failed!', 'Alert!');
-      })
+      }
+    )
   }
-
 
   getCompanyLocations(companyId){
     this.companyService.getCompanyLocations(companyId).subscribe(data =>{

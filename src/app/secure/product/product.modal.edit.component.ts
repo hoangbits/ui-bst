@@ -35,6 +35,7 @@ export class ProductModalEditComponent implements OnInit {
       productTitle: new FormControl('', Validators.required),
       shippingInfo: new FormControl('', Validators.required),
       description: '',
+      price:'',
       sku: new FormControl('', Validators.required)
     });
   }

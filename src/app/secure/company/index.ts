@@ -1,5 +1,6 @@
 export * from './company.component';
 export * from './company.model';
+export * from './location.model';
 export * from './company.service';
 export * from './company.modal.add.component';
 export * from './company.modal.edit.component';

@@ -51,6 +51,17 @@
                         <div class="alert alert-warning alert-dismissible" *ngIf="msgLocation">{{msgLocation}}</div>
                         <table class="tbl-location" style="margin: 20px 0">
                             <tr>
+                                <td width="15%">Location name</td>
+                                <td width="35%">
+                                    <input type="text" class="width100 form-control" [(ngModel)]="locationName" name="locationName" placeholder="Location name" maxlength="200">
+                                    <p *ngIf="!locationName && locationSubmit" class="text-danger">Location name is required.</p>
+                                </td>
+                                <td width="15%" class="td-label">Description</td>
+                                <td width="35%">
+                                    <input type="text" class="width100 form-control" [(ngModel)]="description" name="description" placeholder="Description" maxlength="300">
+                                </td>
+                            </tr>
+                            <tr>
                                 <td width="15%">Country</td>
                                 <td width="35%">
                                     <select [(ngModel)]="selectedCountry" (ngModelChange)="countryOnChange($event)" class="ddl">
@@ -96,6 +107,8 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>Location name</th>
+                            <th>Description</th>
                             <th>Country</th>
                             <th>State/ Province</th>
                             <th>City/ District</th>
@@ -106,6 +119,8 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let location of locations; let i = index">
+                            <td>{{location.locationName}}</td>
+                            <td>{{location.description}}</td>
                             <td>{{location.countryName}}</td>
                             <td>{{location.stateName}}</td>
                             <td>{{location.cityName}}</td>

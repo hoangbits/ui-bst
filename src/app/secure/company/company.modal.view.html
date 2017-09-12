@@ -122,6 +122,8 @@
         <table class="table table-bordered table-striped">
           <thead>
           <tr>
+            <th>Location name</th>
+            <th>Description</th>
             <th>Country</th>
             <th>State/ Province</th>
             <th>City/ District</th>
@@ -131,6 +133,8 @@
           </thead>
           <tbody>
           <tr *ngFor="let location of locations; let i = index">
+            <td>{{location.locationName}}</td>
+            <td>{{location.description}}</td>
             <td>{{location.countryName}}</td>
             <td>{{location.stateName}}</td>
             <td>{{location.cityName}}</td>
