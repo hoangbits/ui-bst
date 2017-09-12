@@ -3,7 +3,9 @@ import {
   User, Role, Location
 } from '../index';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
+import {BsModalService} from 'ngx-bootstrap/modal';
 import {UserService} from '../../user/user.service';
+import {SYSTEM_CONFIG} from '../../../config/system/systemConfig';
 import * as _ from 'lodash';
 @Component({
   selector: 'app-create-user-company',
@@ -17,7 +19,6 @@ export class CreateUserCompanyComponent implements OnInit {
   roleData = [];
   locationData = [];
   title: string;
-  passDefault = '123456';
   errorMsg: string;
   ortherUserFlag: boolean;
   public currentUserData: any;
@@ -29,18 +30,18 @@ export class CreateUserCompanyComponent implements OnInit {
   };
 
   company = {
-    'companyId' : '5996a7ee734d98493461e83a',
-    'companyName' : 'company 1'
+    'companyId': '5996a7ee734d98493461e83a',
+    'companyName': 'company 1'
   };
 
-  constructor(public bsModalRef: BsModalRef, private userService: UserService) {
-    // this.currentUserData = JSON.parse(localStorage.getItem('currentUser'));
-    // this.currentUserCompany = this.currentUserData.user.company;
-    // this.currentUserType = this.currentUserData.user.userType;
-
+  constructor(public bsModalRef: BsModalRef, private modalService: BsModalService, private userService: UserService) {
     this.currentUserData = JSON.parse(localStorage.getItem('currentUser'));
     this.currentUserCompany = this.currentUserData.user.company;
-    this.currentUserType = '1';
+    this.currentUserType = this.currentUserData.user.userType;
+
+    // this.currentUserData = JSON.parse(localStorage.getItem('currentUser'));
+    // this.currentUserCompany = this.currentUserData.user.company;
+    // this.currentUserType = '1';
   }
 
   ngOnInit() {
@@ -55,11 +56,11 @@ export class CreateUserCompanyComponent implements OnInit {
         this.user.roles = this.role;
       }
       this.getLocationData(idLocation, this.locationData);
-      this.user.password = formValue.password ? formValue.password : '123456';
+      this.user.password = formValue.password ? formValue.password : SYSTEM_CONFIG.USER.PASSWORD_DEFAULT;
       this.user.email = formValue.txtEmail;
       this.user.fullName = formValue.fullName;
       this.user.userType = this.currentUserType;
-      this.user.company = this.company;
+      this.user.company = this.currentUserCompany;
       this.saveUserFunction(this.user);
     } else {
       return;
@@ -85,7 +86,10 @@ export class CreateUserCompanyComponent implements OnInit {
 
   saveUserFunction(user: User): void {
     this.userService.createUsers(user).subscribe(
-      data => this.bsModalRef.hide(),
+      (data) => {
+        this.modalService.setDismissReason('Yes');
+        this.bsModalRef.hide();
+      },
       err => {
         this.errorMsg = err.message;
       });

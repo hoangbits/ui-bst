@@ -13,7 +13,7 @@
       <form #adUserForm="ngForm" (ngSubmit)="saveAdUser(adUserForm.value,selectRole.value,selectLocation.value,adUserForm.valid)"
             style="margin-top:5px">
         <div class="form-group">
-          <label>Email</label>
+          <label>Email*</label>
           <input type="text" class="form-control" name="txtEmail" id="txtEmail" [(ngModel)]="user.email"
                  required #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" placeholder="Email">
           <small class="text-danger"
@@ -28,7 +28,7 @@
 
         </div>
         <div class="form-group">
-          <label>Full Name</label>
+          <label>Full Name*</label>
           <input type="text" class="form-control" name="fullName" id="txtFullNameAd"
                  [(ngModel)]="user.fullName" required #fullName="ngModel" placeholder="Full name">
           <small class="text-danger"
@@ -38,7 +38,7 @@
         </div>
 
         <div class="form-group" *ngIf="ortherUserFlag">
-          <label for="">Password</label>
+          <label for="">Password*</label>
           <input type="password" class="form-control"  name="password"  id="txtPassword" [ngModel]="user.password"
                  required
                  minlength="6"
@@ -55,7 +55,7 @@
         </div>
 
         <div class="form-group" *ngIf="ortherUserFlag">
-          <label for="">Confirm password</label>
+          <label for="">Confirm password*</label>
           <input type="password" class="form-control" id="txtConfPassword" name="confirmPassword" [ngModel]="adUserForm.confirmPassword"
                  required validateEqual="password" reverse="false" #confirmPassword="ngModel">
           <small [hidden]="confirmPassword.valid || (confirmPassword.pristine && !adUserForm.submitted)" class="text-danger">
@@ -64,7 +64,7 @@
         </div>
 
         <div class="form-group">
-          <label>Role:</label>
+          <label>Role</label>
           <select id="cbxRoleCreate" name="roleSelect" #selectRole  class="form-control">
             <option value="">Select a Role</option>
             <option *ngFor="let role of roleData" [value]="role.id">{{role.roleName}}</option>
@@ -92,7 +92,7 @@
 
         <div class="text-right">
           <button class="btn  btn-default" id="btnSaveAdUser" type="button" (click)="bsModalRef.hide()">
-            Cancel
+            Close
           </button>
           <button type="submit" id="btnCancel" class="btn btn-primary">Save</button>
         </div>

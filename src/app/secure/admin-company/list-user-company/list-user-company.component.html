@@ -1,15 +1,17 @@
 <section class="content">
-  <app-search-user-company  [listRole] =listRole [userTypes] = userType (clicked)="getAllUser($event)" ></app-search-user-company>
+
   <div class="row">
+
     <div class="col-md-12">
       <div class="box box-success">
         <div class="box-header with-border">
-          <h3 class="box-title" id="lblPageTitle">List of Users</h3>
-          <button  (click)="addNew()" type="button" id="btnAddNew"  class="btn btn-primary pull-right">Add new
+          <h3 class="box-title" id="lblPageTitle">User</h3>
+          <button  (click)="addNew()" type="button" id="btnAddNew"  class="btn btn-primary pull-right">New
             user
           </button>
         </div>
         <!-- /.box-header -->
+        <app-search-user-company  [listRole] =listRole [userTypes] = userType (clicked)="getAllUser($event)" ></app-search-user-company>
         <div class="box-body">
           <table class="table table-bordered table-striped">
             <thead>
@@ -18,14 +20,13 @@
               <th>Email</th>
               <th>Fullname</th>
               <th>Role</th>
-              <th>Create by</th>
-              <th>Create at</th>
+
               <th>Action</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngIf="listUsers?.length === 0">
-                 <td colspan="7"> <p align="center"> There are no data </p></td>
+                 <td colspan="5"> <p> There is no item</p></td>
             </tr>
             <tr *ngFor="let user of listUsers; let i = index">
 
@@ -37,14 +38,12 @@
                 <p *ngIf="user.roles">{{user.roles.roleName}}</p>
               </td>
 
-              <td></td>
-              <td> {{user.createdAt | date:'dd/MM/yyyy hh:mm'}}</td>
               <td>
+                  <span style=" padding-right:14px;cursor: pointer" id="btnView{{i}}" (click)="editViewUser(user.id,1)"
+                        title="View user"><i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i></span>
                 <span style="padding-right:14px; cursor: pointer" id="btnEdit{{i}}"
                       (click)="editViewUser(user.id,0)" title="Edit user"><i class="fa fa-pencil-square-o"
                                                                                        aria-hidden="true"></i></span>
-                <span style=" padding-right:14px;cursor: pointer" id="btnView{{i}}" (click)="editViewUser(user.id,1)"
-                      title="View user"><i class="fa fa-wrench" aria-hidden="true"></i></span>
                 <span style=" cursor: pointer" id="btnDelete{{i}}" (click)="showModal(user.id)"><i
                         class="fa fa-trash" title="Delete user"></i></span>
               </td>

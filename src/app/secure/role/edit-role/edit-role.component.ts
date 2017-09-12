@@ -1,7 +1,8 @@
-import {Component, OnInit, ViewContainerRef } from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import {BsModalService} from 'ngx-bootstrap/modal';
 import {RoleService} from '../role.service';
+
 import {
   Scope, Role
 } from '../index';
@@ -28,11 +29,10 @@ export class EditRoleComponent implements OnInit {
   dropdownSettings = {};
   errorMsg: string;
 
-  constructor(
-    public bsModalRef: BsModalRef,
-    public  modalService: BsModalService,
-    private roleService: RoleService
-  ) {
+  constructor(public bsModalRef: BsModalRef,
+              public  modalService: BsModalService,
+              private roleService: RoleService
+             ) {
   }
 
   ngOnInit() {
@@ -57,7 +57,6 @@ export class EditRoleComponent implements OnInit {
         this.role = data;
         this.isEdit = !this.isEdit;
         this.isSaveConfig = !this.isSaveConfig;
-
       }, err => {
         this.errorMsg = err.message;
       });
@@ -71,6 +70,7 @@ export class EditRoleComponent implements OnInit {
     });
     this.role.scopes = scopes;
     this.roleService.updateRole(this.role).subscribe((data) => {
+        this.modalService.setDismissReason('Yes');
         this.bsModalRef.hide();
       },
       err => {
@@ -84,7 +84,7 @@ export class EditRoleComponent implements OnInit {
     }
     if (this.role.id) {
       this.roleService.updateRole(new Role(this.role.roleName, this.role.description, this.role.id, [])).subscribe((data) => {
-
+        this.modalService.setDismissReason('Yes');
         this.bsModalRef.hide();
       }, err => {
         this.errorMsg = err.message;
@@ -92,6 +92,7 @@ export class EditRoleComponent implements OnInit {
     } else {
       this.roleService.createRoles(this.role).subscribe((data) => {
         this.role = data;
+        this.modalService.setDismissReason('Yes');
         this.bsModalRef.hide();
       }, err => {
         this.errorMsg = err.message;

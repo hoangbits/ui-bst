@@ -1,8 +1,8 @@
 <!-- SELECT2 EXAMPLE -->
-<div class="box box-default">
-    <div class="box-header ">
-        <h3 class="box-title">Search Role</h3>
-    </div>
+<!--<div class="box box-default">-->
+    <!--<div class="box-header ">-->
+        <!--<h3 class="box-title">Search Role</h3>-->
+    <!--</div>-->
     <!-- /.box-header -->
     <div class="box-body">
         <div class="row">
@@ -10,37 +10,40 @@
             <form class="form-horizontal">
                     <div class="col-xs-12">
                         <div class="form-group">
-                            <div class="col-xs-6">
-                                <input type="text" id="txtSearch" class="form-control" #fullName placeholder="Search for email,fullname" />
+                            <div class="col-xs-4">
+                                <input type="text" id="txtSearch" class="form-control" [(ngModel)]="fullNameEmail" (keyup.enter)="searchUser()" name="fullNameEmail" placeholder="Search..." />
+                                <small style="color: gray" >Search for email,fullname</small>
                             </div>
 
-                            <div class="col-xs-4">
-                                <select id="cbxRole" name="userOther.roles" #role class="form-control">
+                            <div class="col-xs-3">
+                                <select id="cbxRole"  [(ngModel)]="roles"  name="roles" class="form-control">
                                     <option value="">All roles</option>
                                     <option *ngFor="let role of listRole" [value]="role.id">{{role.roleName}}</option>
                                 </select>
 
                             </div>
-                            <div class="col-xs-2">
-                                <select #userType id="cbxUserType" class="form-control">
+                            <div class="col-xs-3">
+                                <select [(ngModel)]="userType" name="userType" id="cbxUserType" class="form-control">
                                     <option value="" selected="selected">All user types</option>
                                     <option *ngFor="let userType of userTypes" [value]="userType.id">{{userType.typeName}}</option>
 
                                 </select>
                             </div>
+
+                            <div class="col-xs-2">
+                                <button type="submit" class="btn btn-primary"
+                                        (keyup.enter)="searchUser()">Search
+                                </button>
+                                <button type="reset" class="btn btn-default"  style="margin-left: 25px" (click)="refresh()">Clear</button>
+
+                            </div>
                         </div>
 
-                        <div class="text-right">
-                            <button type="reset" class="btn btn-default">Reset</button>
-                            <button type="submit" class="btn btn-primary"
-                                    (click)="onClick(fullName.value,userType.value,role.value)">Search
-                            </button>
-                        </div>
                     </div>
             </form>
             <!-- /.col -->
         </div>
         <!-- /.row -->
     </div>
-</div>
+<!--</div>-->
 <!-- /.box -->

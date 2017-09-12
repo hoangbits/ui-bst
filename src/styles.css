@@ -13,7 +13,7 @@
     margin-bottom: 9px;
     padding: 9px 15px;
 }
-.fa-pencil-square-o, .fa-user-o, .fa-wrench{
+.fa-pencil-square-o, .fa-user-o, .fa-wrench, .glyphicon-eye-open{
     color:#f39c12
 }
 .fa-trash{

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
+import {BsModalService} from 'ngx-bootstrap/modal';
 import {
   User, Role
 } from '../index';
@@ -25,7 +26,7 @@ export class EditUserComponent implements OnInit {
     'roleName': '',
   };
 
-  constructor(public bsModalRef: BsModalRef, private userService: UserService) {
+  constructor(public bsModalRef: BsModalRef,  private  modalService: BsModalService, private userService: UserService) {
     this.user = this.user || new User();
     this.role = this.role || new Role();
     this.dropdownSettings = {
@@ -61,7 +62,10 @@ export class EditUserComponent implements OnInit {
       this.user.company = company;
 
       this.userService.updateUsers(this.user).subscribe(
-        data => this.bsModalRef.hide(),
+        (data) => {
+          this.modalService.setDismissReason('Yes');
+          this.bsModalRef.hide();
+        },
         err => {
           this.errorMsg = err.message;
         });

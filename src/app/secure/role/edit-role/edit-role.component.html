@@ -13,7 +13,7 @@
         </div>
 
         <div class="form-group" *ngIf="isEdit">
-            <label>Role name</label>
+            <label>Role name*</label>
             <input type="text" class="form-control" id="txtRoleName" [value]="role.roleName"  [(ngModel)]="role.roleName" name="roleName"  placeholder="Role name">
             <p class="text-danger" *ngIf="!checkEmptyRoleName">
                 Name is required.

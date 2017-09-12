@@ -3,6 +3,7 @@ import {
   User, Role, Location
 } from '../index';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
+import {BsModalService} from 'ngx-bootstrap/modal';
 import {UserService} from '../../user/user.service';
 import * as _ from 'lodash';
 
@@ -28,26 +29,26 @@ export class EditViewAdminCompanyComponent implements OnInit {
   };
 
   company = {
-    'companyId' : '5996a7ee734d98493461e83a',
-    'companyName' : 'company 1'
+    'companyId': '5996a7ee734d98493461e83a',
+    'companyName': 'company 1'
   };
 
   public currentUserData: any;
   public currentUserCompany: any;
   public currentUserType: any;
 
-  constructor(public bsModalRef: BsModalRef, private  userService: UserService) {
+  constructor(public bsModalRef: BsModalRef, private modalService: BsModalService, private  userService: UserService) {
 
     this.user = this.user || new User();
     this.role = this.role || new Role();
 
-    // this.currentUserData = JSON.parse(localStorage.getItem('currentUser'));
-    // this.currentUserCompany = this.currentUserData.user.company;
-    // this.currentUserType = this.currentUserData.user.userType;
-
     this.currentUserData = JSON.parse(localStorage.getItem('currentUser'));
     this.currentUserCompany = this.currentUserData.user.company;
-    this.currentUserType = '1';
+    this.currentUserType = this.currentUserData.user.userType;
+
+    // this.currentUserData = JSON.parse(localStorage.getItem('currentUser'));
+    // this.currentUserCompany = this.currentUserData.user.company;
+    // this.currentUserType = '1';
   }
 
   ngOnInit() {
@@ -61,11 +62,14 @@ export class EditViewAdminCompanyComponent implements OnInit {
         this.getRoleData(roleId, this.roleData);
         this.user.roles = this.roles;
       }
-      this.user.company = this.company;
+      this.user.company = this.currentUserCompany;
       this.user.userType = this.currentUserType;
       this.getLocationData(locationId, this.locationData);
       this.userService.updateUsers(this.user).subscribe(
-        data => this.bsModalRef.hide(),
+        (data) => {
+          this.modalService.setDismissReason('Yes');
+          this.bsModalRef.hide();
+        },
         err => {
           this.errorMsg = err.message;
         });

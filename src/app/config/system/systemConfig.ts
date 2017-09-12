@@ -8,4 +8,7 @@ export const SYSTEM_CONFIG = Object.freeze({
     {id: 1, typeName: 'System'},
     {id: 2, typeName: 'User'}
   ],
+  USER: {
+    PASSWORD_DEFAULT: '123456',
+  },
 });
