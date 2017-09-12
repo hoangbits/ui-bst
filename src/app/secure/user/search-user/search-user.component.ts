@@ -20,6 +20,7 @@ export class SearchUserComponent implements OnInit {
 
 
   searchUser() {
+
     const criteria = {
       fullName: this.fullNameEmail,
       role: this.roles,
