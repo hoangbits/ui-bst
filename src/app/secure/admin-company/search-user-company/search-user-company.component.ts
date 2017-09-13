@@ -10,13 +10,13 @@ export class SearchUserCompanyComponent implements OnInit {
   @Input() userTypes: string[];
   @Output() clicked = new EventEmitter<any>();
 
-  private currentUserData: any;
-  private currentUserCompanyId: any;
-  private currentUserCompany;
+  public currentUserData: any;
+  public currentUserCompanyId: any;
+  public currentUserCompany;
 
-  private fullNameEmail: string = '';
-  private roles: string = '';
-  private userType: string = '';
+  public fullNameEmail: string = '';
+  public roles: string = '';
+  public userType: string = '';
 
   constructor() {
     this.currentUserData = JSON.parse(localStorage.getItem('currentUser'));
