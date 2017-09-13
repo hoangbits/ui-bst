@@ -18,9 +18,6 @@ export class UserService {
   getUsers(currentPage, itemsPerPage, criterial): Observable<any> {
     return this.http.get(AdminConfiguration.USER_REST_URL + '/' + currentPage + '/' + itemsPerPage + '/' + criterial)
       .map((res: Response) => res.json())
-       .publishReplay(1)
-       .refCount()
-     // .publishLast().refCount()
       .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
   }
 
@@ -30,7 +27,6 @@ export class UserService {
 
   createUsers(user): Observable<any> {
     return this.http.post(AdminConfiguration.USER_REST_URL, user)
-     // .publishLast().refCount()
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json()))
     
@@ -38,7 +34,6 @@ export class UserService {
 
   updateUsers(user): Observable<any> {
     return this.http.put(AdminConfiguration.USER_REST_URL, user)
-      .publishLast().refCount()
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json()));
   }
