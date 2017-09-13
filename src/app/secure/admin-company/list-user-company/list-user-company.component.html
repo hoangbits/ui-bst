@@ -17,26 +17,27 @@
             <thead>
             <tr>
               <th>NO</th>
-              <th>Email</th>
               <th>Fullname</th>
+              <th>Email</th>
+              <th>Location</th>
               <th>Role</th>
-
               <th>Action</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngIf="listUsers?.length === 0">
-                 <td colspan="5"> <p> There is no item</p></td>
+                 <td colspan="6"> <p> There is no item</p></td>
             </tr>
             <tr *ngFor="let user of listUsers; let i = index">
 
 
               <td> {{i+1}}</td>
-              <td> {{user.email}}</td>
-              <td> {{user.fullName}}</td>
-              <td>
-                <p *ngIf="user.roles">{{user.roles.roleName}}</p>
-              </td>
+              <td><a style="cursor: pointer" (click)="editViewUser(user.id,1)"> {{user.fullName}} </a></td>
+              <td> <a style="cursor: pointer" (click)="editViewUser(user.id,1)"> {{user.email}} </a></td>
+              <td> <p *ngIf="user.location">{{user.location.address}}</p></td>
+              <td><p *ngIf="user.roles">{{user.roles.roleName}}</p> </td>
+
+
 
               <td>
                   <span style=" padding-right:14px;cursor: pointer" id="btnView{{i}}" (click)="editViewUser(user.id,1)"
