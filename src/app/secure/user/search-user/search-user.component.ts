@@ -10,9 +10,9 @@ export class SearchUserComponent implements OnInit {
   @Input() userTypes: string[];
   @Output() clicked = new EventEmitter<any>();
 
-  private fullNameEmail: string = '';
-  private roles: string = '';
-  private userType: string = '';
+  public fullNameEmail: string = '';
+  public roles: string = '';
+  public userType: string = '';
 
   constructor() {
   }
