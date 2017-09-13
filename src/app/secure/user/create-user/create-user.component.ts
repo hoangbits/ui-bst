@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
+import {BsModalService} from 'ngx-bootstrap/modal';
 import {
   User, Role
 } from '../index';
 import {UserService} from '../user.service';
 import * as _ from 'lodash';
+import {SYSTEM_CONFIG} from '../../../config/system/systemConfig';
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
@@ -17,7 +19,6 @@ export class CreateUserComponent implements OnInit {
   userOther: User;
   roleData = [];
   title: string;
-  passDefault = '123456';
   errorMsg: string;
   selectedItems = [];
   selectedItemsOtherUser = [];
@@ -27,14 +28,13 @@ export class CreateUserComponent implements OnInit {
     'companyId': '',
     'companyName': ''
   };
-
   role = {
     'roleId': '',
     'roleName': '',
   }
 
 
-  constructor(public bsModalRef: BsModalRef, private userService: UserService) {
+  constructor(public bsModalRef: BsModalRef, private  modalService: BsModalService, private userService: UserService) {
 
     this.dropdownSettings = {
       singleSelection: true,
@@ -91,7 +91,7 @@ export class CreateUserComponent implements OnInit {
         this.user.company = this.company;
       }
       this.user.userType = '0';
-      this.user.password = this.passDefault;
+      this.user.password = SYSTEM_CONFIG.USER.PASSWORD_DEFAULT;
       this.saveUserFunction(this.user);
     } else {
       return;
@@ -109,7 +109,10 @@ export class CreateUserComponent implements OnInit {
 
   saveUserFunction(user: User): void {
     this.userService.createUsers(user).subscribe(
-      data => this.bsModalRef.hide(),
+      (data) => {
+        this.modalService.setDismissReason('Yes');
+        this.bsModalRef.hide();
+      },
       err => {
         this.errorMsg = err.message;
       });

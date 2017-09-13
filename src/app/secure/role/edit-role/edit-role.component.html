@@ -13,7 +13,7 @@
         </div>
 
         <div class="form-group" *ngIf="isEdit">
-            <label>Role name</label>
+            <label>Role name*</label>
             <input type="text" class="form-control" id="txtRoleName" [value]="role.roleName"  [(ngModel)]="role.roleName" name="roleName"  placeholder="Role name">
             <p class="text-danger" *ngIf="!checkEmptyRoleName">
                 Name is required.
@@ -30,10 +30,10 @@
             <angular2-multiselect name="scopes1" [data]="dropdownList" [(ngModel)]="selectedItems" [settings]="dropdownSettings"></angular2-multiselect>
         </div>
         <div class="text-right">
-            <button type="button" class="btn btn-default" id="btnCancel" (click)="bsModalRef.hide()">Close</button>
-            <button type="submit" class="btn btn-primary" id="btnSaveClose"  *ngIf="isEdit">Save &amp; Close</button>
-            <button type="button" class="btn btn-primary" id="btnSaveConfig" *ngIf="!isSaveConfig" (click)="saveConfig()">Save &amp; Config</button>
-            <button type="button" class="btn btn-primary" id="btnSave" (click)="saveScope()" *ngIf="!isEdit && isSaveConfig">Save</button>
+            <button type="button" class="btn btn-flat btn-default" id="btnCancel" (click)="bsModalRef.hide()">Close</button>
+            <button type="submit" class="btn btn-flat btn-primary" id="btnSaveClose"  *ngIf="isEdit">Save &amp; Close</button>
+            <button type="button" class="btn btn-flat btn-primary" id="btnSaveConfig" *ngIf="!isSaveConfig" (click)="saveConfig()">Save &amp; Config</button>
+            <button type="button" class="btn btn-flat btn-primary" id="btnSave" (click)="saveScope()" *ngIf="!isEdit && isSaveConfig">Save</button>
         </div>
 
     </form>

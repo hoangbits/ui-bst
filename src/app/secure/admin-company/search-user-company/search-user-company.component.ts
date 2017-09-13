@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter, Input, ContentChild, ContentChildren, QueryList } from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input, ContentChild, ContentChildren, QueryList} from '@angular/core';
 
 @Component({
   selector: 'app-search-user-company',
@@ -10,26 +10,35 @@ export class SearchUserCompanyComponent implements OnInit {
   @Input() userTypes: string[];
   @Output() clicked = new EventEmitter<any>();
 
-  public currentUserData: any;
-  public currentUserCompanyId: any;
-  public currentUserCompany
+  private currentUserData: any;
+  private currentUserCompanyId: any;
+  private currentUserCompany;
+
+  private fullNameEmail: string = '';
+  private roles: string = '';
+  private userType: string = '';
 
   constructor() {
     this.currentUserData = JSON.parse(localStorage.getItem('currentUser'));
     this.currentUserCompanyId = this.currentUserData.user.company.companyId;
   }
 
-  onClick(fullName: string, userType: string, role: string) {
+  searchUser() {
     const criteria = {
-      fullName: fullName,
-      role: role,
-      userType: userType,
+      fullName: this.fullNameEmail,
+      role: this.roles,
+      userType: this.userType,
       companyId: this.currentUserCompanyId
     };
-    console.log('tim kiem', JSON.stringify(criteria));
     this.clicked.emit(criteria);
   }
 
+  refresh() {
+    this.fullNameEmail = '';
+    this.roles = '';
+    this.userType = '';
+    this.clicked.emit({ companyId: this.currentUserCompanyId});
+  }
 
   ngOnInit() {
   }

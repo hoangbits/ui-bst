@@ -28,7 +28,8 @@ export class UserService {
   createUsers(user): Observable<any> {
     return this.http.post(AdminConfiguration.USER_REST_URL, user)
       .map((res: Response) => res.json())
-      .catch((error: any) => Observable.throw(error.json()));
+      .catch((error: any) => Observable.throw(error.json()))
+    
   }
 
   updateUsers(user): Observable<any> {

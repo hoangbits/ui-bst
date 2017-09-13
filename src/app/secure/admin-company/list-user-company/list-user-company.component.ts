@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal/modal-options.class';
 import {UserService} from '../../user/user.service';
-
+import {BsModalService} from 'ngx-bootstrap/modal';
 
 import {
   User, Role, Location, CreateUserCompanyComponent, EditViewAdminCompanyComponent
@@ -12,8 +11,9 @@ import {
 import {MdDialog} from '@angular/material';
 import {AlertDialog} from '../../dialog/alert.dialog.component';
 import {SYSTEM_CONFIG} from '../../../config/system/systemConfig';
+import {MESSAGE_CONFIG} from '../../../config/system/messageConfig';
 import * as _ from 'lodash';
-
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-user-company',
@@ -47,14 +47,14 @@ export class ListUserCompanyComponent implements OnInit {
 
   constructor(private userService: UserService,
               private modalService: BsModalService,
-              private dialog: MdDialog) {
+              private dialog: MdDialog, private toastr: ToastrService) {
 
-    this.currentUserType = '1';
-    this.currentUserCompanyId = '5996a809734d98493461e848'
+    // this.currentUserType = '1';
+    // this.currentUserCompanyId = '5996a809734d98493461e848'
 
-    // this.currentUserData = JSON.parse(localStorage.getItem('currentUser'));
-    // this.currentUserType = this.currentUserData.user.userType;
-    // this.currentUserCompanyId = this.currentUserData.user.company.companyId;
+    this.currentUserData = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentUserType = this.currentUserData.user.userType;
+    this.currentUserCompanyId = this.currentUserData.user.company.companyId;
     this.getAllUser();
     this.getListRole();
     this.userType = SYSTEM_CONFIG.USER_TYPE;
@@ -103,13 +103,16 @@ export class ListUserCompanyComponent implements OnInit {
   openCreateModal(roles: string[], ortherUserFlag: boolean, locationData: any) {
     this.bsModalRef = this.modalService.show(CreateUserCompanyComponent);
     this.bsModalRef.content.roleData = roles;
-    this.bsModalRef.content.title = 'Add new User';
+    this.bsModalRef.content.title = 'New User';
     this.bsModalRef.content.locationData = locationData;
     this.bsModalRef.content.ortherUserFlag = ortherUserFlag;
-    this.modalService.onHide.subscribe(() => this.getAllUser(),
-      err => {
-        console.log(err);
-      });
+    this.modalService.onHide.observers = [];
+    this.modalService.onHide.subscribe((result) => {
+      if (result) {
+        this.getAllUser();
+        this.toastr.success(MESSAGE_CONFIG.USER.CREATE_SUCCESS, 'Success!');
+      }
+    });
   }
 
   editViewUser(userId: string, editView: number) {
@@ -117,7 +120,7 @@ export class ListUserCompanyComponent implements OnInit {
     let disableInput: boolean;
     let title: string;
 
-    title = editView === 0 ? 'Edit User Info' : 'View User Info';
+    title = editView === 0 ? 'Update User' : 'View User Info';
     disableInput = editView === 0;
 
     this.userService.findOneCompany(this.currentUserCompanyId).subscribe(
@@ -149,8 +152,12 @@ export class ListUserCompanyComponent implements OnInit {
     this.bsModalRef.content.title = title;
     this.bsModalRef.content.disableInput = disableInput;
     this.bsModalRef.content.locationData = locationData;
-    this.modalService.onHide.subscribe(() => this.getAllUser(), err => {
-      console.log(err);
+    this.modalService.onHide.observers = [];
+    this.modalService.onHide.subscribe((result) => {
+      if (result) {
+        this.getAllUser();
+        this.toastr.success(MESSAGE_CONFIG.USER.UPDATE_SUCCESS, 'Success!');
+      }
     });
   }
 
@@ -169,6 +176,7 @@ export class ListUserCompanyComponent implements OnInit {
       if (result === 'OK') {
         this.userService.deleteUser(userId).subscribe(
           data => {
+            this.toastr.success(MESSAGE_CONFIG.USER.DELETE_SUCCESS, 'Success!');
             this.getAllUser();
           }
         );

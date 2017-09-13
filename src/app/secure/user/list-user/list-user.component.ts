@@ -11,8 +11,9 @@ import {Companies} from '../companies.model';
 import {MdDialog} from '@angular/material';
 import {AlertDialog} from '../../dialog/alert.dialog.component';
 import {SYSTEM_CONFIG} from '../../../config/system/systemConfig';
+import {MESSAGE_CONFIG} from '../../../config/system/messageConfig';
 import * as _ from 'lodash';
-
+import {ToastrService} from 'ngx-toastr';
 @Component({
   selector: 'app-list-user',
   templateUrl: './list-user.component.html',
@@ -44,7 +45,8 @@ export class ListUserComponent implements OnInit {
 
   constructor(private userService: UserService,
               private modalService: BsModalService,
-              private dialog: MdDialog) {
+              private dialog: MdDialog,
+              private toastr: ToastrService) {
     this.getAllUser();
     this.getListRole();
     this.user = this.user || new User();
@@ -87,6 +89,7 @@ export class ListUserComponent implements OnInit {
       if (result === 'OK') {
         this.userService.deleteUser(userId).subscribe(
           data => {
+            this.toastr.success(MESSAGE_CONFIG.USER.DELETE_SUCCESS, 'Success!');
             this.getAllUser();
           }
         );
@@ -114,15 +117,18 @@ export class ListUserComponent implements OnInit {
     this.bsModalRef = this.modalService.show(CreateUserComponent);
     this.bsModalRef.content.roleData = roles;
     this.bsModalRef.content.dropdownList = dropdownList;
-    this.bsModalRef.content.title = 'Add new User';
-    this.modalService.onHide.subscribe(() => this.getAllUser(),
-      err => {
-        console.log(err);
-      });
+    this.bsModalRef.content.title = 'New User';
+    this.modalService.onHide.observers = [];
+    this.modalService.onHide.subscribe((result) => {
+      if (result) {
+        this.getAllUser();
+        this.toastr.success(MESSAGE_CONFIG.USER.CREATE_SUCCESS, 'Success!');
+      }
+    });
   }
 
   editUser(userId: string) {
-    this.title = 'Edit an User';
+    this.title = 'Update User';
     const dropdownList = [];
     this.userService.getAllCompany().subscribe(
       data => {
@@ -180,10 +186,14 @@ export class ListUserComponent implements OnInit {
     this.bsModalRef.content.disableInput = disableInput;
     this.bsModalRef.content.dropdownList = dropdownList;
     this.bsModalRef.content.selectedItems = selectedItems;
-    this.modalService.onHide.subscribe(() => this.getAllUser(),
-      err => {
-        console.log(err);
-      });
+    this.modalService.onHide.observers = [];
+    this.modalService.onHide.subscribe((result) => {
+      if (result) {
+        this.getAllUser();
+        this.toastr.success(MESSAGE_CONFIG.USER.UPDATE_SUCCESS, 'Success!');
+      }
+    });
+
   }
 
   pageChanged(event: any): void {

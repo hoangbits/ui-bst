@@ -12,7 +12,7 @@
         </div>
 
         <div class="form-group">
-            <label>Email</label>
+            <label>Email*</label>
             <input type="text" class="form-control" name="email"
                    [(ngModel)]="user.email"
                    required
@@ -27,7 +27,7 @@
         </div>
 
         <div class="form-group">
-            <label>Full Name</label>
+            <label>Full Name*</label>
             <input type="text" class="form-control" name="fullName"  [(ngModel)]="user.fullName" required #fullName="ngModel" [disabled]="!disableInput"  placeholder=" Role description">
              <small class="text-danger" *ngIf="fullName.errors && fullName.errors.required && (fullName.dirty || fullName.touched || frmVP._submitted)">FullName is required
             </small>
@@ -61,8 +61,8 @@
         </div>
 
         <div class="text-right">
-            <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Cancel</button>
-            <button type="submit" *ngIf="disableInput" class="btn btn-primary" >Save</button>
+            <button type="button" class="btn btn-flat btn-default" (click)="bsModalRef.hide()">Close</button>
+            <button type="submit" *ngIf="disableInput" class="btn btn-flat btn-primary" >Save</button>
         </div>
 
 
