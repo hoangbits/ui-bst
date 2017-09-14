@@ -5,7 +5,7 @@
                 <div class="filters-wrapper">
                     <!-- <url-form (onURLChange)='onURLChange($event)'></url-form> -->
                     <cart></cart>
-                    <filters #filtersComponent [categories]='originalData.categories' [customFilters]='customFilters' [priceFilters]='priceFilters' (onFilterChange)='onFilterChange($event)'></filters>
+                    <filters #filtersComponent [categories]='tempData.categories' [customFilters]='customFilters' [priceFilters]='priceFilters' (onFilterChange)='onFilterChange($event)'></filters>
                 </div>
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
@@ -18,7 +18,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <search-bar #searchComponent (onSearchChange)='onSearchChange($event)'></search-bar>
+                        <search-bar class="search-bar" #searchComponent (onSearchChange)='onSearchChange($event)'></search-bar>
                     </div>
                 </div>
                 <div class="row">

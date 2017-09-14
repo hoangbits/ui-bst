@@ -2,7 +2,7 @@
 @import "../shared/mixins";
 .wrapper {
     border-radius: 5px;
-    box-shadow: 0 5px 5px;
+    // box-shadow: 0 5px 5px;
     position: relative;
     text-align: center;
     display: block;
@@ -77,7 +77,7 @@ button.btn-disable:hover {
     hr {
         width: 90%;
         height: 0;
-        border-top: 1px solid $primary-color;
+        border-top: 1px solid $link-color;
         margin-bottom: 10px;
     }
     button {
@@ -91,7 +91,7 @@ button.btn-disable:hover {
     }
     .view {
         text-transform: uppercase;
-        color: $primary-color;
+        color: $link-color;
         font-size: 0.85em;
         font-weight: 500;
         position: relative;
@@ -101,6 +101,8 @@ button.btn-disable:hover {
     .cart {
         position: relative;
         top: -2px;
+        color: $link-color;
+        font-size: 1.2em;
     }
     .not-available {
         hr {
@@ -222,14 +224,14 @@ button.btn-disable:hover {
         width: 3px;
         border-radius: 50%;
         z-index: 20;
-        background: $primary-color;
+        background: $link-color;
         @include transition-fade-circ(0.4s);
     }
 }
 
 .info {
     position: relative;
-    min-height: 370px;
+    min-height: $min-height-item;
 }
 
 .unavailable {

@@ -21,7 +21,6 @@ export class ProductThumbnailComponent implements OnInit {
   }
 
   onProductClick(){
-    console.log('aaa: ' + this.detailViewActive);
     this.detailViewActive = !this.detailViewActive
   }
 

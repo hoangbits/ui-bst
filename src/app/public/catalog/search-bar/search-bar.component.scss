@@ -30,13 +30,31 @@
 }
 
 .search-bar {
+    .form-control:first-child {
+        border-top-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+    .input-group-addon {
+        border-radius: 0;
+        border-color: #fff;
+        background-color: #fff;
+        border-radius: 50%;
+        height: 35px;
+        width: 35px;
+        position: absolute;
+        z-index: 9;
+        line-height: 28px;
+        right: 2px;
+    }
+}
+
+.search-bar {
     border: 1px solid #eee;
     width: 100%;
     display: block;
     margin: 0 auto;
     height: 40px;
     border-radius: 20px;
-    border: none;
     padding-left: 20px;
     // box-shadow: 0 3px 14px rgba(25, 25, 25, 0.05);
     font-weight: 500;

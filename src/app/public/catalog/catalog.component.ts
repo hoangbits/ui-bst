@@ -21,7 +21,7 @@ import { CartService } from './cart.service';
   providers: [CatalogService],
 })
 export class CatalogComponent implements OnInit {
-  products: Product[]
+  products: any[]
 
   mainFilter: any
 
@@ -52,25 +52,47 @@ export class CatalogComponent implements OnInit {
     { name: 'Price < 10.000', value: 'less_10000', checked: false }
   ]
 
-  originalData: any = []
+  originalData: any = [];
+  tempData: any = [];
 
   constructor(private dataService: DataService, private cartService: CartService) { }
 
   ngOnInit() {
 
     this.dataService.getData().then(data => {
-      this.originalData = data
+      this.tempData = data;
       this.mainFilter = {
         search: '',
-        categories: this.originalData.categories.slice(0),
+        categories: this.tempData.categories.slice(0),
         customFilter: this.customFilters[0],
         priceFilter: this.priceFilters[0]
       }
 
+      this.dataService.getProduct().subscribe(result => {
+        this.originalData = result;
+        this.products = this.originalData.slice(0);
+        //Make a deep copy of the original data to keep it immutable
+        this.products = result;
+        let i = 0;
+        this.products.forEach(element => {
+          element['price'] = '50000';
+          element['available'] = true;
+          element['img'] = 'https://www.newsroom.co.nz/static/dist/images/placeholder/no_image.svg';
+          element['categories'] = [1,3];
+          element['best_seller'] = false;
+          element['id'] = i++;
+        });
+      },
+        err => {
+          console.log(err);
+        });
+
       //Make a deep copy of the original data to keep it immutable
-      this.products = this.originalData.products.slice(0)
-      this.sortProducts('name')
-    })
+      // this.products = this.originalData.products.slice(0)
+      // this.sortProducts('name')
+    });
+
+
   }
 
   onURLChange(url) {
@@ -121,7 +143,7 @@ export class CatalogComponent implements OnInit {
   }
 
   updateProducts(filter) {
-    let productsSource = this.originalData.products
+    let productsSource = this.originalData
     let prevProducts = this.products
     let filterAllData = true
     if ((filter.type == 'search' && filter.change == 1) || (filter.type == 'category' && filter.change == -1)) {
@@ -133,7 +155,7 @@ export class CatalogComponent implements OnInit {
     this.products = productsSource.filter(product => {
       //Filter by search
       if (filterAllData || filter.type == 'search') {
-        if (!product.name.match(new RegExp(this.mainFilter.search, 'i'))) {
+        if (!product.productTitle.match(new RegExp(this.mainFilter.search, 'i'))) {
           return false;
         }
       }
