@@ -11,6 +11,8 @@
 @import "cart-preview/cart-preview.component";
 .main-container {
     padding-top: 30px;
+    background: $right-content-bg;
+    padding-bottom: 180px;
 }
 
 .filters-wrapper {

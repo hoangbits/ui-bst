@@ -1,12 +1,12 @@
 @import "../shared/colors";
 @import "../shared/mixins";
 .filters {
-    border: 1px solid #333333;
+    border: 1px solid #eee;
     padding: 20px;
     width: 100%;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    background-color: white;
-    border: none;
+    // box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    background-color: $link-color;
     border-radius: 4px;
     padding-top: 1px;
     position: relative;
@@ -54,13 +54,13 @@
     .circle {
         height: 16px;
         width: 16px;
-        border: 1px solid $primary-color;
+        border: 1px solid $white-color;
         position: relative;
         opacity: 0.4;
         .fill {
             height: 10px;
             width: 10px;
-            background-color: $primary-color;
+            background-color: $white-color;
             @include transition-fade-circ(0.25s);
             position: absolute;
             opacity: 0;
@@ -89,14 +89,14 @@
         font-size: 1.1em;
         margin-left: 7px;
         opacity: 0.6;
-        color: #434343;
+        color: #fff;
         @include transition-fade(0.4s);
     }
 }
 
 h5 {
     text-transform: uppercase;
-    color: #bababa;
+    color: #fff;
     font-size: 0.8em;
     font-weight: 600;
     &:after {
@@ -105,7 +105,7 @@ h5 {
         width: 100%;
         height: 1px;
         margin-top: 3px;
-        background-color: #e8e8e8;
+        background-color: #fff;
     }
 }
 

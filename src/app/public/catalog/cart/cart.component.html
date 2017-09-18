@@ -9,7 +9,7 @@
             <div class="product" *ngFor="let item of products">
                 <div class="row">
                     <div class="col-6-sm description">
-                        <p>{{item.quantity}} x {{item.product.name}}</p>
+                        <p>{{item.quantity}} x {{item.product.productTitle}}</p>
                     </div>
                     <div class="col-6-sm price">
                         <p>{{item.quantity*item.product.parsedPrice | currency:'USD':true:'1.0-0' }}</p>

@@ -4,7 +4,7 @@
             <img class="img img-responsive" [src]='product.img'>
             <div class="img-placeholder"></div>
         </div>
-        <h5 class="title">{{product.name}}</h5>
+        <h5 class="title">{{product.productTitle}}</h5>
         <p class="price">$<span>{{product.price}}</span></p>
         <div class="details">
             <div class="available" *ngIf='product.available'>
@@ -14,7 +14,10 @@
                         <button type="button" class="view" (click)='onProductClick()'>View details</button>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 add-cart-wrapper">
-                        <button type="button" class="cart" (click)="onAddToCart()"><img src="../../../assets/catalog/cart_primary.svg" alt="" /></button>
+                        <button type="button" class="cart" (click)="onAddToCart()">
+                            <!-- <img src="../../../assets/catalog/cart_primary.svg" alt="" /> -->
+                            <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -31,7 +34,7 @@
         <div class="detail-view" [class.active]='detailViewActive'>
             <div class="bg" [class.shown]='detailViewActive'></div>
             <div class="info-wrapper">
-                <p class="d-holder d-title">{{product.name}}</p>
+                <p class="d-holder d-title">{{product.productTitle}}</p>
                 <p class="d-holder d-price">$ {{product.price}}</p>
                 <p class="d-holder d-description">{{product.description}}</p>
             </div>
