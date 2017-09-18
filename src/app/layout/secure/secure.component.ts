@@ -40,9 +40,8 @@ export class SecureComponent implements OnInit{
   }
 
   openModal(){
-
-    //if (this.user) {
-    this.companyService.getCompanyByUser('59b4b66449297ffc1077aba5').subscribe(data =>{
+    if (this.user) {
+    this.companyService.getCompanyByUser(this.user.userId).subscribe(data =>{
         this.bsModalRef = this.modalService.show(CompanyModalViewComponent, {class: 'second'});
         this.bsModalRef.content.title = 'View company';
         this.bsModalRef.content.isProfile = true;
@@ -55,7 +54,6 @@ export class SecureComponent implements OnInit{
         this.bsModalRef.content.title = 'View company';
         this.bsModalRef.content.company = {};
       })
-    //}
-
+    }
   }
 }
